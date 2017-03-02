@@ -1,3 +1,9 @@
+2017.03.02, v1.0.3
+
+fix:
+- (gritty) kill: ESRCH: wrong pid
+
+
 2017.03.02, v1.0.2
 
 feature:
