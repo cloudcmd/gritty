@@ -1,3 +1,11 @@
+2017.03.02, v1.0.2
+
+feature:
+- (package) xterm: devDependencies
+- (package) rm rendy
+- (package) rm join-io
+
+
 2017.03.02, v1.0.1
 
 fix:
