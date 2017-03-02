@@ -44,8 +44,7 @@
     "node-pty": "^0.6.2",
     "socket.io": "^1.5.0",
     "spawnify": "^3.0.0",
-    "tildify": "^1.2.0",
-    "xterm": "^2.3.2"
+    "tildify": "^1.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
@@ -61,7 +60,8 @@
     "redrun": "^5.9.3",
     "style-loader": "^0.13.2",
     "webpack": "^2.2.1",
-    "whatwg-fetch": "^2.0.2"
+    "whatwg-fetch": "^2.0.2",
+    "xterm": "^2.3.2"
   },
   "license": "MIT"
 }
