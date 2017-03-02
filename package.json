@@ -41,7 +41,6 @@
     "debug": "^2.3.0",
     "express": "^4.14.0",
     "express-ws": "^3.0.0",
-    "join-io": "^1.4.0",
     "node-pty": "^0.6.2",
     "rendy": "^1.1.0",
     "socket.io": "^1.5.0",
