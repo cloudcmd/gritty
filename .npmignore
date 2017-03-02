@@ -1,0 +1,7 @@
+*.
+
+webpack.config.js
+client
+
+*.swp
+

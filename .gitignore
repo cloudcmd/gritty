@@ -1,0 +1,11 @@
+node_modules
+npm-debug.log
+
+dist
+dist-dev
+
+legacy
+server_
+
+*.swp
+
