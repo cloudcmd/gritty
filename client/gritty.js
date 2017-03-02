@@ -37,7 +37,7 @@ function createTerminal(terminalContainer) {
             return;
          
         const {cols, rows}  = size;
-        const url = '/terminals/' + pid + '/size?cols=' + cols + '&rows=' + rows;
+        const url = '/terminals/' + Pid + '/size?cols=' + cols + '&rows=' + rows;
         
         fetch(url, {method: 'POST'});
     });
