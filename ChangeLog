@@ -1,3 +1,9 @@
+2017.03.03, v1.2.0
+
+feature:
+- (gritty) add --module-path
+
+
 2017.03.03, v1.1.2
 
 fix:
