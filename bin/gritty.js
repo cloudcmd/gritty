@@ -10,7 +10,7 @@ case '-v':
     version();
     break;
 
-case '--v':
+case '--version':
     version();
     break;
 
