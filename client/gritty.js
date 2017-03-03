@@ -33,7 +33,7 @@ module.exports = (element, options = {}) => {
 }
 
 function createTerminal(terminalContainer, {env, socketPath, prefix}) {
-    const term = new Terminal({
+    const terminal = new Terminal({
         cursorBlink: true,
         scrollback: 1000,
         tabStopWidth: 4,
@@ -42,32 +42,35 @@ function createTerminal(terminalContainer, {env, socketPath, prefix}) {
     
     const socket = connect(prefix, socketPath);
     
-    term.on('resize', (size) => {
+    terminal.on('resize', (size) => {
         const {cols, rows}  = size;
         
         socket.emit('resize', {cols, rows});
     });
     
-    term.on('data', (data) => {
+    terminal.on('data', (data) => {
         socket.emit('data', data);
     });
     
     window.addEventListener('resize', () => {
-        term.fit();
+        terminal.fit();
     });
   
-    term.open(terminalContainer);
-    term.fit();
+    terminal.open(terminalContainer);
+    terminal.fit();
     
-    const {cols, rows} = term.proposeGeometry()
+    const {cols, rows} = terminal.proposeGeometry()
     
     socket.emit('terminal', {env, cols, rows});
     
     socket.on('data', (data) => {
-        term.write(data);
+        terminal.write(data);
     });
     
-    return socket;
+    return {
+        socket,
+        terminal
+    };
 }
 
 function connect(prefix, socketPath) {
