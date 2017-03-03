@@ -25,7 +25,7 @@ module.exports = (element, options = {}) => {
     const prefix = options.prefix || '/gritty';
     const env = getEnv(options.env || {});
     
-    createTerminal(el, {
+    return createTerminal(el, {
         env,
         prefix,
         socketPath,
@@ -66,6 +66,8 @@ function createTerminal(terminalContainer, {env, socketPath, prefix}) {
     socket.on('data', (data) => {
         term.write(data);
     });
+    
+    return socket;
 }
 
 function connect(prefix, socketPath) {
