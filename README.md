@@ -16,20 +16,20 @@ Web terminal emulator.
 
 `npm i gritty -g`
 
-### On Windows
+### Windows
 
-When could not install on windows try to install `windows-build-tools` first:
+On `Windows` there is no build tools by default. When can't install `gritty` try to install `windows-build-tools` first.
 
 ```sh
 npm i windows-build-tools -g
 npm i gritty -g
 ```
 
+![Gritty](https://raw.githubusercontent.com/cloudcmd/gritty/master/img/gritty.png "Gritty on Windows")
+
 ## Use as standalone
 
 Start `gritty`, and go to url `http://localhost:1337`
-
-![Gritty on windows](https://raw.githubusercontent.com/cloudcmd/gritty/master/img/gritty.png "Gritty")
 
 ## API
 
