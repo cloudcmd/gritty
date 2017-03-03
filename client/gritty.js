@@ -62,6 +62,7 @@ function createTerminal(terminalContainer, {env, socketPath, prefix}) {
     const {cols, rows} = terminal.proposeGeometry()
     
     socket.emit('terminal', {env, cols, rows});
+    socket.emit('resize', {cols, rows});
     
     socket.on('data', (data) => {
         terminal.write(data);
