@@ -3,7 +3,8 @@
 require('xterm/dist/xterm.css');
 
 require('xterm/dist/addons/fit');
-require('xterm/dist/addons/attach');
+
+const io = require('socket.io-client/dist/socket.io.min');
 
 window.Promise = window.Promise || require('promise-polyfill');
 window.fetch = window.fetch || require('whatwg-fetch');
@@ -17,14 +18,21 @@ const getEl = (el) => {
     return el;
 }
 
-module.exports = (element) => {
+module.exports = (element, options = {}) => {
     const el = getEl(element);
-    createTerminal(el);
+    
+    const socketPath = options.socketPath || '';
+    const prefix = options.prefix || '/gritty';
+    const env = getEnv(options.env || {});
+    
+    createTerminal(el, {
+        env,
+        prefix,
+        socketPath,
+    });
 }
 
-function createTerminal(terminalContainer) {
-    let Pid;
-    
+function createTerminal(terminalContainer, {env, socketPath, prefix}) {
     const term = new Terminal({
         cursorBlink: true,
         scrollback: 1000,
@@ -32,39 +40,69 @@ function createTerminal(terminalContainer) {
         theme: 'gritty',
     });
     
+    const socket = connect(prefix, socketPath);
+    
     term.on('resize', (size) => {
-        if (!Pid)
-            return;
-         
         const {cols, rows}  = size;
-        const url = '/terminals/' + Pid + '/size?cols=' + cols + '&rows=' + rows;
         
-        fetch(url, {method: 'POST'});
+        socket.emit('resize', {cols, rows});
+    });
+    
+    term.on('data', (data) => {
+        socket.emit('data', data);
     });
     
     window.addEventListener('resize', () => {
         term.fit();
     });
   
-    const protocol = (location.protocol === 'https:') ? 'wss://' : 'ws://';
-    let socketURL = protocol + location.hostname + ((location.port) ? (':' + location.port) : '') + '/terminals/';
     term.open(terminalContainer);
     term.fit();
     
-    const initialGeometry = term.proposeGeometry();
-    const {cols, rows} = initialGeometry;
+    const {cols, rows} = term.proposeGeometry()
     
-    fetch('/terminals?cols=' + cols + '&rows=' + rows, {method: 'POST'}).then((res) => {
-        res.text().then((pid) => {
-            Pid = pid;
-            socketURL += pid;
-            const socket = new WebSocket(socketURL);
-            
-            socket.onopen = () => {
-                term.attach(socket);
-                term._initialized = true;
-            };
-        });
+    socket.emit('terminal', {env, cols, rows});
+    
+    socket.on('data', (data) => {
+        term.write(data);
     });
+}
+
+function connect(prefix, socketPath) {
+    const href = getHost();
+    const FIVE_SECONDS = 5000;
+    
+    const path = socketPath + '/socket.io';
+    const socket = io.connect(href + prefix, {
+        'max reconnection attempts' : Math.pow(2, 32),
+        'reconnection limit'        : FIVE_SECONDS,
+        path
+    });
+    
+    return socket;
+}
+
+function getValue(value) {
+    if (typeof value === 'function')
+        return value();
+    
+    return value;
+}
+
+function getEnv(env) {
+    const obj = {};
+    
+    Object.keys(env).forEach((name) => {
+        obj[name] = getValue(env[name]);
+    });
+    
+    return obj;
+}
+
+function getHost() {
+    const l = location;
+    const href = l.origin || l.protocol + '//' + l.host;
+    
+    return href;
 }
 

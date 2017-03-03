@@ -20,6 +20,108 @@ Web terminal emulator.
 
 Start `gritty`, and go to url `http://localhost:1337`
 
+## API
+
+### Client API
+
+#### gritty(element [, options])
+
+```js
+const prefix = '/gritty'; // default
+cosnt env = {}; // default
+
+gritty('body, {
+    prefix,
+    env,
+});
+```
+
+### Server API
+
+#### gritty.listen(socket, options)
+
+`Gritty` could be used as middleware:
+
+```js
+const prefix = '/gritty'; // default
+const authCheck = (socket, success) => {}; // optional
+
+gritty.listen(socket, {
+    prefix,
+    authCheck,
+})
+```
+
+#### gritty(options)
+
+Middleware function:
+
+```js
+const prefix = '/gritty'; // default
+
+gritty({prefix});
+```
+
+## Usage as middleware
+
+To use `gritty` in your programs you should make local install:
+
+`npm i gritty socket.io express --save`
+
+And use it this way:
+
+```js
+/* server.js */
+
+const gritty = require('gritty');
+const http = require('http');
+const express = require('express');
+const io = require('socket.io');
+
+const app = express();
+const server = http.createServer(app);
+const socket = io.listen(server);
+
+const port = 1337;
+const ip = '0.0.0.0';
+
+app.use(gritty())
+app.use(express.static(__dirname));
+
+gritty.listen(socket);
+server.listen(port, ip);
+```
+
+```html
+<!-- index.html -->
+
+<div class="gritty"></div>
+<script src="/gritty/gritty.js"></script>
+<script>
+    const options = {
+        prefix: 'console',
+        env: {
+            TERMINAL: 'gritty',
+            CURREN: getCurrentFile,
+        }
+    };
+    
+    gritty('.console', options);
+    
+    function getCurrentFile() {
+        return 'filename.txt';
+    }
+</script>
+```
+
+## Environments
+
+In old `node.js` environments that not fully supports `es2015`, `gritty` could be used with:
+
+```js
+var gritty = require('gritty/legacy');
+```
+
 ## License
 
 MIT

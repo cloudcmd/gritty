@@ -4,16 +4,18 @@ const DIR_ROOT = __dirname + '/..';
 
 const path = require('path');
 
-const spawnify = require('spawnify/legacy');
+const log = require('debug')('gritty');
 
 const express = require('express');
 const currify = require('currify/legacy');
+const pty = require('node-pty');
+
 const Router = express.Router;
 
 const terminalFn = currify(_terminalFn);
+const onConnection = currify(_onConnection);
 
-const Console = require('./console');
-
+const CMD = process.platform === 'win32' ? 'cmd.exe' : 'bash';
 const isDev = process.env.NODE_ENV === 'development';
 
 const getDist = () => {
@@ -33,26 +35,6 @@ module.exports = (options = {}) => {
     
     return router;
 };
-
-module.exports.listen = (socket, options) => {
-    if (!options) {
-        options = socket;
-        socket = null
-    }
-    
-    const o = options;
-    
-    if (!options.prefix)
-        options.prefix = '/gritty';
-    
-    return Console(socket, {
-        server: o.server,
-        prefix: o.prefix,
-        prompt: o.prompt,
-        execute,
-        authCheck: o.authCheck
-    });
-}
 
 function _terminalFn(options, req, res, next) {
     const o = options || {};
@@ -75,53 +57,87 @@ function staticFn(req, res) {
     res.sendFile(file);
 }
 
-function execute(socket, command, cwd) {
-    const cmd = command.cmd;
-    const env = Object.assign({}, command.env, process.env);
-    
-    const spawn = spawnify(cmd, {
-        env,
-        cwd: cwd()
+function createTerminal(env, cols = 80, rows = 24) {
+    const term = pty.spawn(CMD, [], {
+        name: 'xterm-color',
+        cols,
+        rows,
+        cwd: process.env.PWD,
+        env: Object.assign({}, process.env, env)
     });
     
-    socket.on('kill', kill);
-    socket.on('write', write);
+    log(`Created terminal with PID: ${term.pid}`);
     
-    spawn.on('error', onError);
-    spawn.on('data', onData);
+    return term;
+}
+
+module.exports.listen = (socket, options) => {
+    options = options || {};
+    check(socket, options);
     
-    spawn.once('path', onPath);
-    spawn.once('close', onClose);
+    const prefix = options.prefix;
+    const authCheck = options.authCheck;
     
-    function kill() {
-        spawn.kill();
-    }
+    socket
+        .of(prefix || '/gritty')
+        .on('connection', (socket) => {
+            const connection = onConnection(options);
+            
+            if (!authCheck)
+                connection(socket);
+            else
+                authCheck(socket, () => {
+                    connection(socket);
+                });
+        });
+};
+
+function check(socket, options) {
+    if (!socket)
+        throw Error('socket could not be empty!');
     
-    function write(data) {
-        spawn.write(data);
-    }
+    const authCheck = options.authCheck;
     
-    function onError(error) {
-        socket.emit('err', error.message);
-    }
+    if (authCheck && typeof authCheck !== 'function')
+        throw Error('options.authCheck should be a function!');
+}
+
+function _onConnection(options, socket) {
+    let term;
     
-    function onData(data) {
-        socket.emit('data', data);
-    }
+    const onResize = ({cols, rows}) => {
+        term.resize(cols, rows);
+        log(`Resized terminal ${term.pid} to ${cols} cols and ${rows} rows.`);
+    };
     
-    function onPath(path) {
-        socket.emit('path', path);
-        cwd(path);
-    }
+    const onData = (msg) => {
+        term.write(msg);
+    };
     
-    function onClose() {
-        socket.removeListener('kill', kill);
-        socket.removeListener('write', write);
+    const onTerminal = ({env, rows, cols}) => {
+        term = createTerminal(env, rows, cols);
         
-        spawn.removeListener('error', onError);
-        spawn.removeListener('data', onData);
+        term.on('data', (data) => {
+            socket.emit('data', data);
+        });
         
-        socket.emit('prompt');
-    }
+        log('Connected to terminal ' + term.pid);
+        
+        socket.on('data', onData);
+        socket.on('resize', onResize);
+        socket.on('disconnect', onDisconnect);
+    };
+    
+    const onDisconnect = () => {
+        term.kill();
+        log(`Closed terminal ${term.pid}`);
+        
+        socket.removeListener('resize', onResize);
+        socket.removeListener('data', onData);
+        socket.removeListener('terminal', onTerminal);
+        socket.removeListener('disconnect', onDisconnect);
+    };
+    
+    socket.on('terminal', onTerminal);
 }
 
