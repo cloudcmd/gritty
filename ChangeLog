@@ -1,3 +1,9 @@
+2017.03.03, v1.1.0
+
+feature:
+- (gritty) add ability to use as middleware
+
+
 2017.03.02, v1.0.5
 
 fix:
