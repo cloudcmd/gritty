@@ -3,5 +3,7 @@
 webpack.config.js
 client
 
+img
+
 *.swp
 
