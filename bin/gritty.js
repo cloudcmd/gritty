@@ -14,8 +14,17 @@ case '--v':
     version();
     break;
 
+case '--module-path':
+    modulePath();
+    break;
+
 default:
     start();
+}
+
+function modulePath() {
+    const path = require('path');
+    console.log(path.join(__dirname, '..'));
 }
 
 function start() {
