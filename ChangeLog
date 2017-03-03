@@ -1,3 +1,10 @@
+2017.03.03, v1.2.1
+
+fix:
+- (gritty) resize: on windows
+- (gritty) --v -> --version
+
+
 2017.03.03, v1.2.0
 
 feature:
