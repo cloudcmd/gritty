@@ -41,7 +41,7 @@ Start `gritty`, and go to url `http://localhost:1337`
 const prefix = '/gritty'; // default
 cosnt env = {}; // default
 
-gritty('body, {
+gritty('body', {
     prefix,
     env,
 });
@@ -82,7 +82,7 @@ To use `gritty` in your programs you should make local install:
 And use it this way:
 
 ```js
-/* server.js */
+// server.js
 
 const gritty = require('gritty');
 const http = require('http');
