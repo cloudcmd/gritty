@@ -39,7 +39,7 @@ Start `gritty`, and go to url `http://localhost:1337`
 
 ```js
 const prefix = '/gritty'; // default
-cosnt env = {}; // default
+const env = {}; // default
 
 gritty('body', {
     prefix,
