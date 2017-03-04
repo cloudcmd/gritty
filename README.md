@@ -16,6 +16,15 @@ Web terminal emulator.
 
 `npm i gritty -g`
 
+## Usage
+
+Usage: gritty [options]
+Options:
+  -h, --help              display this help and exit
+  -v, --version           output version information and exit
+  --path                  output path of a gritty and exit
+  --port                  set port number
+
 ### Windows
 
 On `Windows` there is no build tools by default. When can't install `gritty` try to install `windows-build-tools` first.

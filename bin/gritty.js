@@ -3,9 +3,10 @@
 'use strict';
 
 const argv = process.argv;
-const argvLast = argv.slice().pop();
+const name = argv[2];
+const option = argv[3]
 
-switch (argvLast) {
+switch (name) {
 case '-v':
     version();
     break;
@@ -14,20 +15,35 @@ case '--version':
     version();
     break;
 
-case '--module-path':
-    modulePath();
+case '-h':
+    help();
+    break;
+
+case '--help':
+    help();
+    break;
+
+case '--path':
+    path();
+    break;
+
+case '--port':
+    start(option);
     break;
 
 default:
     start();
 }
 
-function modulePath() {
-    const path = require('path');
-    console.log(path.join(__dirname, '..'));
+function path() {
+    const join = require('path').join
+    console.log(join(__dirname, '..'));
 }
 
-function start() {
+function start(port) {
+    check(port);
+    port = getPort(port);
+    
     const DIR = __dirname + '/../';
     
     const gritty  = require('../');
@@ -39,11 +55,6 @@ function start() {
     const app = express();
     const server = http.createServer(app);
     
-    const port =    process.env.PORT            ||  /* c9           */
-                    process.env.app_port        ||  /* nodester     */
-                    process.env.VCAP_APP_PORT   ||  /* cloudfoundry */
-                    1337;
-    
     const ip = process.env.IP ||  /* c9 */
               '0.0.0.0';
     
@@ -54,11 +65,43 @@ function start() {
     gritty.listen(socket);
     server.listen(port, ip);
     
-    console.log('url: http://' + ip + ':' + port);
+    console.log(`url: http://localhost:${port}`);
+}
+
+function getPort(port) {
+    if (!isNaN(port))
+        return port;
+    
+    return  process.env.PORT            ||  /* c9           */
+            process.env.app_port        ||  /* nodester     */
+            process.env.VCAP_APP_PORT   ||  /* cloudfoundry */
+            1337;
+}
+
+function help() {
+    const bin = require('../help');
+    const usage = 'Usage: gritty [options]';
+    
+    console.log(usage);
+    console.log('Options:');
+    
+    Object.keys(bin).forEach((name) => {
+        console.log('  %s %s', name, bin[name]);
+    });
 }
 
 function version() {
     const pack = require('../package');
     console.log('v' + pack.version);
+}
+
+function check(port) {
+    if (port && isNaN(port))
+        exit('port should be a number 0..65535');
+}
+
+function exit(msg) {
+    console.error(msg);
+    process.exit(-1);
 }
 
