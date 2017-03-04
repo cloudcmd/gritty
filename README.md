@@ -10,7 +10,9 @@ Gritty [![License][LicenseIMGURL]][LicenseURL] [![NPM version][NPMIMGURL]][NPMUR
 [DependencyStatusURL]:      https://gemnasium.com/cloudcmd/gritty "Dependency Status"
 [LicenseURL]:               https://tldrlegal.com/license/mit-license "MIT License"
 
-Web terminal emulator.
+Web terminal emulator. Based on [node-pty](https://github.com/Tyriar/node-pty) and [xterm.js](https://github.com/sourcelair/xterm.js).
+
+![Gritty](https://raw.githubusercontent.com/cloudcmd/gritty/master/img/linux.png "Gritty on Linux")
 
 ## Install
 
@@ -34,7 +36,7 @@ npm i windows-build-tools -g
 npm i gritty -g
 ```
 
-![Gritty](https://raw.githubusercontent.com/cloudcmd/gritty/master/img/gritty.png "Gritty on Windows")
+![Gritty](https://raw.githubusercontent.com/cloudcmd/gritty/master/img/windows.png "Gritty on Windows")
 
 ## Use as standalone
 
