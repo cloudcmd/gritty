@@ -124,7 +124,7 @@ server.listen(port, ip);
         prefix: 'console',
         env: {
             TERMINAL: 'gritty',
-            CURREN: getCurrentFile,
+            CURRENT: getCurrentFile,
         }
     };
     
