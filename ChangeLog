@@ -1,3 +1,14 @@
+2017.03.30, v1.3.1
+
+feature:
+- (package) xterm v2.4.0
+- (package) css-loader v0.28.0
+- (package) style-loader v0.16.0
+- (package) style-loader v0.15.0
+- (package) css-loader v0.27.3
+- (package) style-loader v0.14.1
+
+
 2017.03.04, v1.3.0
 
 feature:
