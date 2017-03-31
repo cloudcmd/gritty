@@ -1,6 +1,7 @@
 'use strict';
 
 require('xterm/dist/xterm.css');
+require('../css/gritty.css');
 
 require('xterm/dist/addons/fit');
 
