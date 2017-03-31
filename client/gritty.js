@@ -6,6 +6,7 @@ require('../css/gritty.css');
 require('xterm/dist/addons/fit');
 
 const io = require('socket.io-client/dist/socket.io.min');
+const timeout = (fn) => () => setTimeout(fn);
 
 window.Promise = window.Promise || require('promise-polyfill');
 window.fetch = window.fetch || require('whatwg-fetch');
@@ -26,14 +27,15 @@ module.exports = (element, options = {}) => {
     const prefix = options.prefix || '/gritty';
     const env = getEnv(options.env || {});
     
+    const socket = connect(prefix, socketPath);
+    
     return createTerminal(el, {
         env,
-        prefix,
-        socketPath,
+        socket,
     });
 }
 
-function createTerminal(terminalContainer, {env, socketPath, prefix}) {
+function createTerminal(terminalContainer, {env, socket}) {
     const terminal = new Terminal({
         cursorBlink: true,
         scrollback: 1000,
@@ -41,7 +43,8 @@ function createTerminal(terminalContainer, {env, socketPath, prefix}) {
         theme: 'gritty',
     });
     
-    const socket = connect(prefix, socketPath);
+    terminal.open(terminalContainer);
+    terminal.fit();
     
     terminal.on('resize', (size) => {
         const {cols, rows}  = size;
@@ -57,13 +60,17 @@ function createTerminal(terminalContainer, {env, socketPath, prefix}) {
         terminal.fit();
     });
   
-    terminal.open(terminalContainer);
-    terminal.fit();
-    
     const {cols, rows} = terminal.proposeGeometry()
     
-    socket.emit('terminal', {env, cols, rows});
-    socket.emit('resize', {cols, rows});
+    // auth check delay
+    socket.on('connect', timeout(() => {
+        socket.emit('terminal', {env, cols, rows});
+        socket.emit('resize', {cols, rows});
+    }));
+    
+    socket.on('disconnect', () => {
+        terminal.writeln('terminal disconnected...');
+    });
     
     socket.on('data', (data) => {
         terminal.write(data);

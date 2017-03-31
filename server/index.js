@@ -17,6 +17,7 @@ const onConnection = currify(_onConnection);
 
 const CMD = process.platform === 'win32' ? 'cmd.exe' : 'bash';
 const isDev = process.env.NODE_ENV === 'development';
+const wrap = (fn, ...args) => () => fn(...args);
 
 const getDist = () => {
     if (isDev)
@@ -81,14 +82,12 @@ module.exports.listen = (socket, options) => {
     socket
         .of(prefix || '/gritty')
         .on('connection', (socket) => {
-            const connection = onConnection(options);
+            const connection = wrap(onConnection, options, socket);
             
             if (!authCheck)
-                connection(socket);
-            else
-                authCheck(socket, () => {
-                    connection(socket);
-                });
+                return connection;
+            
+            authCheck(socket, connection);
         });
 };
 
@@ -105,6 +104,8 @@ function check(socket, options) {
 function _onConnection(options, socket) {
     let term;
     
+    socket.on('terminal', onTerminal);
+    
     const onResize = ({cols, rows}) => {
         term.resize(cols, rows);
         log(`Resized terminal ${term.pid} to ${cols} cols and ${rows} rows.`);
@@ -114,7 +115,7 @@ function _onConnection(options, socket) {
         term.write(msg);
     };
     
-    const onTerminal = ({env, rows, cols}) => {
+    function onTerminal({env, rows, cols}) {
         term = createTerminal(env, rows, cols);
         
         term.on('data', (data) => {
@@ -126,7 +127,7 @@ function _onConnection(options, socket) {
         socket.on('data', onData);
         socket.on('resize', onResize);
         socket.on('disconnect', onDisconnect);
-    };
+    }
     
     const onDisconnect = () => {
         term.kill();
@@ -137,7 +138,5 @@ function _onConnection(options, socket) {
         socket.removeListener('terminal', onTerminal);
         socket.removeListener('disconnect', onDisconnect);
     };
-    
-    socket.on('terminal', onTerminal);
 }
 
