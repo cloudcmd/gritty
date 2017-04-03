@@ -5,6 +5,8 @@ require('../css/gritty.css');
 
 require('xterm/dist/addons/fit');
 
+const cursorBlink = require('./cursor-blink');
+
 const io = require('socket.io-client/dist/socket.io.min');
 const timeout = (fn) => () => setTimeout(fn);
 
@@ -42,6 +44,8 @@ function createTerminal(terminalContainer, {env, socket}) {
         theme: 'gritty',
     });
     
+    const blink = cursorBlink(terminal);
+    
     terminal.open(terminalContainer);
     terminal.fit();
     
@@ -63,7 +67,7 @@ function createTerminal(terminalContainer, {env, socket}) {
     
     // auth check delay
     socket.on('connect', timeout(() => {
-        terminal.setOption('cursorBlink', true);
+        blink(true);
         
         socket.emit('terminal', {env, cols, rows});
         socket.emit('resize', {cols, rows});
@@ -71,7 +75,7 @@ function createTerminal(terminalContainer, {env, socket}) {
     
     socket.on('disconnect', () => {
         terminal.writeln('terminal disconnected...');
-        terminal.setOption('cursorBlink', false);
+        blink(false);
     });
     
     socket.on('data', (data) => {
