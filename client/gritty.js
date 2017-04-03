@@ -37,7 +37,6 @@ module.exports = (element, options = {}) => {
 
 function createTerminal(terminalContainer, {env, socket}) {
     const terminal = new Terminal({
-        cursorBlink: true,
         scrollback: 1000,
         tabStopWidth: 4,
         theme: 'gritty',
@@ -64,12 +63,15 @@ function createTerminal(terminalContainer, {env, socket}) {
     
     // auth check delay
     socket.on('connect', timeout(() => {
+        terminal.setOption('cursorBlink', true);
+        
         socket.emit('terminal', {env, cols, rows});
         socket.emit('resize', {cols, rows});
     }));
     
     socket.on('disconnect', () => {
         terminal.writeln('terminal disconnected...');
+        terminal.setOption('cursorBlink', false);
     });
     
     socket.on('data', (data) => {
