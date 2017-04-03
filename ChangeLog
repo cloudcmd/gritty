@@ -1,3 +1,9 @@
+2017.04.03, v1.4.1
+
+fix:
+- (gritty) cursorBlink: enable on connect, disable on disconnect
+
+
 2017.03.31, v1.4.0
 
 feature:
