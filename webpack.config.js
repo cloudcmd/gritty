@@ -43,6 +43,7 @@ module.exports = {
         filename: '[name].js',
         path: isDev ? distDev : dist,
         libraryTarget: 'umd',
+        devtoolModuleFilenameTemplate,
     },
     plugins,
     module: {
@@ -67,3 +68,9 @@ function externals(context, request, fn) {
     
     fn();
 }
+
+function devtoolModuleFilenameTemplate(info) {
+    const resource = info.absoluteResourcePath.replace(__dirname + path.sep, '');
+    return `file://gritty/${resource}`;
+}
+
