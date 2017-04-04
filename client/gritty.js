@@ -6,6 +6,7 @@ require('../css/gritty.css');
 require('xterm/dist/addons/fit');
 
 const cursorBlink = require('./cursor-blink');
+const getEl = require('./get-el');
 
 const io = require('socket.io-client/dist/socket.io.min');
 const timeout = (fn) => () => setTimeout(fn);
@@ -14,13 +15,6 @@ window.Promise = window.Promise || require('promise-polyfill');
 window.fetch = window.fetch || require('whatwg-fetch');
 
 const Terminal = require('xterm/dist/xterm');
-
-const getEl = (el) => {
-    if (typeof el === 'string')
-        return document.querySelector(el);
-    
-    return el;
-}
 
 module.exports = (element, options = {}) => {
     const el = getEl(element);
