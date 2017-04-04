@@ -8,6 +8,7 @@ require('xterm/dist/addons/fit');
 const cursorBlink = require('./cursor-blink');
 const getEl = require('./get-el');
 const getHost = require('./get-host');
+const getEnv = require('./get-env');
 
 const io = require('socket.io-client/dist/socket.io.min');
 const timeout = (fn) => () => setTimeout(fn);
@@ -95,22 +96,5 @@ function connect(prefix, socketPath) {
     });
     
     return socket;
-}
-
-function getValue(value) {
-    if (typeof value === 'function')
-        return value();
-    
-    return value;
-}
-
-function getEnv(env) {
-    const obj = {};
-    
-    Object.keys(env).forEach((name) => {
-        obj[name] = getValue(env[name]);
-    });
-    
-    return obj;
 }
 
