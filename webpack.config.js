@@ -42,6 +42,7 @@ module.exports = {
         library: 'gritty',
         filename: '[name].js',
         path: isDev ? distDev : dist,
+        pathinfo: isDev,
         libraryTarget: 'umd',
         devtoolModuleFilenameTemplate,
     },
