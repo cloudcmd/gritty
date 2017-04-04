@@ -12,7 +12,7 @@ test('gritty: get-host: origin', (t) => {
         origin
     }
     
-    t.ok(getHost(), origin, 'should return origin');
+    t.equal(getHost(), origin, 'should return origin');
     
     delete global.location;
     
@@ -21,11 +21,11 @@ test('gritty: get-host: origin', (t) => {
 
 test('gritty: get-host: no origin', (t) => {
     global.location = {
-        protocol: 'http',
+        protocol: 'http:',
         host: 'localhost'
     }
     
-    t.ok(getHost(), 'http://localhost', 'should return host');
+    t.equal(getHost(), 'http://localhost', 'should return host');
     
     delete global.location;
     
