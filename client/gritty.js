@@ -7,6 +7,7 @@ require('xterm/dist/addons/fit');
 
 const cursorBlink = require('./cursor-blink');
 const getEl = require('./get-el');
+const getHost = require('./get-host');
 
 const io = require('socket.io-client/dist/socket.io.min');
 const timeout = (fn) => () => setTimeout(fn);
@@ -111,12 +112,5 @@ function getEnv(env) {
     });
     
     return obj;
-}
-
-function getHost() {
-    const l = location;
-    const href = l.origin || l.protocol + '//' + l.host;
-    
-    return href;
 }
 
