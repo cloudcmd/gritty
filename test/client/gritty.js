@@ -19,6 +19,8 @@ const Terminal = sinon.stub().returns({
     open: sinon.stub(),
     fit: sinon.stub(),
     on: sinon.stub(),
+    writeln: sinon.stub(),
+    setOption: sinon.stub(),
     proposeGeometry: sinon.stub().returns({
         cols: 80,
         rows: 25,
@@ -32,6 +34,9 @@ mock('socket.io-client/dist/socket.io.min', {
 mock('xterm/dist/xterm', Terminal);
 
 const gritty = require('../../client/gritty');
+const {
+    _onConnect
+} = require('../../client/gritty');
 
 test('gritty: Terminal: new', (t) => {
     before();
@@ -59,6 +64,57 @@ test('gritty: Terminal: args', (t) => {
     t.end();
 });
 
+test('gritty: onConnect: blink', (t) => {
+    const blink = sinon.stub();
+    const socket = {
+        emit: sinon.stub()
+    };
+    
+    _onConnect(blink, socket, {});
+    t.ok(blink.calledWith(true), 'should call blink');
+    t.end();
+});
+
+test('gritty: onConnect: socket: resize', (t) => {
+    const blink = sinon.stub();
+    const emit = sinon.stub();
+    const socket = {
+        emit
+    };
+    
+    const options = {
+        cols: 80,
+        rows: 25,
+    };
+    _onConnect(blink, socket, options);
+    
+    t.ok(emit.calledWith('resize', options), 'should call emit');
+    t.end();
+});
+
+test('gritty: onConnect: socket: terminal', (t) => {
+    const blink = sinon.stub();
+    const emit = sinon.stub();
+    const socket = {
+        emit: (...args) => {
+            emit(...args);
+            socket.emit = sinon.stub();
+        }
+    };
+    
+    const options = {
+        env: {
+            hello: 'world'
+        },
+        cols: 80,
+        rows: 25,
+    };
+    _onConnect(blink, socket, options);
+    
+    t.ok(emit.calledWith('terminal', options), 'should call emit');
+    t.end();
+});
+
 function before() {
     global.location = {};
 }
@@ -66,3 +122,4 @@ function before() {
 function after() {
     delete global.location;
 }
+

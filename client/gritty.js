@@ -5,11 +5,20 @@ require('../css/gritty.css');
 
 require('xterm/dist/addons/fit');
 
+const currify = require('currify/legacy');
+
 const cursorBlink = require('./cursor-blink');
 const getEl = require('./get-el');
 const getHost = require('./get-host');
 const getEnv = require('./get-env');
 const timeout = require('./timeout');
+
+const wrap = (fn) => () => (...args) => fn(...args);
+
+// auth check delay
+const onConnect = timeout(wrap(_onConnect));
+const onDisconnect = wrap(_onDisconnect);
+const onData = currify(_onData);
 
 const io = require('socket.io-client/dist/socket.io.min');
 
@@ -18,7 +27,12 @@ window.fetch = window.fetch || require('whatwg-fetch');
 
 const Terminal = require('xterm/dist/xterm');
 
-module.exports = (element, options = {}) => {
+module.exports = gritty;
+module.exports._onConnect = _onConnect;
+module.exports._onDisconnect = _onDisconnect;
+module.exports._onData = _onData;
+
+function gritty(element, options = {}) {
     const el = getEl(element);
     
     const socketPath = options.socketPath || '';
@@ -61,27 +75,30 @@ function createTerminal(terminalContainer, {env, socket}) {
   
     const {cols, rows} = terminal.proposeGeometry()
     
-    // auth check delay
-    socket.on('connect', timeout(() => {
-        blink(true);
-        
-        socket.emit('terminal', {env, cols, rows});
-        socket.emit('resize', {cols, rows});
-    }));
-    
-    socket.on('disconnect', () => {
-        terminal.writeln('terminal disconnected...');
-        blink(false);
-    });
-    
-    socket.on('data', (data) => {
-        terminal.write(data);
-    });
+    socket.on('connect', onConnect(blink, socket, {env, cols, rows}));
+    socket.on('disconnect', onDisconnect(blink, terminal));
+    socket.on('data', onData(terminal));
     
     return {
         socket,
         terminal
     };
+}
+
+function _onConnect(blink, socket, {env, cols, rows}) {
+    blink(true);
+    
+    socket.emit('terminal', {env, cols, rows});
+    socket.emit('resize', {cols, rows});
+}
+
+function _onDisconnect(blink, terminal) {
+    terminal.writeln('terminal disconnected...');
+    blink(false);
+}
+
+function _onData(terminal, data) {
+    terminal.write(data);
 }
 
 function connect(prefix, socketPath) {
