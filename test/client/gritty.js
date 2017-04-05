@@ -39,6 +39,7 @@ const {
     _onDisconnect,
     _onData,
     _onTermResize,
+    _onTermData,
 } = require('../../client/gritty');
 
 test('gritty: Terminal: new', (t) => {
@@ -152,7 +153,6 @@ test('gritty: onData: terminal', (t) => {
 test('gritty: onTermResize: socket', (t) => {
     const emit = sinon.stub();
     
-    const data = 'hello';
     const size = {
         cols: 80,
         rows: 25,
@@ -160,6 +160,16 @@ test('gritty: onTermResize: socket', (t) => {
     
     _onTermResize({emit}, size);
     t.ok(emit.calledWith('resize', size), 'should call socket.emit');
+    t.end();
+});
+
+test('gritty: onTermData: socket', (t) => {
+    const emit = sinon.stub();
+    
+    const data = 'hello';
+    
+    _onTermData({emit}, data);
+    t.ok(emit.calledWith('data', data), 'should call socket.emit');
     t.end();
 });
 
