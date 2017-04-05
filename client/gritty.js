@@ -9,9 +9,9 @@ const cursorBlink = require('./cursor-blink');
 const getEl = require('./get-el');
 const getHost = require('./get-host');
 const getEnv = require('./get-env');
+const timeout = require('./timeout');
 
 const io = require('socket.io-client/dist/socket.io.min');
-const timeout = (fn) => () => setTimeout(fn);
 
 window.Promise = window.Promise || require('promise-polyfill');
 window.fetch = window.fetch || require('whatwg-fetch');
