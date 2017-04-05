@@ -9,7 +9,6 @@ global.window = {
     addEventListener: sinon.stub(),
 };
 
-
 const mock = require('mock-require');
 
 const connect = sinon.stub().returns({
