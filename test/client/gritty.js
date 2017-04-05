@@ -35,7 +35,8 @@ mock('xterm/dist/xterm', Terminal);
 
 const gritty = require('../../client/gritty');
 const {
-    _onConnect
+    _onConnect,
+    _onDisconnect,
 } = require('../../client/gritty');
 
 test('gritty: Terminal: new', (t) => {
@@ -112,6 +113,26 @@ test('gritty: onConnect: socket: terminal', (t) => {
     _onConnect(blink, socket, options);
     
     t.ok(emit.calledWith('terminal', options), 'should call emit');
+    t.end();
+});
+
+test('gritty: onDisconnect: blink', (t) => {
+    const blink = sinon.stub();
+    const writeln = sinon.stub();
+    
+    _onDisconnect(blink, {writeln});
+    t.ok(blink.calledWith(false), 'should call blink');
+    t.end();
+});
+
+test('gritty: onDisconnect: terminal', (t) => {
+    const blink = sinon.stub();
+    const writeln = sinon.stub();
+    
+    const msg = 'terminal disconnected...';
+    
+    _onDisconnect(blink, {writeln});
+    t.ok(writeln.calledWith(msg), 'should call terminal.writeln');
     t.end();
 });
 
