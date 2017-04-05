@@ -40,6 +40,7 @@ const {
     _onData,
     _onTermResize,
     _onTermData,
+    _onWindowResize,
 } = require('../../client/gritty');
 
 test('gritty: Terminal: new', (t) => {
@@ -170,6 +171,15 @@ test('gritty: onTermData: socket', (t) => {
     
     _onTermData({emit}, data);
     t.ok(emit.calledWith('data', data), 'should call socket.emit');
+    t.end();
+});
+
+test('gritty: onWindowResize: terminal', (t) => {
+    const fit = sinon.stub();
+    
+    _onWindowResize({fit});
+    
+    t.ok(fit.calledWith(), 'should call terminal.fit');
     t.end();
 });
 

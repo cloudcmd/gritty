@@ -21,6 +21,7 @@ const onDisconnect = wrap(_onDisconnect);
 const onData = currify(_onData);
 const onTermResize = currify(_onTermResize);
 const onTermData = currify(_onTermData);
+const onWindowResize = wrap(_onWindowResize);
 
 const io = require('socket.io-client/dist/socket.io.min');
 
@@ -35,6 +36,7 @@ module.exports._onDisconnect = _onDisconnect;
 module.exports._onData = _onData;
 module.exports._onTermResize = _onTermResize;
 module.exports._onTermData = _onTermData;
+module.exports._onWindowResize = _onWindowResize;
 
 function gritty(element, options = {}) {
     const el = getEl(element);
@@ -66,10 +68,8 @@ function createTerminal(terminalContainer, {env, socket}) {
     terminal.on('resize', onTermResize(socket));
     terminal.on('data', onTermData(socket));
     
-    window.addEventListener('resize', () => {
-        terminal.fit();
-    });
-  
+    window.addEventListener('resize', onWindowResize(terminal))
+    
     const {cols, rows} = terminal.proposeGeometry()
     
     socket.on('connect', onConnect(blink, socket, {env, cols, rows}));
@@ -104,6 +104,10 @@ function _onTermResize(socket, {cols, rows}) {
 
 function _onTermData(socket, data) {
     socket.emit('data', data);
+}
+
+function _onWindowResize(terminal) {
+    terminal.fit();
 }
 
 function connect(prefix, socketPath) {
