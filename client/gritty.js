@@ -12,11 +12,9 @@ const getEl = require('./get-el');
 const getHost = require('./get-host');
 const getEnv = require('./get-env');
 const timeout = require('./timeout');
+const wrap = require('./wrap');
 
-const wrap = (fn) => () => (...args) => fn(...args);
-
-// auth check delay
-const onConnect = timeout(wrap(_onConnect));
+const onConnect = wrap(_onConnect);
 const onDisconnect = wrap(_onDisconnect);
 const onData = currify(_onData);
 const onTermResize = currify(_onTermResize);
@@ -72,7 +70,8 @@ function createTerminal(terminalContainer, {env, socket}) {
     
     const {cols, rows} = terminal.proposeGeometry()
     
-    socket.on('connect', onConnect(blink, socket, {env, cols, rows}));
+    // auth check delay
+    socket.on('connect', timeout(onConnect(blink, socket, {env, cols, rows})));
     socket.on('disconnect', onDisconnect(blink, terminal));
     socket.on('data', onData(terminal));
     
