@@ -37,6 +37,7 @@ const gritty = require('../../client/gritty');
 const {
     _onConnect,
     _onDisconnect,
+    _onData,
 } = require('../../client/gritty');
 
 test('gritty: Terminal: new', (t) => {
@@ -133,6 +134,17 @@ test('gritty: onDisconnect: terminal', (t) => {
     
     _onDisconnect(blink, {writeln});
     t.ok(writeln.calledWith(msg), 'should call terminal.writeln');
+    t.end();
+});
+
+test('gritty: onData: terminal', (t) => {
+    const blink = sinon.stub();
+    const write = sinon.stub();
+    
+    const data = 'hello';
+    
+    _onData({write}, data);
+    t.ok(write.calledWith(data), 'should call terminal.write');
     t.end();
 });
 
