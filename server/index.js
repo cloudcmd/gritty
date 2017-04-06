@@ -85,7 +85,7 @@ module.exports.listen = (socket, options) => {
             const connection = wrap(onConnection, options, socket);
             
             if (!authCheck)
-                return connection;
+                return connection();
             
             authCheck(socket, connection);
         });
@@ -115,7 +115,7 @@ function _onConnection(options, socket) {
         term.write(msg);
     };
     
-    function onTerminal({env, rows, cols}) {
+    function onTerminal({env, rows, cols} = {}) {
         term = createTerminal(env, rows, cols);
         
         term.on('data', (data) => {
