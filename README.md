@@ -1,14 +1,4 @@
-Gritty [![License][LicenseIMGURL]][LicenseURL] [![NPM version][NPMIMGURL]][NPMURL] [![Dependency Status][DependencyStatusIMGURL]][DependencyStatusURL] [![Build Status][BuildStatusIMGURL]][BuildStatusURL]
-=======
-[NPMIMGURL]:                https://img.shields.io/npm/v/gritty.svg?style=flat
-[BuildStatusIMGURL]:        https://img.shields.io/travis/cloudcmd/gritty/master.svg?style=flat
-[DependencyStatusIMGURL]:   https://img.shields.io/gemnasium/cloudcmd/gritty.svg?style=flat
-[LicenseIMGURL]:            https://img.shields.io/badge/license-MIT-317BF9.svg?style=flat
-[NPM_INFO_IMG]:             https://nodei.co/npm/cloudcmd.png
-[NPMURL]:                   https://npmjs.org/package/cloudcmd "npm"
-[BuildStatusURL]:           https://travis-ci.org/cloudcmd/gritty  "Build Status"
-[DependencyStatusURL]:      https://gemnasium.com/cloudcmd/gritty "Dependency Status"
-[LicenseURL]:               https://tldrlegal.com/license/mit-license "MIT License"
+# Gritty [![License][LicenseIMGURL]][LicenseURL] [![NPM version][NPMIMGURL]][NPMURL] [![Dependency Status][DependencyStatusIMGURL]][DependencyStatusURL] [![Build Status][BuildStatusIMGURL]][BuildStatusURL] [![Coverage Status][CoverageIMGURL]][CoverageURL]
 
 Web terminal emulator. Based on [node-pty](https://github.com/Tyriar/node-pty) and [xterm.js](https://github.com/sourcelair/xterm.js).
 
@@ -148,3 +138,14 @@ var gritty = require('gritty/legacy');
 
 MIT
 
+[NPMIMGURL]:                https://img.shields.io/npm/v/gritty.svg?style=flat
+[BuildStatusIMGURL]:        https://img.shields.io/travis/cloudcmd/gritty/master.svg?style=flat
+[DependencyStatusIMGURL]:   https://img.shields.io/gemnasium/cloudcmd/gritty.svg?style=flat
+[LicenseIMGURL]:            https://img.shields.io/badge/license-MIT-317BF9.svg?style=flat
+[NPM_INFO_IMG]:             https://nodei.co/npm/cloudcmd.png
+[NPMURL]:                   https://npmjs.org/package/cloudcmd "npm"
+[BuildStatusURL]:           https://travis-ci.org/cloudcmd/gritty  "Build Status"
+[DependencyStatusURL]:      https://gemnasium.com/cloudcmd/gritty "Dependency Status"
+[LicenseURL]:               https://tldrlegal.com/license/mit-license "MIT License"
+[CoverageURL]:              https://coveralls.io/github/cloudcmd/gritty?branch=master
+[CoverageIMGURL]:           https://coveralls.io/repos/cloudcmd/gritty/badge.svg?branch=master&service=github
