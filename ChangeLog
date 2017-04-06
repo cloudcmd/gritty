@@ -1,3 +1,17 @@
+2017.04.06, v1.4.3
+
+fix:
+- (server) socket connect when no authCheck
+
+feature:
+- (travis) add before_install
+- (travis) npm run build:client
+- (get-env) add
+- (package) add coveralls
+- (webpack) output: add pathinfo
+- (webpack) devtoolModuleFilenameTemplate: webpack:// -> gritty
+
+
 2017.04.03, v1.4.2
 
 feature:
