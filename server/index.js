@@ -106,7 +106,12 @@ function _onConnection(options, socket) {
     
     socket.on('terminal', onTerminal);
     
-    const onResize = ({cols, rows}) => {
+    const onResize = (size = {}) => {
+        const {
+            cols = 80,
+            rows = 25,
+        } = size;
+        
         term.resize(cols, rows);
         log(`Resized terminal ${term.pid} to ${cols} cols and ${rows} rows.`);
     };
