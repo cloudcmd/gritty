@@ -12,7 +12,7 @@ const getEl = require('./get-el');
 const getHost = require('./get-host');
 const getEnv = require('./get-env');
 const timeout = require('./timeout');
-const wrap = require('./wrap');
+const wrap = require('wraptile/legacy');
 
 const onConnect = wrap(_onConnect);
 const onDisconnect = wrap(_onDisconnect);

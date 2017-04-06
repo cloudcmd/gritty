@@ -6,6 +6,7 @@ node_js:
 script:
   - npm run lint
   - npm run build:client
+  - npm run build:client:dev
   - npm run coverage && npm run report
 
 before_install:
