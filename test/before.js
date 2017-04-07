@@ -6,7 +6,10 @@ const http = require('http');
 const express = require('express');
 const io = require('socket.io');
 
-module.exports = (fn) => {
+module.exports = (options, fn = options) => {
+    if (typeof options === 'function')
+        options = {};
+     
     const app = express();
     const server = http.createServer(app);
     const after = () => {
@@ -17,7 +20,7 @@ module.exports = (fn) => {
     
     const socket = io.listen(server);
     
-    gritty.listen(socket);
+    gritty.listen(socket, options);
     
     server.listen(() => {
         fn(server.address().port, after);

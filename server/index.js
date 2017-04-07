@@ -40,12 +40,8 @@ module.exports = (options = {}) => {
 function _terminalFn(options, req, res, next) {
     const o = options || {};
     const prefix = o.prefix || '/gritty';
-    const url = req.url
     
-    if (url.indexOf(prefix))
-        return next();
-    
-    req.url = url.replace(prefix, '');
+    req.url = req.url.replace(prefix, '');
     
     if (/^\/gritty\.js(\.map)?$/.test(req.url))
         req.url = getDist() + req.url;
