@@ -11,9 +11,33 @@ const get = promisify((url, fn) => {
     fn(null, request(url));
 });
 
-process.env.NODE_ENV = 'development';
+test('gritty: server: dist-dev', (t) => {
+    clean('../../');
+    clean('../before');
+    
+    process.env.NODE_ENV = 'development';
+    
+    const before = require('../before');
+    
+    delete process.env.NODE_ENV;
+    
+    before((port, after) => {
+        const name = 'gritty';
+        
+        get(`http://localhost:${port}/${name}/${name}.js`)
+            .then((res) => {
+                res.on('response', ({statusCode}) => {
+                    t.equal(statusCode, 200, 'should return OK');
+                }).on('end', () => {
+                    t.end();
+                    after();
+                });
+        })
+        .catch(console.error);
+    });
+});
 
-test('gritty: server: gritty.js', (t) => {
+test('gritty: server: dist', (t) => {
     before((port, after) => {
         const name = 'gritty';
         
@@ -81,4 +105,8 @@ test('gritty: server: socket: emit data', (t) => {
         });
     });
 });
+
+function clean(name) {
+    delete require.cache[require.resolve(name)];
+}
 
