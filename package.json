@@ -7,7 +7,7 @@
     "gritty": "bin/gritty.js",
     "gritty_": "legacy/bin/gritty.js"
   },
-  "main": "server/index.js",
+  "main": "server/gritty.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/cloudcmd/gritty.git"
@@ -34,7 +34,7 @@
     "build": "redrun 6to5:* legacy:*",
     "build:client": "redrun 6to5:client",
     "build:client:dev": "redrun 6to5:client:dev",
-    "legacy:index": "echo \"module.exports = require('../server_');\" > legacy/index.js",
+    "legacy:index": "echo \"module.exports = require('../server_/gritty');\" > legacy/index.js",
     "watch:lint": "nodemon -w client -w server -w webpack.config.js -x 'redrun lint'",
     "watch:lint:client": "nodemon -w client -w webpack.config.js -x 'redrun lint:eslint:client'"
   },
