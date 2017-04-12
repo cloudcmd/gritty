@@ -1,3 +1,11 @@
+2017.04.12, v1.4.5
+
+feature:
+- (gritty) server/index.js -> server/gritty.js
+- (package) clean-css-loader v0.0.5
+- (package) add sinon-called-with-diff
+
+
 2017.04.06, v1.4.4
 
 feature:
