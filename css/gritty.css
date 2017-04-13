@@ -1,3 +1,7 @@
+.terminal {
+    height: 100%
+}
+
 .xterm-theme-gritty {
     font-family: Menlo, Consolas, "Liberation Mono", Monaco, "Lucida Console", monospace;
 }
