@@ -1,3 +1,9 @@
+2017.04.26, v1.4.9
+
+fix:
+- (gritty) cursorBlink: insane: disable
+
+
 2017.04.25, v1.4.8
 
 fix:
