@@ -70,19 +70,7 @@ test('gritty: Terminal: args', (t) => {
     t.end();
 });
 
-test('gritty: onConnect: blink', (t) => {
-    const blink = sinon.stub();
-    const socket = {
-        emit: sinon.stub()
-    };
-    
-    _onConnect(blink, socket, {});
-    t.ok(blink.calledWith(true), 'should call blink');
-    t.end();
-});
-
 test('gritty: onConnect: socket: resize', (t) => {
-    const blink = sinon.stub();
     const emit = sinon.stub();
     const socket = {
         emit
@@ -92,14 +80,13 @@ test('gritty: onConnect: socket: resize', (t) => {
         cols: 80,
         rows: 25,
     };
-    _onConnect(blink, socket, options);
+    _onConnect(socket, options);
     
     t.ok(emit.calledWith('resize', options), 'should call emit');
     t.end();
 });
 
 test('gritty: onConnect: socket: terminal', (t) => {
-    const blink = sinon.stub();
     const emit = sinon.stub();
     const socket = {
         emit: (...args) => {
@@ -115,34 +102,23 @@ test('gritty: onConnect: socket: terminal', (t) => {
         cols: 80,
         rows: 25,
     };
-    _onConnect(blink, socket, options);
+    _onConnect(socket, options);
     
     t.ok(emit.calledWith('terminal', options), 'should call emit');
     t.end();
 });
 
-test('gritty: onDisconnect: blink', (t) => {
-    const blink = sinon.stub();
-    const writeln = sinon.stub();
-    
-    _onDisconnect(blink, {writeln});
-    t.ok(blink.calledWith(false), 'should call blink');
-    t.end();
-});
-
 test('gritty: onDisconnect: terminal', (t) => {
-    const blink = sinon.stub();
     const writeln = sinon.stub();
     
     const msg = 'terminal disconnected...';
     
-    _onDisconnect(blink, {writeln});
+    _onDisconnect({writeln});
     t.ok(writeln.calledWith(msg), 'should call terminal.writeln');
     t.end();
 });
 
 test('gritty: onData: terminal', (t) => {
-    const blink = sinon.stub();
     const write = sinon.stub();
     
     const data = 'hello';

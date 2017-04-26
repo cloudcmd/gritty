@@ -7,7 +7,6 @@ require('xterm/dist/addons/fit');
 
 const currify = require('currify/legacy');
 
-const cursorBlink = require('./cursor-blink');
 const getEl = require('./get-el');
 const getHost = require('./get-host');
 const getEnv = require('./get-env');
@@ -58,8 +57,6 @@ function createTerminal(terminalContainer, {env, socket}) {
         theme: 'gritty',
     });
     
-    const blink = cursorBlink(terminal);
-    
     terminal.open(terminalContainer);
     terminal.fit();
     
@@ -71,8 +68,8 @@ function createTerminal(terminalContainer, {env, socket}) {
     const {cols, rows} = terminal.proposeGeometry()
     
     // auth check delay
-    socket.on('connect', timeout(onConnect(blink, socket, {env, cols, rows})));
-    socket.on('disconnect', onDisconnect(blink, terminal));
+    socket.on('connect', timeout(onConnect(socket, {env, cols, rows})));
+    socket.on('disconnect', onDisconnect(terminal));
     socket.on('data', onData(terminal));
     
     return {
@@ -81,16 +78,13 @@ function createTerminal(terminalContainer, {env, socket}) {
     };
 }
 
-function _onConnect(blink, socket, {env, cols, rows}) {
-    blink(true);
-    
+function _onConnect(socket, {env, cols, rows}) {
     socket.emit('terminal', {env, cols, rows});
     socket.emit('resize', {cols, rows});
 }
 
-function _onDisconnect(blink, terminal) {
+function _onDisconnect(terminal) {
     terminal.writeln('terminal disconnected...');
-    blink(false);
 }
 
 function _onData(terminal, data) {
