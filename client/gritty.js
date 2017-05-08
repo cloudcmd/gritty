@@ -57,7 +57,8 @@ function createTerminal(terminalContainer, {env, socket}) {
         theme: 'gritty',
     });
     
-    terminal.open(terminalContainer);
+    const focus = true;
+    terminal.open(terminalContainer, focus);
     terminal.fit();
     
     terminal.on('resize', onTermResize(socket));

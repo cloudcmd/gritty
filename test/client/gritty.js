@@ -16,8 +16,10 @@ const connect = sinon.stub().returns({
     on: sinon.stub(),
 });
 
+const open = sinon.stub();
+
 const Terminal = sinon.stub().returns({
-    open: sinon.stub(),
+    open,
     fit: sinon.stub(),
     on: sinon.stub(),
     writeln: sinon.stub(),
@@ -67,6 +69,19 @@ test('gritty: Terminal: args', (t) => {
     t.ok(Terminal.calledWith(args), 'should have been called with args');
     
     after();
+    t.end();
+});
+
+test('gritty: Terminal: open', (t) => {
+    const el = {};
+    
+    before();
+    
+    gritty(el);
+    const focus = true;
+    t.ok(open.calledWith(el, focus), 'should have been called with new');
+    after();
+    
     t.end();
 });
 
