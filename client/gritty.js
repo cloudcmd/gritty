@@ -20,7 +20,7 @@ const onTermResize = currify(_onTermResize);
 const onTermData = currify(_onTermData);
 const onWindowResize = wrap(_onWindowResize);
 
-const io = require('socket.io-client/dist/socket.io.min');
+const io = require('socket.io-client/dist/socket.io');
 
 window.Promise = window.Promise || require('promise-polyfill');
 window.fetch = window.fetch || require('whatwg-fetch');
