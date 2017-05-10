@@ -1,3 +1,9 @@
+2017.05.10, v1.4.12
+
+fix:
+- (client) socket.io.min -> socket.io
+
+
 2017.05.10, v1.4.11
 
 feature:
