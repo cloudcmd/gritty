@@ -52,7 +52,8 @@
     "debug": "^2.3.0",
     "express": "^4.14.0",
     "node-pty": "^0.6.2",
-    "socket.io": "^2.0.1"
+    "socket.io": "^2.0.1",
+    "wraptile": "^1.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
