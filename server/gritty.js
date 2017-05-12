@@ -26,7 +26,9 @@ const getDist = () => {
     return '/dist';
 }
 
-module.exports = (options = {}) => {
+module.exports = (options) => {
+    options = options || {};
+    
     const router = Router();
     const prefix = options.prefix || '/gritty';
     
@@ -54,7 +56,10 @@ function staticFn(req, res) {
     res.sendFile(file);
 }
 
-function createTerminal(env, cols = 80, rows = 24) {
+function createTerminal(env, cols, rows) {
+    cols = cols || 80;
+    rows = rows || 24;
+    
     const term = pty.spawn(CMD, [], {
         name: 'xterm-color',
         cols,
@@ -102,11 +107,11 @@ function onConnection(options, socket) {
     
     socket.on('terminal', onTerminal);
     
-    const onResize = (size = {}) => {
-        const {
-            cols = 80,
-            rows = 25,
-        } = size;
+    const onResize = (size) => {
+        size = size || {};
+        
+        const cols = size.cols || 80;
+        const rows = size.rows || 25;
         
         term.resize(cols, rows);
         log(`Resized terminal ${term.pid} to ${cols} cols and ${rows} rows.`);
@@ -116,7 +121,13 @@ function onConnection(options, socket) {
         term.write(msg);
     };
     
-    function onTerminal({env, rows, cols} = {}) {
+    function onTerminal(params) {
+        params = params || {};
+        
+        const env = params.env;
+        const rows = params.rows;
+        const cols = params.cols;
+        
         term = createTerminal(env, rows, cols);
         
         term.on('data', (data) => {

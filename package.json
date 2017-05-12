@@ -12,6 +12,9 @@
     "type": "git",
     "url": "git://github.com/cloudcmd/gritty.git"
   },
+  "engines": {
+    "node": ">=4"
+  },
   "scripts": {
     "start": "node bin/gritty",
     "start:dev": "NODE_ENV=development npm start",
