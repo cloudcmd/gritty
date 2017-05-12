@@ -8,16 +8,16 @@ const log = require('debug')('gritty');
 
 const express = require('express');
 const currify = require('currify/legacy');
+const wraptile = require('wraptile/legacy');
 const pty = require('node-pty');
 
 const Router = express.Router;
 
 const terminalFn = currify(_terminalFn);
-const onConnection = currify(_onConnection);
+const connection = wraptile(onConnection);
 
 const CMD = process.platform === 'win32' ? 'cmd.exe' : 'bash';
 const isDev = process.env.NODE_ENV === 'development';
-const wrap = (fn, ...args) => () => fn(...args);
 
 const getDist = () => {
     if (isDev)
@@ -78,12 +78,12 @@ module.exports.listen = (socket, options) => {
     socket
         .of(prefix || '/gritty')
         .on('connection', (socket) => {
-            const connection = wrap(onConnection, options, socket);
+            const connect = connection(options, socket);
             
             if (!authCheck)
-                return connection();
+                return connect();
             
-            authCheck(socket, connection);
+            authCheck(socket, connect);
         });
 };
 
@@ -97,7 +97,7 @@ function check(socket, options) {
         throw Error('options.authCheck should be a function!');
 }
 
-function _onConnection(options, socket) {
+function onConnection(options, socket) {
     let term;
     
     socket.on('terminal', onTerminal);
