@@ -40,7 +40,7 @@ module.exports = (options) => {
 };
 
 function _terminalFn(options, req, res, next) {
-    const o = options || {};
+    const o = options;
     const prefix = o.prefix || '/gritty';
     
     req.url = req.url.replace(prefix, '');

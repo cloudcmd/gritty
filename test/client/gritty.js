@@ -30,7 +30,7 @@ const Terminal = sinon.stub().returns({
     }),
 });
 
-mock('socket.io-client/dist/socket.io.min', {
+mock('socket.io-client/dist/socket.io', {
     connect,
 });
 

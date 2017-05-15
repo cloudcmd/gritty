@@ -79,22 +79,6 @@ test('gritty: server: dist', (t) => {
     });
 });
 
-test('gritty: server: socket: data', (t) => {
-    before((port, after) => {
-        const socket = io(`http://localhost:${port}/gritty`);
-        
-        socket.once('connect', () => {
-            socket.emit('terminal');
-            socket.once('data', () => {
-                socket.close();
-                t.pass('should emit data');
-                after();
-                t.end();
-            });
-        });
-    });
-});
-
 test('gritty: server: socket: resize', (t) => {
     before((port, after) => {
         const socket = io(`http://localhost:${port}/gritty`);
