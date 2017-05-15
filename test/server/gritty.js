@@ -145,6 +145,25 @@ test('gritty: server: socket: authCheck', (t) => {
     });
 });
 
+test('gritty: server: platform', (t) => {
+    clean('../..');
+    const {platform} = process;
+    
+    Object.defineProperty(process, 'platform', {
+        value: 'win32'
+    });
+    
+    const gritty = require('../..');
+    
+    t.pass('set CMD');
+    
+    Object.defineProperty(process, 'platform', {
+        value: platform
+    });
+    
+    t.end();
+});
+
 function clean(name) {
     delete require.cache[require.resolve(name)];
 }
