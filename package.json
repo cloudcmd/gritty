@@ -26,7 +26,7 @@
     "report": "nyc report --reporter=text-lcov | coveralls",
     "watch:coverage": "npm run watcher -- npm run coverage",
     "watch:test": "npm run watcher -- npm test",
-    "watcher": "nodemon -w test -w lib --exec",
+    "watcher": "nodemon -w test -w client -w server --exec",
     "6to5:lib": "babel server -d server_",
     "6to5:bin": "babel bin -d legacy/bin",
     "6to5:client": "webpack --progress",
