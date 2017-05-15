@@ -79,6 +79,23 @@ test('gritty: server: dist', (t) => {
     });
 });
 
+test('gritty: server: dist: not found', (t) => {
+    before((port, after) => {
+        const name = 'gritty';
+        
+        get(`http://localhost:${port}/${name}/not-found.js`)
+            .then((res) => {
+                res.on('response', ({statusCode}) => {
+                    t.equal(statusCode, 404, 'should return Not Found');
+                }).on('end', () => {
+                    t.end();
+                    after();
+                });
+        })
+        .catch(console.error);
+    });
+});
+
 test('gritty: server: socket: resize', (t) => {
     before((port, after) => {
         const socket = io(`http://localhost:${port}/gritty`);
