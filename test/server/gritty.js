@@ -114,6 +114,31 @@ test('gritty: server: socket: resize', (t) => {
     });
 });
 
+test('gritty: server: socket: exit', (t) => {
+    before((port, after) => {
+        const socket = io(`http://localhost:${port}/gritty`);
+        
+        socket.once('connect', () => {
+            socket.emit('terminal');
+            socket.once('data', () => {
+                socket.emit('data', 'e');
+                socket.emit('data', 'x');
+                socket.emit('data', 'i');
+                socket.emit('data', 't');
+                socket.emit('data', String.fromCharCode(13));
+            });
+            
+            socket.on('exit', () => {
+                t.pass('should exit terminal');
+                socket.close();
+                after();
+                t.end();
+            });
+        });
+    });
+});
+
+
 test('gritty: server: socket: emit data', (t) => {
     before((port, after) => {
         const socket = io(`http://localhost:${port}/gritty`);

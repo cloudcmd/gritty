@@ -121,6 +121,12 @@ function onConnection(options, socket) {
         term.write(msg);
     };
     
+    const onExit = () => {
+        socket.emit('exit');
+        onDisconnect();
+        onTerminal();
+    };
+      
     function onTerminal(params) {
         params = params || {};
         
@@ -134,6 +140,8 @@ function onConnection(options, socket) {
             socket.emit('data', data);
         });
         
+        term.on('exit', onExit);
+        
         log('Connected to terminal ' + term.pid);
         
         socket.on('data', onData);
@@ -142,6 +150,7 @@ function onConnection(options, socket) {
     }
     
     const onDisconnect = () => {
+        term.removeListener('exit', onExit);
         term.kill();
         log(`Closed terminal ${term.pid}`);
         
