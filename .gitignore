@@ -1,4 +1,4 @@
-package-log.json
+package-lock.json
 node_modules
 npm-debug.log
 .nyc_output
