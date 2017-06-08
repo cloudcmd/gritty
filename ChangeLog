@@ -1,3 +1,11 @@
+2017.06.08, v1.4.17
+
+feature:
+- (package) xterm v2.7.0
+- (gitignore) add package-lock.json
+- (package) nyc v11.0.2
+
+
 2017.05.22, v1.4.16
 
 feature:
