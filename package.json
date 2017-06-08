@@ -82,7 +82,7 @@
     "webpack": "^2.2.1",
     "whatwg-fetch": "^2.0.2",
     "wraptile": "^1.0.0",
-    "xterm": "^2.6.0"
+    "xterm": "^2.7.0"
   },
   "license": "MIT"
 }
