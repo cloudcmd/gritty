@@ -81,7 +81,7 @@
     "tape": "^4.6.3",
     "webpack": "^3.0.0",
     "whatwg-fetch": "^2.0.2",
-    "xterm": "^2.7.0"
+    "xterm": "2.8.1"
   },
   "license": "MIT"
 }
