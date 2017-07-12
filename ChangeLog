@@ -1,3 +1,16 @@
+2017.07.12, v1.4.18
+
+fix:
+- (package) rm duplicate wraptile
+
+feature:
+- (package) xterm v2.8.1
+- (package) clean-css-loader v0.1.2
+- (package) webpack v3.0.0
+- (package) eslint v4.0.0
+- (package) eslint v4.0.0
+
+
 2017.06.08, v1.4.17
 
 feature:
