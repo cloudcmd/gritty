@@ -1,3 +1,10 @@
+2017.08.04, v1.4.20
+
+feature:
+- (package) sinon v3.0.0
+- (package) xterm v2.9.0
+
+
 2017.07.17, v1.4.19
 
 fix:

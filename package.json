@@ -1,6 +1,6 @@
 {
   "name": "gritty",
-  "version": "1.4.19",
+  "version": "1.4.20",
   "author": "coderaiser <mnemonic.enemy@gmail.com> (https://github.com/coderaiser)",
   "description": "Web terminal emulator",
   "bin": {
