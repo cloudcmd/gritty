@@ -58,7 +58,7 @@
     "babel-plugin-transform-object-assign": "^6.22.0",
     "babel-preset-env": "^1.6.0",
     "clean-css-loader": "^0.1.2",
-    "coveralls": "^2.13.0",
+    "coveralls": "^3.0.0",
     "css-loader": "^0.28.0",
     "css-modules-require-hook": "^4.0.6",
     "es6-promisify": "^5.0.0",
