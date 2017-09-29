@@ -70,7 +70,7 @@
     "promise-polyfill": "^6.0.2",
     "redrun": "^5.9.3",
     "request": "^2.81.0",
-    "sinon": "^3.0.0",
+    "sinon": "^4.0.0",
     "sinon-called-with-diff": "^1.0.0",
     "socket.io-client": "^2.0.1",
     "style-loader": "^0.18.0",
