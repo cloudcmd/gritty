@@ -67,7 +67,7 @@
     "mock-require": "^2.0.2",
     "nodemon": "^1.11.0",
     "nyc": "^11.0.2",
-    "promise-polyfill": "^6.0.2",
+    "promise-polyfill": "^6.1.0",
     "redrun": "^5.9.3",
     "request": "^2.81.0",
     "sinon": "^4.0.0",
