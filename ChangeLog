@@ -1,3 +1,13 @@
+2017.12.21, v1.4.24
+
+feature:
+- (package) promise-polyfill v6.1.0
+- (package) style-loader v0.19.0
+- (package) coveralls v3.0.0
+- (package) sinon v4.0.0
+- (package) babel-preset-es2015 -> babel-preset-env
+
+
 2017.08.28, v1.4.23
 
 feature:
