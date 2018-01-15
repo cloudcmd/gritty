@@ -3,8 +3,7 @@
 require('xterm/dist/xterm.css');
 require('../css/gritty.css');
 
-require('xterm/dist/addons/fit');
-
+const fit = require('xterm/dist/addons/fit');
 const currify = require('currify/legacy');
 
 const getEl = require('./get-el');
@@ -44,6 +43,8 @@ function gritty(element, options = {}) {
     
     const socket = connect(prefix, socketPath);
     
+    Terminal.applyAddon(fit);
+    
     return createTerminal(el, {
         env,
         socket,
@@ -57,8 +58,8 @@ function createTerminal(terminalContainer, {env, socket}) {
         theme: 'gritty',
     });
     
-    const focus = true;
-    terminal.open(terminalContainer, focus);
+    terminal.open(terminalContainer);
+    terminal.focus();
     terminal.fit();
     
     terminal.on('resize', onTermResize(socket));
