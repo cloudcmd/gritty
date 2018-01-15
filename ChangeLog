@@ -1,3 +1,11 @@
+2018.01.15, v1.4.25
+
+feature:
+- (package) xterm v3.0.1
+- (package) mock-require v3.0.1
+- (package) promise-polyfill v7.0.0
+
+
 2017.12.21, v1.4.24
 
 feature:
