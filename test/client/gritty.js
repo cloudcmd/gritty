@@ -17,9 +17,11 @@ const connect = sinon.stub().returns({
 });
 
 const open = sinon.stub();
+const focus = sinon.stub();
 
 const Terminal = sinon.stub().returns({
     open,
+    focus,
     fit: sinon.stub(),
     on: sinon.stub(),
     writeln: sinon.stub(),
@@ -29,6 +31,8 @@ const Terminal = sinon.stub().returns({
         rows: 25,
     }),
 });
+
+Terminal.applyAddon = sinon.stub();
 
 mock('socket.io-client/dist/socket.io', {
     connect,
@@ -78,8 +82,19 @@ test('gritty: Terminal: open', (t) => {
     before();
     
     gritty(el);
-    const focus = true;
-    t.ok(open.calledWith(el, focus), 'should have been called with new');
+    t.ok(open.calledWith(el), 'should have been called');
+    after();
+    
+    t.end();
+});
+
+test('gritty: Terminal: focus', (t) => {
+    const el = {};
+    
+    before();
+    
+    gritty(el);
+    t.ok(focus.calledWith(), 'should have been called');
     after();
     
     t.end();
