@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('tape');
-const promisify = require('es6-promisify');
+const {promisify} = require('es6-promisify');
 const request = require('request');
 const io = require('socket.io-client');
 const diff = require('sinon-called-with-diff');

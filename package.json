@@ -61,7 +61,7 @@
     "coveralls": "^3.0.0",
     "css-loader": "^0.28.0",
     "css-modules-require-hook": "^4.0.6",
-    "es6-promisify": "^5.0.0",
+    "es6-promisify": "^6.0.0",
     "eslint": "^4.0.0",
     "json-loader": "^0.5.4",
     "mock-require": "^3.0.1",
