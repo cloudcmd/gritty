@@ -206,6 +206,52 @@ test('gritty: server: platform', (t) => {
     t.end();
 });
 
+test('gritty: server: socket: test env', (t) => {
+    before((port, after, serverIo) => {
+        const clientIo = io(`http://localhost:${port}/gritty`);
+        
+        serverIo.use((socket, next) => {
+            socket.request.env = {
+                NODE_VAR: 'HELLO'
+            };
+            
+            next();
+        });
+        
+        clientIo.once('connect', () => {
+            clientIo.emit('terminal');
+            clientIo.emit('data', 'echo _env_"$NODE_VAR"_env_');
+            clientIo.emit('data', String.fromCharCode(13));
+            
+            clientIo.on('data', (data) => {
+                const result = /\r?\n(_env_HELLO_env_)\r?\n/.exec(data);
+                const noEnvResult = /\r?\n(_env__env_)\r?\n/.exec(data);
+                
+                if (!result && !noEnvResult)
+                    return;
+                
+                const [, env] = result || [];
+                const [, noEnv] = noEnvResult || [];
+                
+                if (env === '_env_HELLO_env_') {
+                    t.pass('set socket.request.env');
+                    clientIo.close();
+                    after();
+                    t.end();
+                    return;
+                }
+                
+                if (noEnv === '_env__env_') {
+                    t.fail('set socket.request.env');
+                    clientIo.close();
+                    after();
+                    t.end();
+                }
+            });
+        });
+    });
+});
+
 function clean(name) {
     delete require.cache[require.resolve(name)];
 }
