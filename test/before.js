@@ -23,7 +23,7 @@ module.exports = (options, fn = options) => {
     gritty.listen(socket, options);
     
     server.listen(() => {
-        fn(server.address().port, after);
+        fn(server.address().port, after, socket);
     });
 };
 
