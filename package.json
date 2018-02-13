@@ -1,6 +1,6 @@
 {
   "name": "gritty",
-  "version": "1.4.28",
+  "version": "1.4.29",
   "author": "coderaiser <mnemonic.enemy@gmail.com> (https://github.com/coderaiser)",
   "description": "Web terminal emulator",
   "bin": {
@@ -77,7 +77,7 @@
     "tape": "^4.6.3",
     "webpack": "^3.0.0",
     "whatwg-fetch": "^2.0.2",
-    "xterm": "^3.0.2"
+    "xterm": "^3.1.0"
   },
   "license": "MIT"
 }
