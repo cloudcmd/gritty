@@ -1,3 +1,10 @@
+2018.02.14, v1.5.0
+
+feature:
+- (package) sinon-called-with-diff v2.0.0
+- (gritty) add ability to set ENV with help of socket.request.env #2
+
+
 2018.02.12, v1.4.29
 
 feature:
