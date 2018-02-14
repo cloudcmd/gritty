@@ -10,12 +10,14 @@ Web terminal emulator. Based on [node-pty](https://github.com/Tyriar/node-pty) a
 
 ## Usage
 
+```
 Usage: gritty [options]
 Options:
   -h, --help              display this help and exit
   -v, --version           output version information and exit
   --path                  output path of a gritty and exit
   --port                  set port number
+```
 
 ### Windows
 
