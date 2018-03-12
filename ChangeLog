@@ -1,3 +1,10 @@
+2018.03.12, v1.5.2
+
+feature:
+- (package) xterm v3.2.0
+- (package) redrun v6.0.0
+
+
 2018.03.01, v1.5.1
 
 feature:
