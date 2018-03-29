@@ -2,6 +2,7 @@
 
 const test = require('tape');
 const {promisify} = require('es6-promisify');
+const currify = require('currify');
 const request = require('request');
 const io = require('socket.io-client');
 const diff = require('sinon-called-with-diff');
@@ -158,29 +159,24 @@ test('gritty: server: socket: emit data', (t) => {
 });
 
 test('gritty: server: socket: authCheck', (t) => {
-    const authCheck = (socket, connection) => {
-        socket.on('auth', ({username, password}) => {
-            if (username !== 'hello' || password !== 'world')
-                return socket.emit('reject');
-            
-            connection();
-            socket.emit('accept');
-        });
-    };
+    const authCheck = currify((accept, reject, username, password) => {
+        if (username !== 'hello' || password !== 'world')
+            return reject();
+        
+        accept();
+    });
     
     before({authCheck}, (port, after) => {
         const socket = io(`http://localhost:${port}/gritty`);
         
         socket.once('connect', () => {
-            socket.emit('auth', {
-                username: 'hello',
-                password: 'world',
-            });
+            socket.emit('auth', 'hello', 'world');
             
             socket.on('accept', () => {
-                t.pass('should emit accepet');
                 socket.close();
                 after();
+                
+                t.pass('should emit accepet');
                 t.end();
             });
         });

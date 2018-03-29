@@ -52,17 +52,19 @@ gritty('body', {
 
 ### Server API
 
-#### gritty.listen(socket, options)
+#### gritty.listen(socket, [, options])
 
 `Gritty` could be used as middleware:
 
 ```js
 const prefix = '/gritty'; // default
-const authCheck = (socket, success) => {}; // optional
+const authCheck = (accept, reject) => (username, password) => {
+    accept();
+};
 
 gritty.listen(socket, {
     prefix,
-    authCheck,
+    authCheck, // optional
 })
 ```
 

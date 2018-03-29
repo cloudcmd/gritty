@@ -14,7 +14,7 @@ const pty = require('node-pty-prebuilt');
 const Router = express.Router;
 
 const terminalFn = currify(_terminalFn);
-const connection = wraptile(onConnection);
+const connectionWraped = wraptile(connection);
 
 const CMD = process.platform === 'win32' ? 'cmd.exe' : 'bash';
 const isDev = process.env.NODE_ENV === 'development';
@@ -83,12 +83,13 @@ module.exports.listen = (socket, options) => {
     socket
         .of(prefix || '/gritty')
         .on('connection', (socket) => {
-            const connect = connection(options, socket);
+            const connect = connectionWraped(options, socket);
             
             if (!authCheck)
-                return connect();
+                return connection(options, socket);
             
-            authCheck(socket, connect);
+            const reject = () => socket.emit('reject');
+            socket.on('auth', authCheck(connect, reject));
         });
 };
 
@@ -102,7 +103,9 @@ function check(socket, options) {
         throw Error('options.authCheck should be a function!');
 }
 
-function onConnection(options, socket) {
+function connection(options, socket) {
+    socket.emit('accept');
+    
     let term;
     
     socket.on('terminal', onTerminal);

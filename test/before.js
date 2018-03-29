@@ -1,6 +1,6 @@
 'use strict';
 
-const gritty  = require('../');
+const gritty  = require('..');
 const http = require('http');
 
 const express = require('express');
