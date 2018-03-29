@@ -140,14 +140,6 @@ socket.use((socket, next) => {
 </script>
 ```
 
-## Environments
-
-In old `node.js` environments that not fully supports `es2015`, `gritty` could be used with:
-
-```js
-var gritty = require('gritty/legacy');
-```
-
 ## License
 
 MIT
