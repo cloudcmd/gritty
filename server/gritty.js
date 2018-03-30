@@ -78,6 +78,7 @@ module.exports.listen = (socket, options) => {
     check(socket, options);
     
     const prefix = options.prefix;
+    const auth = options.auth;
     const authCheck = options.authCheck;
     
     socket
@@ -85,11 +86,14 @@ module.exports.listen = (socket, options) => {
         .on('connection', (socket) => {
             const connect = connectionWraped(options, socket);
             
-            if (!authCheck)
+            if (authCheck)
+                return authCheck(socket, connect);
+            
+            if (!auth)
                 return connection(options, socket);
             
             const reject = () => socket.emit('reject');
-            socket.on('auth', authCheck(connect, reject));
+            socket.on('auth', auth(connect, reject));
         });
 };
 
@@ -97,10 +101,10 @@ function check(socket, options) {
     if (!socket)
         throw Error('socket could not be empty!');
     
-    const authCheck = options.authCheck;
+    const auth = options.auth;
     
-    if (authCheck && typeof authCheck !== 'function')
-        throw Error('options.authCheck should be a function!');
+    if (auth && typeof auth !== 'function')
+        throw Error('options.auth should be a function!');
 }
 
 function connection(options, socket) {

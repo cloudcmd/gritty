@@ -1,3 +1,10 @@
+2018.03.30, v2.0.0
+
+feature:
+- (gritty) add auth
+- (gritty) drop support of node < 4
+
+
 2018.03.12, v1.5.2
 
 feature:

@@ -20,7 +20,7 @@ test('gritty: listen: args: no', (t) => {
     t.end();
 });
 
-test('gritty: listen: args: authCheck', (t) => {
+test('gritty: listen: args: auth', (t) => {
     const socket = {};
     const on = sinon.stub().returns(socket)
     const of = sinon.stub().returns(socket);
@@ -29,10 +29,10 @@ test('gritty: listen: args: authCheck', (t) => {
     socket.of = of;
     
     const fn = () => gritty.listen(socket, {
-        authCheck: 'hello'
+        auth: 'hello'
     });
     
-    t.throws(fn, /options.authCheck should be a function!/, 'should throw when no args');
+    t.throws(fn, /options.auth should be a function!/, 'should throw when no args');
     
     t.end();
 });
@@ -158,15 +158,15 @@ test('gritty: server: socket: emit data', (t) => {
     });
 });
 
-test('gritty: server: socket: authCheck', (t) => {
-    const authCheck = currify((accept, reject, username, password) => {
+test('gritty: server: socket: auth', (t) => {
+    const auth = currify((accept, reject, username, password) => {
         if (username !== 'hello' || password !== 'world')
             return reject();
         
         accept();
     });
     
-    before({authCheck}, (port, after) => {
+    before({auth}, (port, after) => {
         const socket = io(`http://localhost:${port}/gritty`);
         
         socket.once('connect', () => {
@@ -248,7 +248,36 @@ test('gritty: server: socket: test env', (t) => {
     });
 });
 
+test('gritty: server: socket: authCheck', (t) => {
+    const authCheck = (socket, connection) => {
+        socket.on('auth', ({username, password}) => {
+            if (username !== 'hello' || password !== 'world')
+                return socket.emit('reject');
+            
+            connection();
+            socket.emit('accept');
+        });
+    };
+    
+    before({authCheck}, (port, after) => {
+        const socket = io(`http://localhost:${port}/gritty`);
+        
+        socket.once('connect', () => {
+            socket.emit('auth', {
+                username: 'hello',
+                password: 'world',
+            });
+            
+            socket.on('accept', () => {
+                t.pass('should emit accepet');
+                socket.close();
+                after();
+                t.end();
+            });
+        });
+    });
+});
+
 function clean(name) {
     delete require.cache[require.resolve(name)];
 }
-

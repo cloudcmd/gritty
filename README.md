@@ -58,12 +58,19 @@ gritty('body', {
 
 ```js
 const prefix = '/gritty'; // default
-const authCheck = (accept, reject) => (username, password) => {
+
+// legacy
+const authCheck = (socket, success) => {
+    susccess();
+};
+
+const auth = (accept, reject) => (username, password) => {
     accept();
 };
 
 gritty.listen(socket, {
     prefix,
+    auth, // optional
     authCheck, // optional
 })
 ```
@@ -157,3 +164,4 @@ MIT
 [LicenseURL]:               https://tldrlegal.com/license/mit-license "MIT License"
 [CoverageURL]:              https://coveralls.io/github/cloudcmd/gritty?branch=master
 [CoverageIMGURL]:           https://coveralls.io/repos/cloudcmd/gritty/badge.svg?branch=master&service=github
+
