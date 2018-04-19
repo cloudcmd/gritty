@@ -3,13 +3,12 @@
 require('xterm/dist/xterm.css');
 require('../css/gritty.css');
 
-const fit = require('xterm/dist/addons/fit');
+const fit = require('xterm/lib/addons/fit');
 const currify = require('currify/legacy');
 
 const getEl = require('./get-el');
 const getHost = require('./get-host');
 const getEnv = require('./get-env');
-const timeout = require('./timeout');
 const wrap = require('wraptile/legacy');
 
 const onConnect = wrap(_onConnect);
@@ -24,7 +23,7 @@ const io = require('socket.io-client/dist/socket.io');
 window.Promise = window.Promise || require('promise-polyfill');
 window.fetch = window.fetch || require('whatwg-fetch');
 
-const Terminal = require('xterm/dist/xterm');
+const {Terminal} = require('xterm');
 
 module.exports = gritty;
 module.exports._onConnect = _onConnect;
@@ -70,7 +69,7 @@ function createTerminal(terminalContainer, {env, socket}) {
     const {cols, rows} = terminal.proposeGeometry()
     
     // auth check delay
-    socket.on('connect', timeout(onConnect(socket, {env, cols, rows})));
+    socket.on('accept', onConnect(socket, terminal, {env, cols, rows}));
     socket.on('disconnect', onDisconnect(terminal));
     socket.on('data', onData(terminal));
     
@@ -80,9 +79,10 @@ function createTerminal(terminalContainer, {env, socket}) {
     };
 }
 
-function _onConnect(socket, {env, cols, rows}) {
+function _onConnect(socket, terminal, {env, cols, rows}) {
     socket.emit('terminal', {env, cols, rows});
     socket.emit('resize', {cols, rows});
+    terminal.fit();
 }
 
 function _onDisconnect(terminal) {

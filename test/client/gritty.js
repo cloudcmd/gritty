@@ -38,7 +38,7 @@ mock('socket.io-client/dist/socket.io', {
     connect,
 });
 
-mock('xterm/dist/xterm', Terminal);
+mock('xterm', {Terminal});
 
 const gritty = require('../../client/gritty');
 const {
@@ -110,7 +110,10 @@ test('gritty: onConnect: socket: resize', (t) => {
         cols: 80,
         rows: 25,
     };
-    _onConnect(socket, options);
+    
+    const fit = sinon.stub();
+    
+    _onConnect(socket, {fit}, options);
     
     t.ok(emit.calledWith('resize', options), 'should call emit');
     t.end();
@@ -132,7 +135,10 @@ test('gritty: onConnect: socket: terminal', (t) => {
         cols: 80,
         rows: 25,
     };
-    _onConnect(socket, options);
+    
+    const fit = sinon.stub();
+    
+    _onConnect(socket, {fit}, options);
     
     t.ok(emit.calledWith('terminal', options), 'should call emit');
     t.end();
