@@ -141,7 +141,7 @@ socket.use((socket, next) => {
         }
     };
     
-    gritty('.console', options);
+    gritty('.terminal', options);
     
     function getCurrentFile() {
         return 'filename.txt';
