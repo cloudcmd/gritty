@@ -3,7 +3,6 @@
 require('xterm/dist/xterm.css');
 require('../css/gritty.css');
 
-const fit = require('xterm/lib/addons/fit');
 const currify = require('currify/legacy');
 
 const getEl = require('./get-el');
@@ -23,6 +22,8 @@ const io = require('socket.io-client/dist/socket.io');
 window.Promise = window.Promise || require('promise-polyfill');
 window.fetch = window.fetch || require('whatwg-fetch');
 
+const WebfontLoader = require('xterm-webfont');
+const fit = require('xterm/lib/addons/fit');
 const {Terminal} = require('xterm');
 
 module.exports = gritty;
@@ -43,6 +44,7 @@ function gritty(element, options = {}) {
     const socket = connect(prefix, socketPath);
     
     Terminal.applyAddon(fit);
+    Terminal.applyAddon(WebfontLoader);
     
     return createTerminal(el, {
         env,
@@ -56,9 +58,24 @@ function createTerminal(terminalContainer, {env, socket}) {
         tabStopWidth: 4,
         theme: 'gritty',
         experimentalCharAtlas: 'dynamic',
+        fontFamily: 'Droid Sans Mono',
     });
     
     terminal.open(terminalContainer);
+    terminal.loadWebfontAndOpen(terminalContainer)
+        .finally(initTerminal({
+            env,
+            socket,
+            terminal,
+        }));
+    
+    return {
+        socket,
+        terminal
+    };
+}
+
+const initTerminal = wrap(({env, socket, terminal}) => {
     terminal.focus();
     terminal.fit();
     
@@ -69,16 +86,10 @@ function createTerminal(terminalContainer, {env, socket}) {
     
     const {cols, rows} = terminal.proposeGeometry()
     
-    // auth check delay
     socket.on('accept', onConnect(socket, terminal, {env, cols, rows}));
     socket.on('disconnect', onDisconnect(terminal));
     socket.on('data', onData(terminal));
-    
-    return {
-        socket,
-        terminal
-    };
-}
+});
 
 function _onConnect(socket, terminal, {env, cols, rows}) {
     socket.emit('terminal', {env, cols, rows});

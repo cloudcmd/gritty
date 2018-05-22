@@ -75,7 +75,8 @@
     "webpack": "^4.0.1",
     "webpack-cli": "^2.0.9",
     "whatwg-fetch": "^2.0.2",
-    "xterm": "3.4.1"
+    "xterm": "3.4.1",
+    "xterm-webfont": "^1.0.1"
   },
   "engines": {
     "node": ">=4.0.0"
