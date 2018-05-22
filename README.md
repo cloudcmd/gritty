@@ -43,10 +43,12 @@ Start `gritty`, and go to url `http://localhost:1337`
 ```js
 const prefix = '/gritty'; // default
 const env = {}; // default
+const fontFamily = 'Courier'; // default
 
 gritty('body', {
     prefix,
     env,
+    fontFamily,
 });
 ```
 

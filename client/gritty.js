@@ -1,7 +1,6 @@
 'use strict';
 
 require('xterm/dist/xterm.css');
-require('../css/gritty.css');
 
 const fit = require('xterm/lib/addons/fit');
 const currify = require('currify/legacy');
@@ -33,10 +32,14 @@ module.exports._onTermResize = _onTermResize;
 module.exports._onTermData = _onTermData;
 module.exports._onWindowResize = _onWindowResize;
 
+const defaultFontFamily = 'Menlo, Consolas, "Liberation Mono", Monaco, "Lucida Console", monospace';
+module.exports._defaultFontFamily = defaultFontFamily;
+
 function gritty(element, options = {}) {
     const el = getEl(element);
     
     const socketPath = options.socketPath || '';
+    const fontFamily = options.fontFamily || defaultFontFamily;
     const prefix = options.prefix || '/gritty';
     const env = getEnv(options.env || {});
     
@@ -47,15 +50,16 @@ function gritty(element, options = {}) {
     return createTerminal(el, {
         env,
         socket,
+        fontFamily
     });
 }
 
-function createTerminal(terminalContainer, {env, socket}) {
+function createTerminal(terminalContainer, {env, socket, fontFamily}) {
     const terminal = new Terminal({
         scrollback: 1000,
         tabStopWidth: 4,
-        theme: 'gritty',
         experimentalCharAtlas: 'dynamic',
+        fontFamily,
     });
     
     terminal.open(terminalContainer);

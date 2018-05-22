@@ -48,6 +48,7 @@ const {
     _onTermResize,
     _onTermData,
     _onWindowResize,
+    _defaultFontFamily,
 } = require('../../client/gritty');
 
 test('gritty: Terminal: new', (t) => {
@@ -65,10 +66,33 @@ test('gritty: Terminal: args', (t) => {
     const args = {
         scrollback: 1000,
         tabStopWidth: 4,
-        theme: 'gritty',
+        experimentalCharAtlas: 'dynamic',
+        fontFamily: _defaultFontFamily,
     };
     
     gritty();
+    
+    t.ok(Terminal.calledWith(args), 'should have been called with args');
+    
+    after();
+    t.end();
+});
+
+test('gritty: Terminal: args: fontFamily', (t) => {
+    before();
+    
+    const fontFamily = 'Droid Sans Mono';
+    const el = {};
+    const args = {
+        scrollback: 1000,
+        tabStopWidth: 4,
+        experimentalCharAtlas: 'dynamic',
+        fontFamily,
+    };
+    
+    gritty(el, {
+        fontFamily
+    });
     
     t.ok(Terminal.calledWith(args), 'should have been called with args');
     
