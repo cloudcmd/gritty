@@ -55,6 +55,7 @@ function createTerminal(terminalContainer, {env, socket}) {
         scrollback: 1000,
         tabStopWidth: 4,
         theme: 'gritty',
+        experimentalCharAtlas: 'dynamic',
     });
     
     terminal.open(terminalContainer);
