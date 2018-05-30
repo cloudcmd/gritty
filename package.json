@@ -47,7 +47,7 @@
     "currify": "^2.0.0",
     "debug": "^3.0.0",
     "express": "^4.14.0",
-    "node-pty-prebuilt": "^0.7.3",
+    "node-pty": "^0.7.4",
     "socket.io": "^2.0.1",
     "wraptile": "^2.0.0"
   },
