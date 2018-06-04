@@ -75,7 +75,7 @@
     "style-loader": "^0.21.0",
     "tape": "^4.6.3",
     "webpack": "^4.0.1",
-    "webpack-cli": "^2.0.9",
+    "webpack-cli": "^3.0.1",
     "whatwg-fetch": "^2.0.2",
     "xterm": "3.4.1"
   },
