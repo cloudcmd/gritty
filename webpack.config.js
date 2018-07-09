@@ -1,7 +1,9 @@
 'use strict';
 
 const path = require('path');
+
 const webpack = require('webpack');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const {optimize} = webpack;
 const dir = './client';
 
@@ -13,6 +15,10 @@ const distDev = path.resolve(__dirname, 'dist-dev');
 const devtool = isDev ? 'eval' : 'source-map';
 const notEmpty = (a) => a;
 const clean = (array) => array.filter(notEmpty);
+
+const plugins = clean([
+    !isDev && new OptimizeCssAssetsPlugin({}),
+]);
 
 const rules = clean([
     !isDev && {
@@ -27,6 +33,7 @@ const rules = clean([
 
 module.exports = {
     devtool,
+    plugins,
     entry: {
         gritty: `${dir}/gritty.js`,
     },
