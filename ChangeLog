@@ -1,3 +1,14 @@
+2018.07.13, v2.2.3
+
+feature:
+- (package) xterm v3.5.1
+- (package) css-loader v1.0.0
+- (package) eslint v5.0.0
+- (package) sinon v6.0.0
+- (package) nyc v12.0.2
+- (package) webpack-cli v3.0.1
+
+
 2018.05.30, v2.2.2
 
 feature:
