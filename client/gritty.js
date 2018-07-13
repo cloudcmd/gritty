@@ -2,7 +2,7 @@
 
 require('xterm/dist/xterm.css');
 
-const fit = require('xterm/lib/addons/fit');
+const fit = require('xterm/lib/addons/fit/fit');
 const currify = require('currify/legacy');
 
 const getEl = require('./get-el');
