@@ -1,3 +1,13 @@
+2018.07.16, v3.0.0
+
+feature:
+- (package) add eslint-plugin-node
+- (package) drop support of node < 6
+- (gritty) drop support of authCheck and cloudcmd <= v9.0.0
+- (gritty) rm fetch, Promise polyfill: provide your own polyfill if you needed
+- (package) optimize-css-assets-webpack-plugin v5.0.0
+
+
 2018.07.13, v2.2.4
 
 feature:
