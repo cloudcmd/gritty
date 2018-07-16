@@ -3,7 +3,6 @@
 const DIR_ROOT = __dirname + '/..';
 
 const path = require('path');
-
 const log = require('debug')('gritty');
 
 const express = require('express');
@@ -79,15 +78,11 @@ module.exports.listen = (socket, options) => {
     
     const prefix = options.prefix;
     const auth = options.auth;
-    const authCheck = options.authCheck;
     
     socket
         .of(prefix || '/gritty')
         .on('connection', (socket) => {
             const connect = connectionWraped(options, socket);
-            
-            if (authCheck)
-                return authCheck(socket, connect);
             
             if (!auth)
                 return connection(options, socket);

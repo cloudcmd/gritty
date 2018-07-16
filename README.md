@@ -61,11 +61,6 @@ gritty('body', {
 ```js
 const prefix = '/gritty'; // default
 
-// legacy
-const authCheck = (socket, success) => {
-    susccess();
-};
-
 const auth = (accept, reject) => (username, password) => {
     accept();
 };
@@ -73,7 +68,6 @@ const auth = (accept, reject) => (username, password) => {
 gritty.listen(socket, {
     prefix,
     auth, // optional
-    authCheck, // optional
 })
 ```
 
