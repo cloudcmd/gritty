@@ -149,10 +149,14 @@ socket.use((socket, next) => {
 
 MIT
 
-[NPMIMGURL]:                https://img.shields.io/npm/v/gritty.svg?style=flat
-[BuildStatusIMGURL]:        https://img.shields.io/travis/cloudcmd/gritty/master.svg?style=flat
-[DependencyStatusIMGURL]:   https://img.shields.io/david/cloudcmd/gritty.svg?style=flat
-[LicenseIMGURL]:            https://img.shields.io/badge/license-MIT-317BF9.svg?style=flat
+[NPMIMGURL]:                https://img.shields.io/npm/v/gritty.svg?style=flat&longCache=true
+
+[BuildStatusIMGURL]:        https://img.shields.io/travis/cloudcmd/gritty/master.svg?style=flat&longCache=true
+
+[DependencyStatusIMGURL]:   https://img.shields.io/david/cloudcmd/gritty.svg?style=flat&longCache=true
+
+[LicenseIMGURL]:            https://img.shields.io/badge/license-MIT-317BF9.svg?style=flat&longCache=true
+
 [NPM_INFO_IMG]:             https://nodei.co/npm/cloudcmd.png
 [NPMURL]:                   https://npmjs.org/package/cloudcmd "npm"
 [BuildStatusURL]:           https://travis-ci.org/cloudcmd/gritty  "Build Status"
