@@ -23,7 +23,7 @@ const getDist = () => {
         return '/dist-dev';
     
     return '/dist';
-}
+};
 
 module.exports = (options) => {
     options = options || {};
@@ -33,7 +33,7 @@ module.exports = (options) => {
     
     router.route(prefix + '/*')
         .get(terminalFn(options))
-        .get(staticFn)
+        .get(staticFn);
     
     return router;
 };
