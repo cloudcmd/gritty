@@ -1,3 +1,10 @@
+2018.08.25, v3.0.2
+
+feature:
+- (package) xterm v3.6.0
+- (package) style-loader v0.22.0
+
+
 2018.07.23, v3.0.1
 
 feature:
