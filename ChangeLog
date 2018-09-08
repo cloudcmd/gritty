@@ -1,3 +1,13 @@
+2018.09.08, v3.0.3
+
+feature:
+- (package) babel v7.0.0
+- (package) xterm v3.7.0
+- (package) babel-loader v8.0.2
+- (package) nyc v13.0.1
+- (package) style-loader v0.23.0
+
+
 2018.08.25, v3.0.2
 
 feature:
