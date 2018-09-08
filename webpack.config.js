@@ -47,6 +47,10 @@ module.exports = {
     module: {
         rules,
     },
+    performance: {
+        maxEntrypointSize: 300000,
+        maxAssetSize: 300000
+    },
 };
 
 function devtoolModuleFilenameTemplate(info) {
