@@ -52,10 +52,10 @@
     "wraptile": "^2.0.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.18.0",
-    "babel-loader": "^8.0.2",
-    "babel-plugin-transform-object-assign": "^6.22.0",
-    "babel-preset-env": "^1.6.0",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-transform-object-assign": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "babel-loader": "^8.0.0",
     "clean-css-loader": "^1.0.1",
     "coveralls": "^3.0.0",
     "css-loader": "^1.0.0",
