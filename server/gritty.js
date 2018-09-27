@@ -10,7 +10,7 @@ const currify = require('currify');
 const wraptile = require('wraptile');
 const pty = require('node-pty');
 
-const Router = express.Router;
+const {Router} = express;
 
 const terminalFn = currify(_terminalFn);
 const connectionWraped = wraptile(connection);
@@ -53,16 +53,19 @@ function staticFn(req, res) {
     res.sendFile(file);
 }
 
-function createTerminal(env, cols, rows) {
+function createTerminal({command, env, cols, rows}) {
     cols = cols || 80;
     rows = rows || 24;
     
-    const term = pty.spawn(CMD, [], {
+    const term = pty.spawn(command, [], {
         name: 'xterm-color',
         cols,
         rows,
         cwd: process.env.PWD,
-        env: Object.assign({}, process.env, env)
+        env: {
+            ...process.env,
+            ...env
+        }
     });
     
     log(`Created terminal with PID: ${term.pid}`);
@@ -104,6 +107,7 @@ function check(socket, options) {
 function connection(options, socket) {
     socket.emit('accept');
     
+    const command = options.command || CMD;
     let term;
     
     socket.on('terminal', onTerminal);
@@ -125,17 +129,27 @@ function connection(options, socket) {
     const onExit = () => {
         socket.emit('exit');
         onDisconnect();
-        onTerminal();
+        
+        if (command === CMD)
+            onTerminal();
     };
       
     function onTerminal(params) {
         params = params || {};
         
-        const env = Object.assign({}, params.env, socket.request.env);
+        const env = {
+            ...params.env,
+            ...socket.request.env,
+        };
         const rows = params.rows;
         const cols = params.cols;
         
-        term = createTerminal(env, rows, cols);
+        term = createTerminal({
+            command,
+            env,
+            rows,
+            cols,
+        });
         
         term.on('data', (data) => {
             socket.emit('data', data);

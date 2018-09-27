@@ -78,7 +78,9 @@ Middleware function:
 ```js
 const prefix = '/gritty'; // default
 
-gritty({prefix});
+gritty({
+    prefix,
+});
 ```
 
 ## Usage as middleware
@@ -107,7 +109,9 @@ const ip = '0.0.0.0';
 app.use(gritty())
 app.use(express.static(__dirname));
 
-gritty.listen(socket);
+gritty.listen(socket, {
+    command: 'mc', // optional
+});
 server.listen(port, ip);
 ```
 

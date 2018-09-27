@@ -2,37 +2,45 @@
 
 'use strict';
 
-const argv = process.argv;
-const name = argv[2];
-const option = argv[3]
+const args = require('yargs-parser')(process.argv.slice(2), {
+    boolean: [
+        'version',
+        'help',
+    ],
+    number: [
+        'port',
+    ],
+    string: [
+        'command',
+        'path',
+    ],
+    alias: {
+        'help': 'h',
+        'version': 'v',
+    },
+    default: {
+        'port': process.env.PORT | 1337
+    }
+});
 
-switch (name) {
-case '-v':
-    version();
-    break;
+const getMessage = (a) => a.message;
 
-case '--version':
-    version();
-    break;
+main(args);
 
-case '-h':
-    help();
-    break;
-
-case '--help':
-    help();
-    break;
-
-case '--path':
-    path();
-    break;
-
-case '--port':
-    start(option);
-    break;
-
-default:
-    start();
+function main() {
+    if (args.help)
+        return help();
+    
+    if (args.version)
+        return version();
+    
+    if (args.path)
+        return path();
+    
+    start({
+        port: args.port,
+        command: args.command,
+    });
 }
 
 function path() {
@@ -40,9 +48,15 @@ function path() {
     console.log(join(__dirname, '..'));
 }
 
-function start(port) {
+function start(options) {
+    const squad = require('squad');
+    
+    let {
+        port,
+        command,
+    } = options;
+    
     check(port);
-    port = getPort(port);
     
     const DIR = __dirname + '/../';
     
@@ -62,20 +76,15 @@ function start(port) {
         .use(express.static(DIR));
     
     const socket = io.listen(server);
-    gritty.listen(socket);
-    server.listen(port, ip);
+    
+    gritty.listen(socket, {
+        command,
+    });
+    
+    server.listen(port, ip)
+        .on('error', squad(exit, getMessage));
     
     console.log(`url: http://localhost:${port}`);
-}
-
-function getPort(port) {
-    if (!isNaN(port))
-        return port;
-    
-    return  process.env.PORT            ||  /* c9           */
-            process.env.app_port        ||  /* nodester     */
-            process.env.VCAP_APP_PORT   ||  /* cloudfoundry */
-            1337;
 }
 
 function help() {
@@ -96,7 +105,7 @@ function version() {
 }
 
 function check(port) {
-    if (port && isNaN(port))
+    if (isNaN(port))
         exit('port should be a number 0..65535');
 }
 

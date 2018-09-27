@@ -49,7 +49,9 @@
     "express": "^4.14.0",
     "node-pty": "^0.7.4",
     "socket.io": "^2.0.1",
-    "wraptile": "^2.0.0"
+    "squad": "^3.0.0",
+    "wraptile": "^2.0.0",
+    "yargs-parser": "^10.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
