@@ -70,7 +70,7 @@
     "nodemon": "^1.11.0",
     "nyc": "^13.0.1",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
-    "redrun": "^6.0.0",
+    "redrun": "^7.0.0",
     "request": "^2.81.0",
     "sinon": "^6.0.0",
     "sinon-called-with-diff": "^2.0.0",
