@@ -1,12 +1,16 @@
 'use strict';
 
-const gritty  = require('..');
 const http = require('http');
+const {promisify} = require('util');
 
 const express = require('express');
 const io = require('socket.io');
 
-module.exports = (options, fn = options) => {
+const gritty  = require('..');
+
+module.exports = before
+
+function before(options, fn = options) {
     if (typeof options === 'function')
         options = {};
      
@@ -27,3 +31,8 @@ module.exports = (options, fn = options) => {
     });
 };
 
+module.exports.connect = promisify((options, fn = options) => {
+    before(options, (port, done, socket) => {
+        fn(null, {port, done, socket});
+    })
+});

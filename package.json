@@ -77,12 +77,13 @@
     "socket.io-client": "^2.0.1",
     "style-loader": "^0.23.0",
     "tape": "^4.6.3",
+    "try-to-catch": "^1.0.2",
     "webpack": "^4.0.1",
     "webpack-cli": "^3.0.1",
     "xterm": "^3.7.0"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=8.3.0"
   },
   "license": "MIT"
 }

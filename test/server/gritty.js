@@ -1,15 +1,17 @@
 'use strict';
 
 const test = require('tape');
-const {promisify} = require('es6-promisify');
+const {promisify} = require('util');
 const currify = require('currify');
 const request = require('request');
 const io = require('socket.io-client');
 const diff = require('sinon-called-with-diff');
 const sinon = diff(require('sinon'));
+const tryToCatch = require('try-to-catch');
 
 const gritty = require('../../');
 const before = require('../before');
+const {connect} = before;
 
 const get = promisify((url, fn) => {
     fn(null, request(url));
@@ -37,46 +39,54 @@ test('gritty: listen: args: auth', (t) => {
     t.end();
 });
 
-test('gritty: server: dist-dev', (t) => {
+test('gritty: server: dist-dev', async (t) => {
     clean('../../');
     clean('../before');
     
     process.env.NODE_ENV = 'development';
     
-    const before = require('../before');
+    const {connect} = require('../before');
     
     delete process.env.NODE_ENV;
     
-    before((port, after) => {
-        const name = 'gritty';
-        
-        get(`http://localhost:${port}/${name}/${name}.js`)
-            .then((res) => {
-                res.on('response', ({statusCode}) => {
-                    t.equal(statusCode, 200, 'should return OK');
-                }).on('end', () => {
-                    t.end();
-                    after();
-                });
-        })
-        .catch(console.error);
+    const {port, done} = await connect();
+    const name = 'gritty';
+    
+    const [e, res] = await tryToCatch(get, `http://localhost:${port}/${name}/${name}.js`);
+    
+    if (e) {
+        done();
+        t.fail(e.message);
+        t.end();
+        return;
+    }
+    
+    res.on('response', ({statusCode}) => {
+        t.equal(statusCode, 200, 'should return OK');
+    }).on('end', () => {
+        t.end();
+        done();
     });
 });
 
-test('gritty: server: dist', (t) => {
-    before((port, after) => {
-        const name = 'gritty';
-        
-        get(`http://localhost:${port}/${name}/${name}.js`)
-            .then((res) => {
-                res.on('response', ({statusCode}) => {
-                    t.equal(statusCode, 200, 'should return OK');
-                }).on('end', () => {
-                    t.end();
-                    after();
-                });
-        })
-        .catch(console.error);
+test('gritty: server: dist', async (t) => {
+    const {port, done} = await connect();
+    const name = 'gritty';
+    
+    const [e, res] = await tryToCatch(get, `http://localhost:${port}/${name}/${name}.js`)
+    
+    if (e) {
+        done();
+        t.fail(e.message);
+        t.end();
+        return;
+    }
+    
+    res.on('response', ({statusCode}) => {
+        t.equal(statusCode, 200, 'should return OK');
+    }).on('end', () => {
+        t.end();
+        done();
     });
 });
 
