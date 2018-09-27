@@ -25,9 +25,7 @@ const getDist = () => {
     return '/dist';
 };
 
-module.exports = (options) => {
-    options = options || {};
-    
+module.exports = (options = {}) => {
     const router = Router();
     const prefix = options.prefix || '/gritty';
     
@@ -72,12 +70,13 @@ function createTerminal(env, cols, rows) {
     return term;
 }
 
-module.exports.listen = (socket, options) => {
-    options = options || {};
+module.exports.listen = (socket, options = {}) => {
     check(socket, options);
     
-    const prefix = options.prefix;
-    const auth = options.auth;
+    const {
+        prefix,
+        auth,
+    } = options;
     
     socket
         .of(prefix || '/gritty')
@@ -96,7 +95,7 @@ function check(socket, options) {
     if (!socket)
         throw Error('socket could not be empty!');
     
-    const auth = options.auth;
+    const {auth} = options;
     
     if (auth && typeof auth !== 'function')
         throw Error('options.auth should be a function!');
