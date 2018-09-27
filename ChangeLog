@@ -1,3 +1,10 @@
+2018.09.27, v4.0.0
+
+feature:
+- (package) debug v4.0.1
+- (package) drop support of node < 8
+
+
 2018.09.08, v3.0.3
 
 feature:
