@@ -6,8 +6,8 @@ const path = require('path');
 const log = require('debug')('gritty');
 
 const express = require('express');
-const currify = require('currify/legacy');
-const wraptile = require('wraptile/legacy');
+const currify = require('currify');
+const wraptile = require('wraptile');
 const pty = require('node-pty');
 
 const Router = express.Router;
