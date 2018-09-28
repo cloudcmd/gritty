@@ -21,7 +21,7 @@ const args = require('yargs-parser')(process.argv.slice(2), {
     },
     default: {
         'port': process.env.PORT | 1337,
-        'auto-restart': true
+        'auto-restart': true,
     }
 });
 
@@ -42,7 +42,7 @@ function main() {
     start({
         port: args.port,
         command: args.command,
-        autoRestart: args['auto-restart'],
+        autoRestart: args.autoRestart,
     });
 }
 

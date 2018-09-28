@@ -19,6 +19,7 @@ Options:
   --port                  set port number
   --command               command to run in terminal (shell by default)
   --auto-restart          restart command when on exit
+  --no-auto-restart       do not restart command on exit
 ```
 
 ### Windows
