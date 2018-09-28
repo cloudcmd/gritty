@@ -155,7 +155,8 @@ test('gritty: server: socket: exit', (t) => {
 
 test('gritty: server: socket: exit: custom cmd', (t) => {
     const options = {
-        command: 'ls'
+        command: 'ls',
+        autoRestart: false,
     };
     
     before(options, (port, after) => {

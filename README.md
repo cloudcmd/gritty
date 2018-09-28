@@ -17,6 +17,8 @@ Options:
   -v, --version           output version information and exit
   --path                  output path of a gritty and exit
   --port                  set port number
+  --command               command to run in terminal (shell by default)
+  --auto-restart          restart command when on exit
 ```
 
 ### Windows
@@ -110,8 +112,10 @@ app.use(gritty())
 app.use(express.static(__dirname));
 
 gritty.listen(socket, {
-    command: 'mc', // optional
+    command: 'mc',      // optional
+    autoRestart: true,  // default
 });
+
 server.listen(port, ip);
 ```
 

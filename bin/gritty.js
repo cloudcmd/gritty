@@ -6,6 +6,7 @@ const args = require('yargs-parser')(process.argv.slice(2), {
     boolean: [
         'version',
         'help',
+        'auto-restart',
     ],
     number: [
         'port',
@@ -19,7 +20,8 @@ const args = require('yargs-parser')(process.argv.slice(2), {
         'version': 'v',
     },
     default: {
-        'port': process.env.PORT | 1337
+        'port': process.env.PORT | 1337,
+        'auto-restart': true
     }
 });
 
@@ -40,6 +42,7 @@ function main() {
     start({
         port: args.port,
         command: args.command,
+        autoRestart: args['auto-restart'],
     });
 }
 
@@ -54,6 +57,7 @@ function start(options) {
     let {
         port,
         command,
+        autoRestart,
     } = options;
     
     check(port);
@@ -79,6 +83,7 @@ function start(options) {
     
     gritty.listen(socket, {
         command,
+        autoRestart,
     });
     
     server.listen(port, ip)

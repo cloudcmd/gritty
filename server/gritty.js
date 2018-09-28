@@ -108,6 +108,10 @@ function connection(options, socket) {
     socket.emit('accept');
     
     const command = options.command || CMD;
+    const {
+        autoRestart = true,
+    } = options;
+    
     let term;
     
     socket.on('terminal', onTerminal);
@@ -130,8 +134,10 @@ function connection(options, socket) {
         socket.emit('exit');
         onDisconnect();
         
-        if (command === CMD)
-            onTerminal();
+        if (!autoRestart)
+            return;
+        
+        onTerminal();
     };
       
     function onTerminal(params) {
