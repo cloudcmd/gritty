@@ -90,20 +90,24 @@ test('gritty: server: dist', async (t) => {
     });
 });
 
-test('gritty: server: dist: not found', (t) => {
-    before((port, after) => {
-        const name = 'gritty';
-        
-        get(`http://localhost:${port}/${name}/not-found.js`)
-            .then((res) => {
-                res.on('response', ({statusCode}) => {
-                    t.equal(statusCode, 404, 'should return Not Found');
-                }).on('end', () => {
-                    t.end();
-                    after();
-                });
-        })
-        .catch(console.error);
+test('gritty: server: dist: not found', async (t) => {
+    const {port, done} = await connect();
+    const name = 'gritty';
+    
+    const [e, res] = await tryToCatch(get, `http://localhost:${port}/${name}/not-found.js`);
+    
+    if (e) {
+        done();
+        t.fail(e.message);
+        t.end();
+        return;
+    }
+    
+    res.on('response', ({statusCode}) => {
+        t.equal(statusCode, 404, 'should return Not Found');
+    }).on('end', () => {
+        done();
+        t.end();
     });
 });
 
