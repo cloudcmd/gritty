@@ -1,3 +1,10 @@
+2018.09.28, v4.2.0
+
+feature:
+- (gritty) add --auto-restart
+- (package) redrun v7.0.0
+
+
 2018.09.27, v4.1.0
 
 feature:
