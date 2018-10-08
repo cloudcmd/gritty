@@ -80,7 +80,7 @@
     "try-to-catch": "^1.0.2",
     "webpack": "^4.0.1",
     "webpack-cli": "^3.0.1",
-    "xterm": "^3.7.0"
+    "xterm": "^3.8.0"
   },
   "engines": {
     "node": ">=8.3.0"
