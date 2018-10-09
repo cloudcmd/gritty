@@ -44,7 +44,7 @@
     "express"
   ],
   "dependencies": {
-    "currify": "^2.0.0",
+    "currify": "^3.0.0",
     "debug": "^4.0.1",
     "express": "^4.14.0",
     "node-pty": "^0.7.4",
