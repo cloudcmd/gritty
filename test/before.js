@@ -29,7 +29,7 @@ function before(options, fn = options) {
     server.listen(() => {
         fn(server.address().port, after, socket);
     });
-};
+}
 
 module.exports.connect = promisify((options, fn = options) => {
     before(options, (port, done, socket) => {

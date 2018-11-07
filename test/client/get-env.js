@@ -1,8 +1,6 @@
 'use strict';
 
 const test = require('tape');
-const diff = require('sinon-called-with-diff');
-const sinon = diff(require('sinon'));
 
 const getEnv = require('../../client/get-env');
 
