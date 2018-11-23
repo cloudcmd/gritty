@@ -3,8 +3,7 @@
 const test = require('tape');
 const currify = require('currify');
 const io = require('socket.io-client');
-const diff = require('sinon-called-with-diff');
-const sinon = diff(require('sinon'));
+const stub = require('@cloudcmd/stub');
 const {reRequire} = require('mock-require');
 
 const gritty = require('../../');
@@ -20,8 +19,8 @@ test('gritty: listen: args: no', (t) => {
 
 test('gritty: listen: args: auth', (t) => {
     const socket = {};
-    const on = sinon.stub().returns(socket)
-    const of = sinon.stub().returns(socket);
+    const on = stub().returns(socket)
+    const of = stub().returns(socket);
     
     socket.on = on;
     socket.of = of;

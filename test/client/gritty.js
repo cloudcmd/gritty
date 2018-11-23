@@ -1,38 +1,37 @@
 'use strict';
 
 const test = require('tape');
-const diff = require('sinon-called-with-diff');
-const sinon = diff(require('sinon'));
+const stub = require('@cloudcmd/stub');
 
 require('css-modules-require-hook/preset');
 
 global.window = {
-    addEventListener: sinon.stub(),
+    addEventListener: stub(),
 };
 
 const mock = require('mock-require');
 
-const connect = sinon.stub().returns({
-    on: sinon.stub(),
+const connect = stub().returns({
+    on: stub(),
 });
 
-const open = sinon.stub();
-const focus = sinon.stub();
+const open = stub();
+const focus = stub();
 
-const Terminal = sinon.stub().returns({
+const Terminal = stub().returns({
     open,
     focus,
-    fit: sinon.stub(),
-    on: sinon.stub(),
-    writeln: sinon.stub(),
-    setOption: sinon.stub(),
-    proposeGeometry: sinon.stub().returns({
+    fit: stub(),
+    on: stub(),
+    writeln: stub(),
+    setOption: stub(),
+    proposeGeometry: stub().returns({
         cols: 80,
         rows: 25,
     }),
 });
 
-Terminal.applyAddon = sinon.stub();
+Terminal.applyAddon = stub();
 
 mock('socket.io-client/dist/socket.io', {
     connect,
@@ -125,7 +124,7 @@ test('gritty: Terminal: focus', (t) => {
 });
 
 test('gritty: onConnect: socket: resize', (t) => {
-    const emit = sinon.stub();
+    const emit = stub();
     const socket = {
         emit
     };
@@ -135,7 +134,7 @@ test('gritty: onConnect: socket: resize', (t) => {
         rows: 25,
     };
     
-    const fit = sinon.stub();
+    const fit = stub();
     
     _onConnect(socket, {fit}, options);
     
@@ -144,11 +143,11 @@ test('gritty: onConnect: socket: resize', (t) => {
 });
 
 test('gritty: onConnect: socket: terminal', (t) => {
-    const emit = sinon.stub();
+    const emit = stub();
     const socket = {
         emit: (...args) => {
             emit(...args);
-            socket.emit = sinon.stub();
+            socket.emit = stub();
         }
     };
     
@@ -160,7 +159,7 @@ test('gritty: onConnect: socket: terminal', (t) => {
         rows: 25,
     };
     
-    const fit = sinon.stub();
+    const fit = stub();
     
     _onConnect(socket, {fit}, options);
     
@@ -169,7 +168,7 @@ test('gritty: onConnect: socket: terminal', (t) => {
 });
 
 test('gritty: onDisconnect: terminal', (t) => {
-    const writeln = sinon.stub();
+    const writeln = stub();
     
     const msg = 'terminal disconnected...';
     
@@ -179,7 +178,7 @@ test('gritty: onDisconnect: terminal', (t) => {
 });
 
 test('gritty: onData: terminal', (t) => {
-    const write = sinon.stub();
+    const write = stub();
     
     const data = 'hello';
     
@@ -189,7 +188,7 @@ test('gritty: onData: terminal', (t) => {
 });
 
 test('gritty: onTermResize: socket', (t) => {
-    const emit = sinon.stub();
+    const emit = stub();
     
     const size = {
         cols: 80,
@@ -202,7 +201,7 @@ test('gritty: onTermResize: socket', (t) => {
 });
 
 test('gritty: onTermData: socket', (t) => {
-    const emit = sinon.stub();
+    const emit = stub();
     
     const data = 'hello';
     
@@ -212,7 +211,7 @@ test('gritty: onTermData: socket', (t) => {
 });
 
 test('gritty: onWindowResize: terminal', (t) => {
-    const fit = sinon.stub();
+    const fit = stub();
     
     _onWindowResize({fit});
     

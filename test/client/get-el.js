@@ -1,8 +1,7 @@
 'use strict';
 
 const test = require('tape');
-const diff = require('sinon-called-with-diff');
-const sinon = diff(require('sinon'));
+const stub = require('@cloudcmd/stub');
 
 const getEl = require('../../client/get-el');
 
@@ -15,7 +14,7 @@ test('gritty: get-el: object', (t) => {
 
 test('gritty: get-el: string', (t) => {
     const el = 'hello'
-    const querySelector = sinon.stub();
+    const querySelector = stub();
     
     global.document = {querySelector};
     
