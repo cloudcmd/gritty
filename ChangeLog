@@ -1,3 +1,11 @@
+2018.12.20, v4.3.4
+
+feature:
+- (package) xterm v3.9.1
+- (package) css-loader v2.0.1
+- (gritty) sinon, sinon-called-with-diff -> @cloudcmd/stub
+
+
 2018.11.06, v4.3.3
 
 feature:
