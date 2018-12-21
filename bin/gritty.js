@@ -7,13 +7,13 @@ const args = require('yargs-parser')(process.argv.slice(2), {
         'version',
         'help',
         'auto-restart',
+        'path',
     ],
     number: [
         'port',
     ],
     string: [
         'command',
-        'path',
     ],
     alias: {
         'help': 'h',
