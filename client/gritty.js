@@ -70,7 +70,6 @@ function createTerminal(terminalContainer, {env, socket, fontFamily}) {
     
     const {cols, rows} = terminal.proposeGeometry()
     
-    // auth check delay
     socket.on('accept', onConnect(socket, terminal, {env, cols, rows}));
     socket.on('disconnect', onDisconnect(terminal));
     socket.on('data', onData(terminal));
