@@ -81,7 +81,7 @@
     "tape": "^4.6.3",
     "webpack": "^4.0.1",
     "webpack-cli": "^3.0.1",
-    "xterm": "^3.9.1"
+    "xterm": "^3.10.1"
   },
   "engines": {
     "node": ">=8.3.0"
