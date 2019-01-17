@@ -5,5 +5,5 @@ module.exports = () => {
     const href = l.origin || l.protocol + '//' + l.host;
     
     return href;
-}
+};
 

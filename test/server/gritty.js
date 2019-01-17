@@ -19,7 +19,7 @@ test('gritty: listen: args: no', (t) => {
 
 test('gritty: listen: args: auth', (t) => {
     const socket = {};
-    const on = stub().returns(socket)
+    const on = stub().returns(socket);
     const of = stub().returns(socket);
     
     socket.on = on;

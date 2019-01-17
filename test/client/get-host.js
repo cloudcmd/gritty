@@ -9,7 +9,7 @@ test('gritty: get-host: origin', (t) => {
     const origin = 'http://localhost';
     global.location = {
         origin
-    }
+    };
     
     t.equal(getHost(), origin, 'should return origin');
     
@@ -22,7 +22,7 @@ test('gritty: get-host: no origin', (t) => {
     global.location = {
         protocol: 'http:',
         host: 'localhost'
-    }
+    };
     
     t.equal(getHost(), 'http://localhost', 'should return host');
     

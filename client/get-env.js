@@ -8,7 +8,7 @@ module.exports = (env) => {
     });
     
     return obj;
-}
+};
 
 function getValue(value) {
     if (typeof value === 'function')

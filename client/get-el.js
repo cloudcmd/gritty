@@ -5,5 +5,5 @@ module.exports = (el) => {
         return document.querySelector(el);
     
     return el;
-}
+};
 

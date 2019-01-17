@@ -13,7 +13,7 @@ test('gritty: get-el: object', (t) => {
 });
 
 test('gritty: get-el: string', (t) => {
-    const el = 'hello'
+    const el = 'hello';
     const querySelector = stub();
     
     global.document = {querySelector};

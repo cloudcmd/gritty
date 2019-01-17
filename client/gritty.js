@@ -66,9 +66,9 @@ function createTerminal(terminalContainer, {env, socket, fontFamily}) {
     terminal.on('resize', onTermResize(socket));
     terminal.on('data', onTermData(socket));
     
-    window.addEventListener('resize', onWindowResize(terminal))
+    window.addEventListener('resize', onWindowResize(terminal));
     
-    const {cols, rows} = terminal.proposeGeometry()
+    const {cols, rows} = terminal.proposeGeometry();
     
     socket.on('accept', onConnect(socket, terminal, {env, cols, rows}));
     socket.on('disconnect', onDisconnect(terminal));

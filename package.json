@@ -60,6 +60,7 @@
     "@babel/plugin-transform-object-assign": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@cloudcmd/stub": "^2.0.0",
+    "@putout/eslint-config": "^1.0.1",
     "babel-loader": "^8.0.0",
     "clean-css-loader": "^1.0.1",
     "coveralls": "^3.0.0",

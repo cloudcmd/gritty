@@ -47,7 +47,7 @@ function main() {
 }
 
 function path() {
-    const join = require('path').join
+    const join = require('path').join;
     console.log(join(__dirname, '..'));
 }
 

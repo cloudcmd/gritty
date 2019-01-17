@@ -8,7 +8,7 @@ const io = require('socket.io');
 
 const gritty  = require('..');
 
-module.exports = before
+module.exports = before;
 
 function before(options, fn = options) {
     if (typeof options === 'function')
@@ -20,7 +20,7 @@ function before(options, fn = options) {
         server.close();
     };
     
-    app.use(gritty())
+    app.use(gritty());
     
     const socket = io.listen(server);
     
@@ -34,5 +34,5 @@ function before(options, fn = options) {
 module.exports.connect = promisify((options, fn = options) => {
     before(options, (port, done, socket) => {
         fn(null, {port, done, socket});
-    })
+    });
 });
