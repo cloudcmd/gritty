@@ -137,7 +137,7 @@ function connection(options, socket) {
         
         onTerminal();
     };
-      
+    
     function onTerminal(params) {
         params = params || {};
         
@@ -145,8 +145,11 @@ function connection(options, socket) {
             ...params.env,
             ...socket.request.env,
         };
-        const rows = params.rows;
-        const cols = params.cols;
+        
+        const {
+            rows,
+            cols
+        } = params;
         
         term = createTerminal({
             command,

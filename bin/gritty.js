@@ -47,7 +47,9 @@ function main() {
 }
 
 function path() {
-    const join = require('path').join;
+    const {
+        join
+    } = require('path');
     console.log(join(__dirname, '..'));
 }
 
@@ -69,7 +71,7 @@ function start(options) {
     
     const express = require('express');
     const io = require('socket.io');
-     
+    
     const app = express();
     const server = http.createServer(app);
     
