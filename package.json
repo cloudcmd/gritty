@@ -54,7 +54,7 @@
     "socket.io": "^2.0.1",
     "squad": "^3.0.0",
     "wraptile": "^2.0.0",
-    "yargs-parser": "^11.0.0"
+    "yargs-parser": "^13.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
