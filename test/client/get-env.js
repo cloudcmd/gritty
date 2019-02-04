@@ -13,7 +13,7 @@ test('gritty: get-env: empty', (t) => {
 
 test('gritty: get-env: value', (t) => {
     const env = {
-        hello: 123
+        hello: 123,
     };
     
     t.deepEqual(getEnv(env), env, 'should return env');
@@ -22,11 +22,11 @@ test('gritty: get-env: value', (t) => {
 
 test('gritty: get-env: function', (t) => {
     const env = {
-        hello: () => 1337
+        hello: () => 1337,
     };
     
     const expected = {
-        hello: 1337
+        hello: 1337,
     };
     
     t.deepEqual(getEnv(env), expected, 'should return env');

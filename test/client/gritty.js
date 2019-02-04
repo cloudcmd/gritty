@@ -90,7 +90,7 @@ test('gritty: Terminal: args: fontFamily', (t) => {
     };
     
     gritty(el, {
-        fontFamily
+        fontFamily,
     });
     
     t.ok(Terminal.calledWith(args), 'should have been called with args');
@@ -126,7 +126,7 @@ test('gritty: Terminal: focus', (t) => {
 test('gritty: onConnect: socket: resize', (t) => {
     const emit = stub();
     const socket = {
-        emit
+        emit,
     };
     
     const options = {
@@ -148,12 +148,12 @@ test('gritty: onConnect: socket: terminal', (t) => {
         emit: (...args) => {
             emit(...args);
             socket.emit = stub();
-        }
+        },
     };
     
     const options = {
         env: {
-            hello: 'world'
+            hello: 'world',
         },
         cols: 80,
         rows: 25,

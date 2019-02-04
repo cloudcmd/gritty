@@ -62,8 +62,8 @@ function createTerminal({command, env, cols, rows}) {
         cwd: process.env.PWD,
         env: {
             ...process.env,
-            ...env
-        }
+            ...env,
+        },
     });
     
     log(`Created terminal with PID: ${term.pid}`);
@@ -148,7 +148,7 @@ function connection(options, socket) {
         
         const {
             rows,
-            cols
+            cols,
         } = params;
         
         term = createTerminal({

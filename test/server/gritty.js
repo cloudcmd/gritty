@@ -26,7 +26,7 @@ test('gritty: listen: args: auth', (t) => {
     socket.of = of;
     
     const fn = () => gritty.listen(socket, {
-        auth: 'hello'
+        auth: 'hello',
     });
     
     t.throws(fn, /options.auth should be a function!/, 'should throw when no args');
@@ -177,7 +177,7 @@ test('gritty: server: platform', (t) => {
     const {platform} = process;
     
     Object.defineProperty(process, 'platform', {
-        value: 'win32'
+        value: 'win32',
     });
     
     reRequire('../..');
@@ -185,7 +185,7 @@ test('gritty: server: platform', (t) => {
     t.pass('set CMD');
     
     Object.defineProperty(process, 'platform', {
-        value: platform
+        value: platform,
     });
     
     t.end();
@@ -197,7 +197,7 @@ test('gritty: server: socket: test env', async (t) => {
     
     socket.use((socket, next) => {
         socket.request.env = {
-            NODE_VAR: 'HELLO'
+            NODE_VAR: 'HELLO',
         };
         
         next();

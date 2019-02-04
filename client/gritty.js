@@ -47,7 +47,7 @@ function gritty(element, options = {}) {
     return createTerminal(el, {
         env,
         socket,
-        fontFamily
+        fontFamily,
     });
 }
 
@@ -76,7 +76,7 @@ function createTerminal(terminalContainer, {env, socket, fontFamily}) {
     
     return {
         socket,
-        terminal
+        terminal,
     };
 }
 
@@ -114,7 +114,7 @@ function connect(prefix, socketPath) {
     const socket = io.connect(href + prefix, {
         'max reconnection attempts' : Math.pow(2, 32),
         'reconnection limit'        : FIVE_SECONDS,
-        path
+        path,
     });
     
     return socket;

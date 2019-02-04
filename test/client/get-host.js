@@ -8,7 +8,7 @@ const getHost = require(`${dir}/get-host`);
 test('gritty: get-host: origin', (t) => {
     const origin = 'http://localhost';
     global.location = {
-        origin
+        origin,
     };
     
     t.equal(getHost(), origin, 'should return origin');
@@ -21,7 +21,7 @@ test('gritty: get-host: origin', (t) => {
 test('gritty: get-host: no origin', (t) => {
     global.location = {
         protocol: 'http:',
-        host: 'localhost'
+        host: 'localhost',
     };
     
     t.equal(getHost(), 'http://localhost', 'should return host');

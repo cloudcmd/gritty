@@ -22,7 +22,7 @@ const args = require('yargs-parser')(process.argv.slice(2), {
     default: {
         'port': process.env.PORT | 1337,
         'auto-restart': true,
-    }
+    },
 });
 
 const getMessage = (a) => a.message;
@@ -48,7 +48,7 @@ function main() {
 
 function path() {
     const {
-        join
+        join,
     } = require('path');
     console.log(join(__dirname, '..'));
 }
@@ -56,7 +56,7 @@ function path() {
 function start(options) {
     const squad = require('squad');
     
-    let {
+    const {
         port,
         command,
         autoRestart,
