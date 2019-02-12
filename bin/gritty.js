@@ -66,7 +66,7 @@ function start(options) {
     
     const DIR = __dirname + '/../';
     
-    const gritty  = require('../');
+    const gritty = require('../');
     const http = require('http');
     
     const express = require('express');
@@ -75,7 +75,7 @@ function start(options) {
     const app = express();
     const server = http.createServer(app);
     
-    const ip = process.env.IP ||  /* c9 */
+    const ip = process.env.IP || /* c9 */
               '0.0.0.0';
     
     app.use(gritty())

@@ -6,7 +6,7 @@ const {promisify} = require('util');
 const express = require('express');
 const io = require('socket.io');
 
-const gritty  = require('..');
+const gritty = require('..');
 
 module.exports = before;
 
