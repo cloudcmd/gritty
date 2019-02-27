@@ -112,7 +112,7 @@ function connect(prefix, socketPath) {
     
     const path = socketPath + '/socket.io';
     const socket = io.connect(href + prefix, {
-        'max reconnection attempts' : Math.pow(2, 32),
+        'max reconnection attempts' : 2 ** 32,
         'reconnection limit'        : FIVE_SECONDS,
         path,
     });
