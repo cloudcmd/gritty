@@ -7,3 +7,6 @@ body, .gritty {
     margin: 0;
 }
 
+.terminal {
+    height: 100%;
+}
