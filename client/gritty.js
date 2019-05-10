@@ -34,24 +34,31 @@ module.exports._defaultFontFamily = defaultFontFamily;
 
 function gritty(element, options = {}) {
     const el = getEl(element);
-    
+
     const socketPath = options.socketPath || '';
     const fontFamily = options.fontFamily || defaultFontFamily;
     const prefix = options.prefix || '/gritty';
     const env = getEnv(options.env || {});
-    
+
+    const {
+        command,
+        autoRestart,
+    } = options;
+
     const socket = connect(prefix, socketPath);
-    
+
     Terminal.applyAddon(fit);
-    
+
     return createTerminal(el, {
         env,
+        command,
+        autoRestart,
         socket,
         fontFamily,
     });
 }
 
-function createTerminal(terminalContainer, {env, socket, fontFamily}) {
+function createTerminal(terminalContainer, {env, command, autoRestart, socket, fontFamily}) {
     const terminal = new Terminal({
         scrollback: 1000,
         tabStopWidth: 4,
@@ -70,7 +77,7 @@ function createTerminal(terminalContainer, {env, socket, fontFamily}) {
     
     const {cols, rows} = terminal.proposeGeometry();
     
-    socket.on('accept', onConnect(socket, terminal, {env, cols, rows}));
+    socket.on('accept', onConnect(socket, terminal, {env, cols, rows, command, autoRestart}));
     socket.on('disconnect', onDisconnect(terminal));
     socket.on('data', onData(terminal));
     
@@ -80,8 +87,8 @@ function createTerminal(terminalContainer, {env, socket, fontFamily}) {
     };
 }
 
-function _onConnect(socket, terminal, {env, cols, rows}) {
-    socket.emit('terminal', {env, cols, rows});
+function _onConnect(socket, terminal, {env, cols, rows, command, autoRestart}) {
+    socket.emit('terminal', {env, cols, rows, command, autoRestart});
     socket.emit('resize', {cols, rows});
     terminal.fit();
 }

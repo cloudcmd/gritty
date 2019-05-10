@@ -79,6 +79,26 @@ test('gritty: server: socket: resize', async (t) => {
     });
 });
 
+test('gritty: server: socket: resize: terminal options', async (t) => {
+    const {port, done} = await connect();
+    const socket = io(`http://localhost:${port}/gritty`);
+    
+    socket.once('connect', () => {
+        socket.emit('terminal', {
+            autoRestart: true,
+        });
+        socket.emit('resize');
+        
+        socket.once('data', () => {
+            socket.close();
+            done();
+            
+            t.pass('should emit data');
+            t.end();
+        });
+    });
+});
+
 test('gritty: server: socket: exit', async (t) => {
     const {port, done} = await connect();
     const socket = io(`http://localhost:${port}/gritty`);

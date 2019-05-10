@@ -140,6 +140,8 @@ socket.use((socket, next) => {
 <script>
     const options = {
         prefix: 'console',
+        command: 'bash', // optional
+        autoRestart: true, // optional
         env: {
             TERMINAL: 'gritty',
             CURRENT: getCurrentFile,

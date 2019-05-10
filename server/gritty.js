@@ -23,6 +23,16 @@ const getDist = () => {
     return '/dist';
 };
 
+const choose = (a, b, options) => {
+    if (typeof a === 'boolean')
+        return a;
+    
+    if (typeof b === 'boolean')
+        return b;
+    
+    return options.default;
+};
+
 module.exports = (options = {}) => {
     const router = Router();
     const prefix = options.prefix || '/gritty';
@@ -54,8 +64,10 @@ function staticFn(req, res) {
 function createTerminal({command, env, cols, rows}) {
     cols = cols || 80;
     rows = rows || 24;
-    
-    const term = pty.spawn(command, [], {
+
+    const [cmd, ...args] = command.split(' ');
+
+    const term = pty.spawn(cmd, args, {
         name: 'xterm-color',
         cols,
         rows,
@@ -65,9 +77,9 @@ function createTerminal({command, env, cols, rows}) {
             ...env,
         },
     });
-    
+
     log(`Created terminal with PID: ${term.pid}`);
-    
+
     return term;
 }
 
@@ -105,11 +117,6 @@ function check(socket, options) {
 function connection(options, socket) {
     socket.emit('accept');
     
-    const command = options.command || CMD;
-    const {
-        autoRestart = true,
-    } = options;
-    
     let term;
     
     socket.on('terminal', onTerminal);
@@ -128,16 +135,6 @@ function connection(options, socket) {
         term.write(msg);
     };
     
-    const onExit = () => {
-        socket.emit('exit');
-        onDisconnect();
-        
-        if (!autoRestart)
-            return;
-        
-        onTerminal();
-    };
-    
     function onTerminal(params) {
         params = params || {};
         
@@ -145,6 +142,11 @@ function connection(options, socket) {
             ...params.env,
             ...socket.request.env,
         };
+        
+        const command = params.command || options.command || CMD;
+        const autoRestart = choose(params.autoRestart, options.autoRestart, {
+            default: true,
+        });
         
         const {
             rows,
@@ -158,6 +160,27 @@ function connection(options, socket) {
             cols,
         });
         
+        const onExit = () => {
+            socket.emit('exit');
+            onDisconnect();
+            
+            if (!autoRestart)
+                return;
+            
+            onTerminal();
+        };
+        
+        const onDisconnect = () => {
+            term.removeListener('exit', onExit);
+            term.kill();
+            log(`Closed terminal ${term.pid}`);
+            
+            socket.removeListener('resize', onResize);
+            socket.removeListener('data', onData);
+            socket.removeListener('terminal', onTerminal);
+            socket.removeListener('disconnect', onDisconnect);
+        };
+        
         term.on('data', (data) => {
             socket.emit('data', data);
         });
@@ -170,16 +193,5 @@ function connection(options, socket) {
         socket.on('resize', onResize);
         socket.on('disconnect', onDisconnect);
     }
-    
-    const onDisconnect = () => {
-        term.removeListener('exit', onExit);
-        term.kill();
-        log(`Closed terminal ${term.pid}`);
-        
-        socket.removeListener('resize', onResize);
-        socket.removeListener('data', onData);
-        socket.removeListener('terminal', onTerminal);
-        socket.removeListener('disconnect', onDisconnect);
-    };
 }
 
