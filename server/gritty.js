@@ -160,8 +160,8 @@ function connection(options, socket) {
             cols,
         });
         
-        const onExit = () => {
-            socket.emit('exit');
+        const onExit = (code) => {
+            socket.emit('exit', code);
             onDisconnect();
             
             if (!autoRestart)
