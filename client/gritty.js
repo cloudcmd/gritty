@@ -34,21 +34,21 @@ module.exports._defaultFontFamily = defaultFontFamily;
 
 function gritty(element, options = {}) {
     const el = getEl(element);
-
+    
     const socketPath = options.socketPath || '';
     const fontFamily = options.fontFamily || defaultFontFamily;
     const prefix = options.prefix || '/gritty';
     const env = getEnv(options.env || {});
-
+    
     const {
         command,
         autoRestart,
     } = options;
-
+    
     const socket = connect(prefix, socketPath);
-
+    
     Terminal.applyAddon(fit);
-
+    
     return createTerminal(el, {
         env,
         command,

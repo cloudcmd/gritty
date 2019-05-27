@@ -9,6 +9,7 @@ const Router = require('router');
 const currify = require('currify');
 const wraptile = require('wraptile');
 const pty = require('node-pty');
+const stringArgv = require('string-to-argv');
 
 const terminalFn = currify(_terminalFn);
 const connectionWraped = wraptile(connection);
@@ -64,9 +65,8 @@ function staticFn(req, res) {
 function createTerminal({command, env, cols, rows}) {
     cols = cols || 80;
     rows = rows || 24;
-
-    const [cmd, ...args] = command.split(' ');
-
+    
+    const [cmd, ...args] = stringArgv(command);
     const term = pty.spawn(cmd, args, {
         name: 'xterm-color',
         cols,
@@ -77,9 +77,9 @@ function createTerminal({command, env, cols, rows}) {
             ...env,
         },
     });
-
+    
     log(`Created terminal with PID: ${term.pid}`);
-
+    
     return term;
 }
 

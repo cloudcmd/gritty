@@ -6,10 +6,11 @@
         "no-process-exit": 0
     },
     "extends": [
-        "@putout",
+        "plugin:putout/recommended",
         "plugin:node/recommended"
     ],
     "plugins": [
-        "node"
+        "node",
+        "putout"
     ]
 }

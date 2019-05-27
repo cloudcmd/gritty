@@ -13,7 +13,7 @@ module.exports = before;
 function before(options, fn = options) {
     if (typeof options === 'function')
         options = {};
-     
+    
     const app = express();
     const server = http.createServer(app);
     const after = () => {

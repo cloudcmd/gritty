@@ -4,7 +4,8 @@ const test = require('supertape');
 const currify = require('currify');
 const io = require('socket.io-client');
 const stub = require('@cloudcmd/stub');
-const {reRequire} = require('mock-require');
+const mockRequire = require('mock-require');
+const {reRequire} = mockRequire;
 
 const gritty = require('../../');
 const serveOnce = require('serve-once');
@@ -151,6 +152,29 @@ test('gritty: server: socket: exit: custom cmd', async (t) => {
     });
 });
 
+test('gritty: server: terminal: parse args', async (t) => {
+    const {port, done} = await connect();
+    const socket = io(`http://localhost:${port}/gritty`);
+    
+    mockRequire('node-pty', {
+        spawn: stub(),
+    });
+    
+    socket.once('connect', () => {
+        socket.emit('terminal', {
+            command: 'bash -c "hello world"',
+        });
+        
+        socket.once('data', (data) => {
+            socket.close();
+            done();
+            
+            t.equal(data, 'bash: hello: command not found');
+            t.end();
+        });
+    });
+});
+
 test('gritty: server: socket: emit data', async (t) => {
     const {port, done} = await connect();
     const socket = io(`http://localhost:${port}/gritty`);
@@ -212,7 +236,11 @@ test('gritty: server: platform', (t) => {
 });
 
 test('gritty: server: socket: test env', async (t) => {
-    const {port, done, socket} = await connect();
+    const {
+        port,
+        done,
+        socket,
+    } = await connect();
     const clientIo = io(`http://localhost:${port}/gritty`);
     
     socket.use((socket, next) => {
