@@ -1,3 +1,10 @@
+2019.05.27, v4.6.0
+
+feature:
+- (gritty) add ability to emit exit code
+- (gritty) add support of node v12
+
+
 2019.05.27, v4.5.0
 
 feature:
