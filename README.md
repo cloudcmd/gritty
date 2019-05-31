@@ -142,6 +142,7 @@ socket.use((socket, next) => {
         prefix: 'console',
         command: 'bash', // optional
         autoRestart: true, // optional
+        cwd: '/', // optional
         env: {
             TERMINAL: 'gritty',
             CURRENT: getCurrentFile,

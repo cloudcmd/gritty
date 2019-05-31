@@ -157,6 +157,7 @@ test('gritty: onConnect: socket: terminal', (t) => {
         },
         cols: 80,
         rows: 25,
+        cwd: '/',
         command: 'bash',
         autoRestart: false,
     };

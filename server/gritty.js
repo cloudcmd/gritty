@@ -62,7 +62,7 @@ function staticFn(req, res) {
     res.sendFile(file);
 }
 
-function createTerminal({command, env, cols, rows}) {
+function createTerminal({command, env, cwd, cols, rows}) {
     cols = cols || 80;
     rows = rows || 24;
     
@@ -71,7 +71,7 @@ function createTerminal({command, env, cols, rows}) {
         name: 'xterm-color',
         cols,
         rows,
-        cwd: process.env.PWD,
+        cwd,
         env: {
             ...process.env,
             ...env,
@@ -151,10 +151,12 @@ function connection(options, socket) {
         const {
             rows,
             cols,
+            cwd,
         } = params;
         
         term = createTerminal({
             command,
+            cwd,
             env,
             rows,
             cols,
