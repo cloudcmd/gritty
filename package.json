@@ -68,7 +68,7 @@
     "css-loader": "^2.0.1",
     "css-modules-require-hook": "^4.0.6",
     "es6-promisify": "^6.0.0",
-    "eslint": "^5.0.0",
+    "eslint": "^6.0.1",
     "eslint-plugin-node": "^9.0.1",
     "eslint-plugin-putout": "^1.5.0",
     "json-loader": "^0.5.4",
