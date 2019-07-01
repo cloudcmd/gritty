@@ -35,16 +35,15 @@ module.exports._defaultFontFamily = defaultFontFamily;
 function gritty(element, options = {}) {
     const el = getEl(element);
     
-    const socketPath = options.socketPath || '';
-    const fontFamily = options.fontFamily || defaultFontFamily;
-    const prefix = options.prefix || '/gritty';
-    const env = getEnv(options.env || {});
-    
     const {
+        socketPath = '',
+        fontFamily = defaultFontFamily,
+        prefix = '/gritty',
         command,
         autoRestart,
         cwd,
     } = options;
+    const env = getEnv(options.env || {});
     
     const socket = connect(prefix, socketPath);
     

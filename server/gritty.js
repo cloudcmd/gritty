@@ -36,7 +36,9 @@ const choose = (a, b, options) => {
 
 module.exports = (options = {}) => {
     const router = Router();
-    const prefix = options.prefix || '/gritty';
+    const {
+        prefix = '/gritty',
+    } = options;
     
     router.route(prefix + '/*')
         .get(terminalFn(options))
@@ -47,7 +49,9 @@ module.exports = (options = {}) => {
 
 function _terminalFn(options, req, res, next) {
     const o = options;
-    const prefix = o.prefix || '/gritty';
+    const {
+        prefix = '/gritty',
+    } = o;
     
     req.url = req.url.replace(prefix, '');
     
@@ -124,8 +128,10 @@ function connection(options, socket) {
     const onResize = (size) => {
         size = size || {};
         
-        const cols = size.cols || 80;
-        const rows = size.rows || 25;
+        const {
+            cols = 80,
+            rows = 25,
+        } = size;
         
         term.resize(cols, rows);
         log(`Resized terminal ${term.pid} to ${cols} cols and ${rows} rows.`);
