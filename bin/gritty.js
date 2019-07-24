@@ -16,8 +16,8 @@ const args = require('yargs-parser')(process.argv.slice(2), {
         'command',
     ],
     alias: {
-        'help': 'h',
-        'version': 'v',
+        help: 'h',
+        version: 'v',
     },
     default: {
         'port': process.env.PORT | 1337,
