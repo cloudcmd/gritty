@@ -70,7 +70,7 @@
     "es6-promisify": "^6.0.0",
     "eslint": "^6.0.1",
     "eslint-plugin-node": "^9.0.1",
-    "eslint-plugin-putout": "^1.5.0",
+    "eslint-plugin-putout": "^2.0.0",
     "json-loader": "^0.5.4",
     "madrun": "^2.0.0",
     "mock-require": "^3.0.2",
