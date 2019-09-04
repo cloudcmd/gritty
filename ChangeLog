@@ -1,3 +1,14 @@
+2019.09.04, v4.8.0
+
+feature:
+- (babelrc) add browserlist
+- (package) madrun v3.0.1
+- (package) node-pty v0.9.0-beta24
+- (package) eslint-plugin-putout v2.0.0
+- (package) putout v5.7.1
+- (package) style-loader v1.0.0
+
+
 2019.07.11, v4.7.4
 
 feature:
