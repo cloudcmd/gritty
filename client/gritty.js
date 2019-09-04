@@ -3,12 +3,12 @@
 require('xterm/dist/xterm.css');
 
 const fit = require('xterm/lib/addons/fit/fit');
-const currify = require('currify/legacy');
+const currify = require('currify');
 
 const getEl = require('./get-el');
 const getHost = require('./get-host');
 const getEnv = require('./get-env');
-const wrap = require('wraptile/legacy');
+const wrap = require('wraptile');
 
 const onConnect = wrap(_onConnect);
 const onDisconnect = wrap(_onDisconnect);
