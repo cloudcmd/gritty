@@ -54,7 +54,7 @@
     "socket.io": "^2.0.1",
     "squad": "^3.0.0",
     "string-to-argv": "^1.0.0",
-    "wraptile": "^2.0.0",
+    "wraptile": "^3.0.0",
     "yargs-parser": "^14.0.0"
   },
   "devDependencies": {
