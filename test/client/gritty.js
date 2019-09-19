@@ -21,14 +21,13 @@ const focus = stub();
 const Terminal = stub().returns({
     open,
     focus,
-    fit: stub(),
-    on: stub(),
     writeln: stub(),
     setOption: stub(),
-    proposeGeometry: stub().returns({
-        cols: 80,
-        rows: 25,
-    }),
+    cols: 80,
+    rows: 25,
+    loadAddon: stub(),
+    onResize: stub(),
+    onData: stub(),
 });
 
 Terminal.applyAddon = stub();
@@ -65,7 +64,6 @@ test('gritty: Terminal: args', (t) => {
     const args = {
         scrollback: 1000,
         tabStopWidth: 4,
-        experimentalCharAtlas: 'dynamic',
         fontFamily: _defaultFontFamily,
     };
     
@@ -85,7 +83,6 @@ test('gritty: Terminal: args: fontFamily', (t) => {
     const args = {
         scrollback: 1000,
         tabStopWidth: 4,
-        experimentalCharAtlas: 'dynamic',
         fontFamily,
     };
     

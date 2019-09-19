@@ -1,8 +1,8 @@
 'use strict';
 
-require('xterm/dist/xterm.css');
+require('xterm/css/xterm.css');
 
-const fit = require('xterm/lib/addons/fit/fit');
+const {FitAddon} = require('xterm-addon-fit');
 const currify = require('currify');
 
 const getEl = require('./get-el');
@@ -43,11 +43,9 @@ function gritty(element, options = {}) {
         autoRestart,
         cwd,
     } = options;
+    
     const env = getEnv(options.env || {});
-    
     const socket = connect(prefix, socketPath);
-    
-    Terminal.applyAddon(fit);
     
     return createTerminal(el, {
         env,
@@ -60,25 +58,27 @@ function gritty(element, options = {}) {
 }
 
 function createTerminal(terminalContainer, {env, cwd, command, autoRestart, socket, fontFamily}) {
+    const fitAddon = new FitAddon();
     const terminal = new Terminal({
         scrollback: 1000,
         tabStopWidth: 4,
-        experimentalCharAtlas: 'dynamic',
         fontFamily,
     });
     
     terminal.open(terminalContainer);
     terminal.focus();
-    terminal.fit();
     
-    terminal.on('resize', onTermResize(socket));
-    terminal.on('data', onTermData(socket));
+    terminal.loadAddon(fitAddon);
+    fitAddon.fit();
     
-    window.addEventListener('resize', onWindowResize(terminal));
+    terminal.onResize(onTermResize(socket));
+    terminal.onData(onTermData(socket));
     
-    const {cols, rows} = terminal.proposeGeometry();
+    window.addEventListener('resize', onWindowResize(fitAddon));
     
-    socket.on('accept', onConnect(socket, terminal, {env, cwd, cols, rows, command, autoRestart}));
+    const {cols, rows} = terminal;
+    
+    socket.on('accept', onConnect(socket, fitAddon, {env, cwd, cols, rows, command, autoRestart}));
     socket.on('disconnect', onDisconnect(terminal));
     socket.on('data', onData(terminal));
     
@@ -88,10 +88,10 @@ function createTerminal(terminalContainer, {env, cwd, command, autoRestart, sock
     };
 }
 
-function _onConnect(socket, terminal, {env, cwd, cols, rows, command, autoRestart}) {
+function _onConnect(socket, fitAddon, {env, cwd, cols, rows, command, autoRestart}) {
     socket.emit('terminal', {env, cwd, cols, rows, command, autoRestart});
     socket.emit('resize', {cols, rows});
-    terminal.fit();
+    fitAddon.fit();
 }
 
 function _onDisconnect(terminal) {
@@ -110,8 +110,8 @@ function _onTermData(socket, data) {
     socket.emit('data', data);
 }
 
-function _onWindowResize(terminal) {
-    terminal.fit();
+function _onWindowResize(fitAddon) {
+    fitAddon.fit();
 }
 
 function connect(prefix, socketPath) {
