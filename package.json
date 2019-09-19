@@ -76,7 +76,7 @@
     "nodemon": "^1.11.0",
     "nyc": "^14.0.0",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
-    "putout": "^5.7.1",
+    "putout": "^6.1.0",
     "redrun": "^7.0.0",
     "request": "^2.81.0",
     "serve-once": "^1.2.1",
