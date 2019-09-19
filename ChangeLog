@@ -1,3 +1,11 @@
+2019.09.19, v4.8.2
+
+feature:
+- (package) xterm v4.0.1
+- (package) putout v6.1.0
+- (package) currify v4.0.0
+
+
 2019.09.09, v4.8.1
 
 feature:
