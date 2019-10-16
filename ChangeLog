@@ -1,3 +1,10 @@
+2019.10.16, v4.8.4
+
+feature:
+- (package) xterm v4.1.0
+- (package) yargs-parser v15.0.0
+
+
 2019.09.25, v4.8.3
 
 feature:
