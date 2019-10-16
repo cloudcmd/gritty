@@ -85,7 +85,7 @@
     "supertape": "^1.0.3",
     "webpack": "^4.0.1",
     "webpack-cli": "^3.0.1",
-    "xterm": "^4.0.2",
+    "xterm": "^4.1.0",
     "xterm-addon-fit": "^0.2.1"
   },
   "engines": {
