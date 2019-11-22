@@ -14,15 +14,8 @@
   "scripts": {
     "start": "madrun start",
     "start:dev": "madrun start:dev",
-    "lint:test": "madrun lint:test",
-    "lint:server": "madrun lint:server",
-    "lint:client": "madrun lint:client",
     "lint": "madrun lint",
-    "lint:putout": "madrun lint:putout",
     "fix:lint": "madrun fix:lint",
-    "coverage": "madrun coverage",
-    "test": "madrun test",
-    "report": "madrun report",
     "watch:test": "madrun watch:test",
     "watcher": "madrun watcher",
     "build-progress": "madrun build-progress",
@@ -37,7 +30,9 @@
     "build:client": "madrun build:client",
     "build:client:dev": "madrun build:client:dev",
     "watch:lint": "madrun watch:lint",
-    "watch:lint:client": "madrun watch:lint:client"
+    "report": "madrun report",
+    "coverage": "madrun coverage",
+    "test": "madrun test"
   },
   "keywords": [
     "console",
