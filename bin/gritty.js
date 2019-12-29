@@ -14,6 +14,7 @@ const args = require('yargs-parser')(process.argv.slice(2), {
     ],
     string: [
         'command',
+        'html-path',
     ],
     alias: {
         help: 'h',
@@ -42,6 +43,7 @@ function main() {
     start({
         port: args.port,
         command: args.command,
+        htmlPath: args.htmlPath,
         autoRestart: args.autoRestart,
     });
 }
@@ -58,12 +60,13 @@ function start(options) {
         port,
         command,
         autoRestart,
+        htmlPath,
     } = options;
     
     check(port);
     
-    const DIR = __dirname + '/../';
-    
+    const DIR = htmlPath || __dirname + '/../';
+    console.log(DIR);
     const gritty = require('../');
     const http = require('http');
     
