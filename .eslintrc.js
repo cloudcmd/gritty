@@ -23,4 +23,7 @@ module.exports = {
             browser: true,
         },
     }],
+    rules: {
+        'linebreak-style': ["error", "windows"],
+    }
 };
