@@ -20,6 +20,7 @@ Options:
   --command               command to run in terminal (shell by default)
   --auto-restart          restart command when on exit
   --no-auto-restart       do not restart command on exit
+  --html-path             set path to html used to show terminal
 ```
 
 ### Windows
@@ -36,6 +37,55 @@ npm i gritty -g
 ## Use as standalone
 
 Start `gritty`, and go to url `http://localhost:1337`
+
+## Customize the container of output
+
+![Gritty](https://raw.githubusercontent.com/cloudcmd/gritty/master/img/custom-html.png "Gritty with a html customized")
+
+Use the argument `html-path` to set the html path that will show the terminal:
+```bash
+gritty --html-path="/project/folder"
+```
+Could be used a html like that:
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My custom title</title>
+    <style>
+      html {
+        height: 100%;
+      }
+      body {
+        height: 100%;
+        padding: 0;
+        margin: 20px 40px 40px 40px;
+        background-color: #ccc;
+        overflow: hidden;
+      }
+      .gritty {
+        height: calc(100% - 80px);
+        border-radius: 20px;
+        background-color: #000;
+        overflow: hidden;
+      }
+      .terminal {
+        padding: 20px;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <span>My custom html!</span><br /><br />
+    <div class="gritty"></div>
+    <script src="/gritty/gritty.js"></script>
+    <script>
+      gritty(".gritty");
+    </script>
+  </body>
+</html>
+```
+
 
 ## API
 
