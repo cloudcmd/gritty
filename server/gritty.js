@@ -61,7 +61,7 @@ function _terminalFn(options, req, res, next) {
     next();
 }
 
-function _staticFn(options, req, res) { 
+function _staticFn(options, req, res) {
     const file = path.normalize(DIR_ROOT + req.url);
     res.sendFile(file);
 }
