@@ -1,3 +1,15 @@
+2019.12.30, v4.8.6
+
+feature:
+- (package) xterm v4.3.0 (https://github.com/xtermjs/xterm.js/releases/tag/4.3.0)
+- (package) eslint-plugin-node v11.0.0
+- (package) nyc v15.0.0
+- (package) nodemon v2.0.1
+- (package) madrun v5.0.0
+- (package) putout v7.0.2
+- (package) eslint-plugin-putout v3.0.0
+
+
 2019.10.27, v4.8.5
 
 feature:
