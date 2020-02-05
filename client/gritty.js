@@ -4,6 +4,7 @@ require('xterm/css/xterm.css');
 
 const {FitAddon} = require('xterm-addon-fit');
 const {WebglAddon} = require('xterm-addon-webgl');
+const {Unicode11Addon} = require('xterm-addon-unicode11');
 const currify = require('currify');
 
 const getEl = require('./get-el');
@@ -61,6 +62,7 @@ function gritty(element, options = {}) {
 function createTerminal(terminalContainer, {env, cwd, command, autoRestart, socket, fontFamily}) {
     const fitAddon = new FitAddon();
     const webglAddon = new WebglAddon();
+    const unicode11Addon = new Unicode11Addon();
     const terminal = new Terminal({
         scrollback: 1000,
         tabStopWidth: 4,
@@ -71,6 +73,10 @@ function createTerminal(terminalContainer, {env, cwd, command, autoRestart, sock
     terminal.focus();
     
     terminal.loadAddon(webglAddon);
+    console.log('-->', terminal.unicode.activeVersion);
+    terminal.loadAddon(unicode11Addon);
+    terminal.unicode.activeVersion = '11';
+    console.log('2-->', terminal.unicode.activeVersion);
     terminal.loadAddon(fitAddon);
     fitAddon.fit();
     
