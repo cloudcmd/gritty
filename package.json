@@ -72,7 +72,6 @@
     "nyc": "^15.0.0",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
     "putout": "^7.0.2",
-    "redrun": "^7.0.0",
     "request": "^2.81.0",
     "serve-once": "^1.2.1",
     "socket.io-client": "^2.0.1",
