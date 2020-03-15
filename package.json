@@ -73,7 +73,7 @@
     "optimize-css-assets-webpack-plugin": "^5.0.0",
     "putout": "^7.0.2",
     "request": "^2.81.0",
-    "serve-once": "^1.2.1",
+    "serve-once": "^2.0.0",
     "socket.io-client": "^2.0.1",
     "style-loader": "^1.0.0",
     "supertape": "^1.0.3",
