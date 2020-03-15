@@ -1,3 +1,11 @@
+2020.03.15, v4.8.9
+
+feature:
+- (package) xterm-addon-webgl v0.5.1
+- (package) yargs-parser v18.1.0
+- (package) serve-once v2.0.0
+
+
 2020.02.17, v4.8.8
 
 feature:
