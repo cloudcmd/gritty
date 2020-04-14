@@ -4,11 +4,8 @@ webpack.config.js
 client
 test
 yarn-error.log
-madrun.js
 
 img
 
 *.swp
-
-.madrun.js
 
