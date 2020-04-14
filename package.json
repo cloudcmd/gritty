@@ -80,7 +80,8 @@
     "webpack": "^4.0.1",
     "webpack-cli": "^3.0.1",
     "xterm": "^4.5.0",
-    "xterm-addon-fit": "^0.3.0"
+    "xterm-addon-fit": "^0.3.0",
+    "xterm-addon-webgl": "^0.6.0"
   },
   "engines": {
     "node": ">=8.3.0"
