@@ -1,3 +1,10 @@
+2020.04.14, v4.8.11
+
+feature:
+- (gritty) add webgl back
+- (package) xterm v4.5.0
+
+
 2020.03.24, v4.8.10
 
 fix:
