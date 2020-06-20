@@ -1,3 +1,10 @@
+2020.06.20, v4.8.13
+
+feature:
+- (package) xterm v4.7.0
+- (package) xterm-addon-webgl v0.8.0
+
+
 2020.05.31, v4.8.12
 
 feature:
