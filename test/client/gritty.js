@@ -47,7 +47,7 @@ const {
     _onTermData,
     _onWindowResize,
     _defaultFontFamily,
-} = require('../../client/gritty');
+} = gritty;
 
 test('gritty: Terminal: new', (t) => {
     before();
