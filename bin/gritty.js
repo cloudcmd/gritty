@@ -29,7 +29,7 @@ const getMessage = (a) => a.message;
 
 main(args);
 
-function main() {
+function main(args) {
     if (args.help)
         return help();
     
