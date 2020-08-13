@@ -56,7 +56,7 @@
     "squad": "^3.0.0",
     "string-to-argv": "^1.0.0",
     "wraptile": "^3.0.0",
-    "yargs-parser": "^18.1.0"
+    "yargs-parser": "^19.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
