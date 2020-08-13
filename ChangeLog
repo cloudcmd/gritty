@@ -1,3 +1,10 @@
+2020.08.13, v4.8.15
+
+feature:
+- (package) css-loader v4.2.1
+- (package) yargs-parser v19.0.1
+
+
 2020.07.23, v4.8.14
 
 feature:
