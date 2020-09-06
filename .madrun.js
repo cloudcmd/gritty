@@ -5,7 +5,7 @@ const {run} = require('madrun');
 module.exports = {
     'start': () => 'node bin/gritty',
     'start:dev': () => 'NODE_ENV=development npm start',
-    'lint': () => 'putout bin test .madrun.js client server -f progress --cache',
+    'lint': () => 'putout bin test .madrun.js client server --cache',
     'fix:lint': () => run('lint', '--fix'),
     'watch:test': () => run('watcher', 'npm test'),
     'watcher': () => 'nodemon -w test -w client -w server --exec',
