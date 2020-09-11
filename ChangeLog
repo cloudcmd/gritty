@@ -1,3 +1,10 @@
+2020.09.11, v5.0.0
+
+feature:
+- (gritty) drop support of node < 12
+- (package) yargs-parser v20.0.0
+
+
 2020.09.09, v4.8.16
 
 feature:
