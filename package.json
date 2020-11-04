@@ -78,7 +78,7 @@
     "nodemon": "^2.0.1",
     "nyc": "^15.0.0",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
-    "putout": "^10.0.3",
+    "putout": "^11.0.4",
     "request": "^2.81.0",
     "serve-once": "^2.0.0",
     "socket.io-client": "^2.0.1",
