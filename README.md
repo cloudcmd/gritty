@@ -71,7 +71,7 @@ const auth = (accept, reject) => (username, password) => {
 gritty.listen(socket, {
     prefix,
     auth, // optional
-})
+});
 ```
 
 #### gritty(options)
@@ -109,12 +109,12 @@ const socket = io.listen(server);
 const port = 1337;
 const ip = '0.0.0.0';
 
-app.use(gritty())
+app.use(gritty());
 app.use(express.static(__dirname));
 
 gritty.listen(socket, {
-    command: 'mc',      // optional
-    autoRestart: true,  // default
+    command: 'mc', // optional
+    autoRestart: true, // default
 });
 
 server.listen(port, ip);
@@ -125,7 +125,7 @@ If you want dinamically change `env` variables, you can use [socket.request](htt
 ```js
 socket.use((socket, next) => {
     socket.request.env = {
-        HELLO: 'world'
+        HELLO: 'world',
     };
     
     next();
@@ -161,19 +161,24 @@ socket.use((socket, next) => {
 
 MIT
 
-[NPMIMGURL]:                https://img.shields.io/npm/v/gritty.svg?style=flat&longCache=true
+[NPMIMGURL]: https://img.shields.io/npm/v/gritty.svg?style=flat&longCache=true
 
-[BuildStatusIMGURL]:        https://img.shields.io/travis/cloudcmd/gritty/master.svg?style=flat&longCache=true
+[BuildStatusIMGURL]: https://img.shields.io/travis/cloudcmd/gritty/master.svg?style=flat&longCache=true
 
-[DependencyStatusIMGURL]:   https://img.shields.io/david/cloudcmd/gritty.svg?style=flat&longCache=true
+[DependencyStatusIMGURL]: https://img.shields.io/david/cloudcmd/gritty.svg?style=flat&longCache=true
 
-[LicenseIMGURL]:            https://img.shields.io/badge/license-MIT-317BF9.svg?style=flat&longCache=true
+[LicenseIMGURL]: https://img.shields.io/badge/license-MIT-317BF9.svg?style=flat&longCache=true
 
-[NPM_INFO_IMG]:             https://nodei.co/npm/cloudcmd.png
-[NPMURL]:                   https://npmjs.org/package/cloudcmd "npm"
-[BuildStatusURL]:           https://travis-ci.org/cloudcmd/gritty  "Build Status"
-[DependencyStatusURL]:      https://david-dm.org/cloudcmd/gritty "Dependency Status"
-[LicenseURL]:               https://tldrlegal.com/license/mit-license "MIT License"
-[CoverageURL]:              https://coveralls.io/github/cloudcmd/gritty?branch=master
-[CoverageIMGURL]:           https://coveralls.io/repos/cloudcmd/gritty/badge.svg?branch=master&service=github
+[NPM_INFO_IMG]: https://nodei.co/npm/cloudcmd.png
 
+[NPMURL]: https://npmjs.org/package/cloudcmd "npm"
+
+[BuildStatusURL]: https://travis-ci.org/cloudcmd/gritty "Build Status"
+
+[DependencyStatusURL]: https://david-dm.org/cloudcmd/gritty "Dependency Status"
+
+[LicenseURL]: https://tldrlegal.com/license/mit-license "MIT License"
+
+[CoverageURL]: https://coveralls.io/github/cloudcmd/gritty?branch=master
+
+[CoverageIMGURL]: https://coveralls.io/repos/cloudcmd/gritty/badge.svg?branch=master&service=github
