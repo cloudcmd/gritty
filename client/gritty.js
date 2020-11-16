@@ -18,7 +18,7 @@ const onTermResize = currify(_onTermResize);
 const onTermData = currify(_onTermData);
 const onWindowResize = wrap(_onWindowResize);
 
-const io = require('socket.io-client/dist/socket.io');
+const {io} = require('socket.io-client');
 
 const {Terminal} = require('xterm');
 
