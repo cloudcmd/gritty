@@ -1,3 +1,20 @@
+2020.11.16, v6.0.0
+
+feature:
+- (gritty) client: dist -> destructuring
+- (gritty) drop support of socket.request.env
+- (package) socket.io-client v3.0.1
+- (package) socket.io v3.0.1
+- (package) eslint-plugin-putout v6.0.1
+- (package) putout v11.0.4
+- (webpack) v5
+- (package) webpack v5.1.3
+- (package) css-loader v5.0.0
+- (package) webpack-cli v4.0.0
+- (package) style-loader v2.0.0
+- (package) putout v10.0.3
+
+
 2020.09.11, v5.0.0
 
 feature:
