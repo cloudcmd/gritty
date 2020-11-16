@@ -2,9 +2,7 @@
 
 const path = require('path');
 
-const webpack = require('webpack');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const {optimize} = webpack;
 const dir = './client';
 
 const {env} = process;
@@ -31,8 +29,8 @@ const rules = clean([
             'style-loader',
             'css-loader',
             'clean-css-loader',
-        ]
-    }
+        ],
+    },
 ]);
 
 module.exports = {
@@ -52,8 +50,8 @@ module.exports = {
         rules,
     },
     performance: {
-        maxEntrypointSize: 500000,
-        maxAssetSize: 500000
+        maxEntrypointSize: 500_000,
+        maxAssetSize: 500_000,
     },
 };
 

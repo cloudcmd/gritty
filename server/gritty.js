@@ -142,18 +142,17 @@ function connection(options, socket) {
     
     function onTerminal(params) {
         params = params || {};
-        const {env} = params;
+        const {
+            env,
+            rows,
+            cols,
+            cwd,
+        } = params;
         
         const command = params.command || options.command || CMD;
         const autoRestart = choose(params.autoRestart, options.autoRestart, {
             default: true,
         });
-        
-        const {
-            rows,
-            cols,
-            cwd,
-        } = params;
         
         term = createTerminal({
             command,

@@ -1,6 +1,6 @@
 'use strict';
 
-const {on, once} = require('events');
+const {once} = require('events');
 
 const test = require('supertape');
 const currify = require('currify');
