@@ -142,11 +142,7 @@ function connection(options, socket) {
     
     function onTerminal(params) {
         params = params || {};
-        
-        const env = {
-            ...params.env,
-            ...socket.request.env,
-        };
+        const {env} = params;
         
         const command = params.command || options.command || CMD;
         const autoRestart = choose(params.autoRestart, options.autoRestart, {

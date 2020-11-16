@@ -22,7 +22,7 @@ function before(options, fn = options) {
     
     app.use(gritty());
     
-    const socket = io.listen(server);
+    const socket = io(server);
     
     gritty.listen(socket, options);
     

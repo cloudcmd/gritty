@@ -79,7 +79,7 @@ function start(options) {
     app.use(gritty())
         .use(express.static(DIR));
     
-    const socket = io.listen(server);
+    const socket = io(server);
     
     gritty.listen(socket, {
         command,

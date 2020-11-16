@@ -120,18 +120,6 @@ gritty.listen(socket, {
 server.listen(port, ip);
 ```
 
-If you want dinamically change `env` variables, you can use [socket.request](https://socket.io/docs/server-api/#socket-request) for this purpose:
-
-```js
-socket.use((socket, next) => {
-    socket.request.env = {
-        HELLO: 'world',
-    };
-    
-    next();
-});
-```
-
 ```html
 <!-- index.html -->
 

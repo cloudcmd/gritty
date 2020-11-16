@@ -226,59 +226,6 @@ test('gritty: server: platform', (t) => {
     t.end();
 });
 
-test('gritty: server: socket: test env', async (t) => {
-    const {
-        port,
-        done,
-        socket,
-    } = await connect();
-    
-    const clientIo = io(`http://localhost:${port}/gritty`);
-    
-    socket.use((socket, next) => {
-        socket.request.env = {
-            NODE_VAR: 'HELLO',
-        };
-        
-        next();
-    });
-    
-    await once(clientIo, 'connect');
-    
-    clientIo.emit('terminal');
-    clientIo.emit('data', 'echo _env_"$NODE_VAR"_env_');
-    clientIo.emit('data', String.fromCharCode(13));
-    
-    for await (const [data] of on(clientIo, 'data')) {
-        const result = /\r?\n(_env_HELLO_env_)\r?\n/.exec(data);
-        const noEnvResult = /\r?\n(_env__env_)\r?\n/.exec(data);
-        
-        if (!result && !noEnvResult)
-            continue;
-        
-        const [, env] = result || [];
-        const [, noEnv] = noEnvResult || [];
-        
-        if (env === '_env_HELLO_env_') {
-            clientIo.close();
-            done();
-            
-            t.pass('set socket.request.env');
-            break;
-        }
-        
-        if (noEnv === '_env__env_') {
-            clientIo.close();
-            done();
-            
-            t.fail('set socket.request.env');
-            break;
-        }
-    }
-    
-    t.end();
-});
-
 test('gritty: server: socket: authCheck', async (t) => {
     const auth = (connect, reject) => ({username, password}) => {
         if (username !== 'hello' || password !== 'world')
