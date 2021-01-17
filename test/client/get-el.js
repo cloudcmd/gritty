@@ -20,7 +20,7 @@ test('gritty: get-el: string', (t) => {
     
     getEl(el);
     
-    t.ok(querySelector.calledWith(el), 'should call querySelector');
+    t.calledWith(querySelector, [el], 'should call querySelector');
     
     delete global.document;
     

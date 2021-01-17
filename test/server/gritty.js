@@ -1,5 +1,7 @@
 'use strict';
 
+const tryCatch = require('try-catch');
+
 const {once} = require('events');
 
 const test = require('supertape');
@@ -17,7 +19,8 @@ const {request} = serveOnce(gritty);
 const {connect} = require('../before');
 
 test('gritty: listen: args: no', (t) => {
-    t.throws(gritty.listen, /socket could not be empty!/, 'should throw when no args');
+    const [error] = tryCatch(gritty.listen);
+    t.equal(error.message, 'socket could not be empty!', 'should throw when no args');
     t.end();
 });
 
@@ -29,11 +32,11 @@ test('gritty: listen: args: auth', (t) => {
     socket.on = on;
     socket.of = of;
     
-    const fn = () => gritty.listen(socket, {
+    const [error] = tryCatch(gritty.listen, socket, {
         auth: 'hello',
     });
     
-    t.throws(fn, /options.auth should be a function!/, 'should throw when no args');
+    t.equal(error.message, 'options.auth should be a function!', 'should throw when no args');
     t.end();
 });
 
@@ -205,6 +208,29 @@ test('gritty: server: socket: auth', async (t) => {
     done();
     
     t.pass('should emit accepet');
+    t.end();
+});
+
+test('gritty: server: socket: auth: reject', async (t) => {
+    const auth = currify((accept, reject, username, password) => {
+        if (username !== 'hello' || password !== 'world')
+            return reject();
+        
+        accept();
+    });
+    
+    const {port, done} = await connect({auth});
+    const socket = io(`http://localhost:${port}/gritty`);
+    
+    await once(socket, 'connect');
+    
+    socket.emit('auth', 'hello', 'hello');
+    
+    await once(socket, 'reject');
+    socket.close();
+    done();
+    
+    t.pass('should emit reject');
     t.end();
 });
 

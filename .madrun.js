@@ -22,7 +22,9 @@ module.exports = {
     'build:client:dev': () => run('6to5:client:dev'),
     'watch:lint': () => `nodemon -w client -w server -w webpack.config.js -x ${run('lint')}`,
     'report': () => 'nyc report --reporter=text-lcov | coveralls',
-    'coverage': () => 'nyc npm test',
+    'coverage': () => ['nyc npm test', {
+        SUPERTAPE_TIMEOUT: 5000,
+    }],
     'test': () => `tape 'test/**/*.js'`,
 };
 

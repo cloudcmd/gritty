@@ -6,12 +6,6 @@
   "bin": {
     "gritty": "bin/gritty.js"
   },
-  "nyc": {
-    "exclude": [
-      ".madrun.js",
-      "test"
-    ]
-  },
   "main": "server/gritty.js",
   "repository": {
     "type": "git",

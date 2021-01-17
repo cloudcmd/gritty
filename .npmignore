@@ -4,6 +4,7 @@ webpack.config.js
 client
 test
 yarn-error.log
+coverage
 
 img
 

@@ -69,7 +69,7 @@ test('gritty: Terminal: args', (t) => {
     
     gritty();
     
-    t.ok(Terminal.calledWith(args), 'should have been called with args');
+    t.calledWith(Terminal, [args], 'should have been called with args');
     
     after();
     t.end();
@@ -90,7 +90,7 @@ test('gritty: Terminal: args: fontFamily', (t) => {
         fontFamily,
     });
     
-    t.ok(Terminal.calledWith(args), 'should have been called with args');
+    t.calledWith(Terminal, [args], 'should have been called with args');
     
     after();
     t.end();
@@ -102,7 +102,7 @@ test('gritty: Terminal: open', (t) => {
     before();
     
     gritty(el);
-    t.ok(open.calledWith(el), 'should have been called');
+    t.calledWith(open, [el], 'should have been called');
     after();
     
     t.end();
@@ -135,7 +135,7 @@ test('gritty: onConnect: socket: resize', (t) => {
     
     _onConnect(socket, {fit}, options);
     
-    t.ok(emit.calledWith('resize', options), 'should call emit');
+    t.calledWith(emit, ['resize', options], 'should call emit');
     t.end();
 });
 
@@ -163,7 +163,7 @@ test('gritty: onConnect: socket: terminal', (t) => {
     
     _onConnect(socket, {fit}, options);
     
-    t.ok(emit.calledWith('terminal', options), 'should call emit');
+    t.calledWith(emit, ['terminal', options], 'should call emit');
     t.end();
 });
 
@@ -173,7 +173,7 @@ test('gritty: onDisconnect: terminal', (t) => {
     const msg = 'terminal disconnected...';
     
     _onDisconnect({writeln});
-    t.ok(writeln.calledWith(msg), 'should call terminal.writeln');
+    t.calledWith(writeln, [msg], 'should call terminal.writeln');
     t.end();
 });
 
@@ -183,7 +183,7 @@ test('gritty: onData: terminal', (t) => {
     const data = 'hello';
     
     _onData({write}, data);
-    t.ok(write.calledWith(data), 'should call terminal.write');
+    t.calledWith(write, [data], 'should call terminal.write');
     t.end();
 });
 
@@ -196,7 +196,7 @@ test('gritty: onTermResize: socket', (t) => {
     };
     
     _onTermResize({emit}, size);
-    t.ok(emit.calledWith('resize', size), 'should call socket.emit');
+    t.calledWith(emit, ['resize', size], 'should call socket.emit');
     t.end();
 });
 
@@ -206,7 +206,7 @@ test('gritty: onTermData: socket', (t) => {
     const data = 'hello';
     
     _onTermData({emit}, data);
-    t.ok(emit.calledWith('data', data), 'should call socket.emit');
+    t.calledWith(emit, ['data', data], 'should call socket.emit');
     t.end();
 });
 
