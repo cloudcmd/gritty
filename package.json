@@ -58,7 +58,7 @@
     "@cloudcmd/stub": "^3.0.0",
     "@iocmd/wait": "^1.0.0",
     "babel-loader": "^8.0.0",
-    "clean-css-loader": "^2.0.0",
+    "clean-css-loader": "^3.0.0",
     "coveralls": "^3.0.0",
     "css-loader": "^5.0.0",
     "css-modules-require-hook": "^4.0.6",
