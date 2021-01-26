@@ -1,17 +1,17 @@
-'use strict';
+import {run} from 'madrun';
 
-const {run} = require('madrun');
-
-module.exports = {
+export default {
     'start': () => 'node bin/gritty',
     'start:dev': () => 'NODE_ENV=development npm start',
-    'lint': () => 'putout bin test *.js *.json *.md client server',
+    'lint': () => 'putout .',
+    'fresh:lint': () => run('lint', '--fresh'),
+    'lint:fresh': () => run('lint', '--fresh'),
     'fix:lint': () => run('lint', '--fix'),
     'watch:test': () => run('watcher', 'npm test'),
     'watcher': () => 'nodemon -w test -w client -w server --exec',
     'build-progress': () => 'webpack --progress',
     '6to5:client': () => run('build-progress', '--mode production'),
-    '6to5:client:dev': () => `NODE_ENV=development ${run('build-progress', '--mode development')}`,
+    '6to5:client:dev': async () => `NODE_ENV=development ${await run('build-progress', '--mode development')}`,
     'watch:client': () => run('6to5:client', '--watch'),
     'watch:client:dev': () => run('6to5:client:dev', '--watch'),
     'wisdom': () => run('build'),
@@ -20,11 +20,13 @@ module.exports = {
     'build:start:dev': () => run(['build:client:dev', 'start:dev']),
     'build:client': () => run('6to5:client'),
     'build:client:dev': () => run('6to5:client:dev'),
-    'watch:lint': () => `nodemon -w client -w server -w webpack.config.js -x ${run('lint')}`,
+    'watch:lint': async () => `nodemon -w client -w server -w webpack.config.js -x ${await run('lint')}`,
     'report': () => 'nyc report --reporter=text-lcov | coveralls',
+    
     'coverage': () => ['nyc npm test', {
         SUPERTAPE_TIMEOUT: 5000,
     }],
+    
     'test': () => `tape 'test/**/*.js'`,
 };
 
