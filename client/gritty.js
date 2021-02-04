@@ -5,6 +5,7 @@ require('xterm/css/xterm.css');
 const {FitAddon} = require('xterm-addon-fit');
 const {WebglAddon} = require('xterm-addon-webgl');
 const currify = require('currify');
+const tryCatch = require('try-catch');
 
 const getEl = require('./get-el');
 const getHost = require('./get-host');
@@ -114,7 +115,10 @@ function _onTermData(socket, data) {
 }
 
 function _onWindowResize(fitAddon) {
-    fitAddon.fit();
+    // Uncaught Error: This API only accepts integers
+    // when gritty mimized
+    const fit = fitAddon.fit.bind(fitAddon);
+    tryCatch(fit);
 }
 
 function connect(prefix, socketPath) {
