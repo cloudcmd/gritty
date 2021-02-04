@@ -1,5 +1,7 @@
 'use strict';
 
+global.self = {};
+
 const test = require('supertape');
 const stub = require('@cloudcmd/stub');
 

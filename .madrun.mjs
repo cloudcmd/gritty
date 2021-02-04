@@ -1,5 +1,7 @@
 import {run} from 'madrun';
 
+const SUPERTAPE_TIMEOUT = 10000;
+
 export default {
     'start': () => 'node bin/gritty',
     'start:dev': () => 'NODE_ENV=development npm start',
@@ -24,9 +26,11 @@ export default {
     'report': () => 'nyc report --reporter=text-lcov | coveralls',
     
     'coverage': () => ['nyc npm test', {
-        SUPERTAPE_TIMEOUT: 5000,
+        SUPERTAPE_TIMEOUT,
     }],
     
-    'test': () => `tape 'test/**/*.js'`,
+    'test': () => [`tape 'test/**/*.js'`, {
+        SUPERTAPE_TIMEOUT,
+    }]
 };
 
