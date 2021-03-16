@@ -1,3 +1,14 @@
+2021.03.16, v6.0.3
+
+feature:
+- (package) socket.io-client v4.0.0
+- (package) socket.io v4.0.0
+- (package) supertape v5.1.0
+- (package) putout v15.7.2
+- (package) xerm v4.11.0
+- (package) xterm-addon-webgl v0.10.0
+
+
 2021.02.04, v6.0.2
 
 fix:
