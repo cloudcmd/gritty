@@ -1,6 +1,6 @@
 import {run} from 'madrun';
 
-const SUPERTAPE_TIMEOUT = 10000;
+const SUPERTAPE_TIMEOUT = 10_000;
 
 export default {
     'start': () => 'node bin/gritty',
@@ -23,7 +23,7 @@ export default {
     'build:client': () => run('6to5:client'),
     'build:client:dev': () => run('6to5:client:dev'),
     'watch:lint': async () => `nodemon -w client -w server -w webpack.config.js -x ${await run('lint')}`,
-    'report': () => 'nyc report --reporter=text-lcov | coveralls',
+    'report': () => 'c8 report --reporter=lcov',
     
     'coverage': () => ['nyc npm test', {
         SUPERTAPE_TIMEOUT,
@@ -31,6 +31,6 @@ export default {
     
     'test': () => [`tape 'test/**/*.js'`, {
         SUPERTAPE_TIMEOUT,
-    }]
+    }],
 };
 
