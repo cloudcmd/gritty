@@ -1,4 +1,4 @@
-import {run} from 'madrun';
+import {run, cutEnv} from 'madrun';
 
 const SUPERTAPE_TIMEOUT = 10_000;
 
@@ -25,7 +25,7 @@ export default {
     'watch:lint': async () => `nodemon -w client -w server -w webpack.config.js -x ${await run('lint')}`,
     'report': () => 'c8 report --reporter=lcov',
     
-    'coverage': () => ['nyc npm test', {
+    'coverage': async () => [`c8 ${await cutEnv('test')}`, {
         SUPERTAPE_TIMEOUT,
     }],
     
