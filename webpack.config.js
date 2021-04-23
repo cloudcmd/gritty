@@ -2,7 +2,7 @@
 
 const path = require('path');
 
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const dir = './client';
 
 const {env} = process;
@@ -13,10 +13,6 @@ const distDev = path.resolve(__dirname, 'dist-dev');
 const devtool = isDev ? 'eval' : 'source-map';
 const notEmpty = (a) => a;
 const clean = (array) => array.filter(notEmpty);
-
-const plugins = clean([
-    !isDev && new OptimizeCssAssetsPlugin({}),
-]);
 
 const rules = clean([
     !isDev && {
@@ -35,7 +31,6 @@ const rules = clean([
 
 module.exports = {
     devtool,
-    plugins,
     entry: {
         gritty: `${dir}/gritty.js`,
     },
@@ -52,6 +47,12 @@ module.exports = {
     performance: {
         maxEntrypointSize: 500_000,
         maxAssetSize: 500_000,
+    },
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new CssMinimizerPlugin(),
+        ],
     },
 };
 
