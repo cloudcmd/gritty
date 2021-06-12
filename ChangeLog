@@ -1,3 +1,14 @@
+2021.06.12, v6.0.4
+
+feature:
+- (package) xterm-addon-webgl v0.11.1
+- (package) putout v18.0.2
+- (package) xterm v4.13.0
+- (package) es6-promisify v7.0.0
+- (gritty) optimize-css-assets-webpack-plugin -> css-minimizer-webpack-plugin
+- (package) putout v16.10.1
+
+
 2021.03.16, v6.0.3
 
 feature:
