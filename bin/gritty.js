@@ -2,6 +2,16 @@
 
 'use strict';
 
+/**
+ * @typedef {{
+ *     "auto-restart": true,
+ *     "port": 8081,
+ *     "command": "bash"
+ * }} Config
+ */
+
+const fs = require('fs');
+
 const args = require('yargs-parser')(process.argv.slice(2), {
     boolean: [
         'version',
@@ -14,6 +24,7 @@ const args = require('yargs-parser')(process.argv.slice(2), {
     ],
     string: [
         'command',
+        'config-path'
     ],
     alias: {
         help: 'h',
@@ -39,11 +50,33 @@ function main(args) {
     if (args.path)
         return path();
     
-    start({
-        port: args.port,
-        command: args.command,
-        autoRestart: args.autoRestart,
-    });
+
+    if (args.configPath) {
+        /**
+         * @type {Config}
+         */
+        let config = null;
+
+        try {
+            config = loadConfigFile(args.configPath);
+        } catch (e) {
+            console.log(e);
+            console.log('exit');
+            return;
+        }
+
+        start({
+            port: config.port,
+            command: config.command,
+            autoRestart: config.autoRestart,
+        });
+    } else {
+        start({
+            port: args.port,
+            command: args.command,
+            autoRestart: args.autoRestart,
+        });
+    }
 }
 
 function path() {
@@ -117,5 +150,30 @@ function check(port) {
 function exit(msg) {
     console.error(msg);
     process.exit(-1);
+}
+
+/**
+ * @param path {string} config path
+ * @returns {}
+ */
+function loadConfigFile(path) {
+    /**
+     * @type {Config}
+     */
+    let config = null;
+
+    try {
+        let fileContent = fs.readFileSync(path, {
+            encoding: 'utf-8',
+            flag: 'r'
+        });
+
+        config = JSON.parse(fileContent);
+    } catch (e) {
+        console.log(e);
+        throw new Error('Cannot parse config file.');
+    }
+
+    return config;
 }
 

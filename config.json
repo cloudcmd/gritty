@@ -1,0 +1,5 @@
+{
+    "auto-restart": true,
+    "port": 1337,
+    "command": "bash"
+}
