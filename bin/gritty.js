@@ -4,9 +4,9 @@
 
 /**
  * @typedef {{
- *     "auto-restart": true,
- *     "port": 8081,
- *     "command": "bash"
+ *     "auto-restart": string,
+ *     "port": number,
+ *     "command": string
  * }} Config
  */
 
