@@ -4,9 +4,17 @@
 
 /**
  * @typedef {{
+ *     "name": string,
+ *     "format": string,
+*      "path": string
+ * }} FontData
+ * 
+ * @typedef {{
  *     "auto-restart": string,
  *     "port": number,
- *     "command": string
+ *     "command": string,
+ *     "font-family": string,
+ *     "external-fonts": FontData[]
  * }} Config
  */
 
@@ -64,11 +72,18 @@ function main(args) {
             console.log('exit');
             return;
         }
+        
+        if (config['external-fonts'].length > 0) {
+            generateExternalFontStylesheet(config['external-fonts']);
+        }
+
+        console.log(config);
 
         start({
             port: config.port,
             command: config.command,
-            autoRestart: config.autoRestart,
+            autoRestart: config['auto-restart'],
+            fontFamily: config['font-family']
         });
     } else {
         start({
@@ -91,6 +106,7 @@ function start(options) {
         port,
         command,
         autoRestart,
+        fontFamily
     } = options;
     
     check(port);
@@ -117,6 +133,7 @@ function start(options) {
     gritty.listen(socket, {
         command,
         autoRestart,
+        fontFamily
     });
     
     server.listen(port, ip)
@@ -175,5 +192,50 @@ function loadConfigFile(path) {
     }
 
     return config;
+}
+
+/**
+ * 
+ * @param {FontData[]} fontDataList 
+ */
+function generateExternalFontStylesheet(fontDataList) {
+    const path = require('path');
+    const cssDir = path.resolve('./css');
+    const fontsDir = path.resolve('./fonts');
+    const fileName = 'external-font.css';
+
+    let getFontFaceStatement = (name, path, format) => {
+        return (
+            `@font-face {\n` +
+            `   font-family: '${name}';\n` + 
+            `   src: url('${path}') format('${format}');\n` + 
+            `}\n\n`);
+    };
+
+    if (fs.existsSync(cssDir) && fs.lstatSync(cssDir).isDirectory()) {
+        if (fs.existsSync(fontsDir)) {
+            if (!fs.lstatSync(fontsDir).isDirectory()) {
+                throw new Error('Cannot copy font file.');
+            }
+        } else {
+            fs.mkdirSync(fontsDir);
+        }
+
+        let content = '';
+
+        for (let data of fontDataList) {
+            let resolvedPath = path.join(data.path);
+            if (fs.existsSync(resolvedPath)) {
+                fs.copyFileSync(resolvedPath, path.join(fontsDir, path.basename(resolvedPath)), )
+                content += getFontFaceStatement(data.name, `../fonts/${path.basename(resolvedPath)}`, data.format);
+                fs.writeFileSync(path.resolve('./', cssDir, fileName), content);
+            } else {
+                console.warn(`Warning: Cannot found font file: ${resolvedPath}`);
+            }
+        }
+    } else {
+        throw new Error('Cannot make "external-font.css".');
+    }
+
 }
 

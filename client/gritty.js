@@ -66,12 +66,13 @@ function createTerminal(terminalContainer, {env, cwd, command, autoRestart, sock
         scrollback: 1000,
         tabStopWidth: 4,
         fontFamily,
+        rendererType: 'dom'
     });
     
     terminal.open(terminalContainer);
     terminal.focus();
     
-    terminal.loadAddon(webglAddon);
+    //terminal.loadAddon(webglAddon);
     terminal.loadAddon(fitAddon);
     fitAddon.fit();
     
@@ -85,6 +86,9 @@ function createTerminal(terminalContainer, {env, cwd, command, autoRestart, sock
     socket.on('accept', onConnect(socket, fitAddon, {env, cwd, cols, rows, command, autoRestart}));
     socket.on('disconnect', onDisconnect(terminal));
     socket.on('data', onData(terminal));
+    socket.on('set-font', data => {
+        terminal.setOption('fontFamily', data.fontFamily);
+    });
     
     return {
         socket,
@@ -95,6 +99,7 @@ function createTerminal(terminalContainer, {env, cwd, command, autoRestart, sock
 function _onConnect(socket, fitAddon, {env, cwd, cols, rows, command, autoRestart}) {
     socket.emit('terminal', {env, cwd, cols, rows, command, autoRestart});
     socket.emit('resize', {cols, rows});
+    socket.emit('test', 'testc');
     fitAddon.fit();
 }
 

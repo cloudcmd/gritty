@@ -194,6 +194,10 @@ function connection(options, socket) {
         socket.on('data', onData);
         socket.on('resize', onResize);
         socket.on('disconnect', onDisconnect);
+
+        if (options.fontFamily) {
+            socket.emit('set-font', { fontFamily: options.fontFamily });
+        }
     }
 }
 
