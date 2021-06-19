@@ -74,7 +74,7 @@ function createTerminal({command, env, cwd, cols, rows}) {
         name: 'xterm-color',
         cols,
         rows,
-        cwd,
+        cwd: process.env['HOME'],
         env: {
             ...process.env,
             ...env,
