@@ -38,7 +38,7 @@ function gritty(element, options = {}) {
     const el = getEl(element);
     
     const {
-        socketPath = '',
+        socketPath = location.pathname,
         fontFamily = defaultFontFamily,
         prefix = '/gritty',
         command,
@@ -134,7 +134,7 @@ function connect(prefix, socketPath) {
     const href = getHost();
     const FIVE_SECONDS = 5000;
     
-    const path = socketPath + '/socket.io';
+    const path = socketPath + 'socket.io';
     const socket = io.connect(href + prefix, {
         'max reconnection attempts': 2 ** 32,
         'reconnection limit': FIVE_SECONDS,

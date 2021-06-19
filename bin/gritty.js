@@ -131,7 +131,9 @@ function start(options) {
     app.use(`${basePath}`, gritty())
         .use(`${basePath}`, express.static(DIR));
     
-    const socket = io(server);
+    const socket = io(server, {
+        path: `${basePath}/socket.io`
+    });
     
     gritty.listen(socket, {
         command,
