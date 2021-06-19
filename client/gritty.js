@@ -78,6 +78,9 @@ function createTerminal(terminalContainer, {env, cwd, command, autoRestart, sock
     
     terminal.onResize(onTermResize(socket));
     terminal.onData(onTermData(socket));
+    terminal.onRender((a, b) => {
+        terminal._addonManager._addons[0].instance.fit();
+    });
     
     window.addEventListener('resize', onWindowResize(fitAddon));
     
@@ -89,6 +92,8 @@ function createTerminal(terminalContainer, {env, cwd, command, autoRestart, sock
     socket.on('set-font', data => {
         terminal.setOption('fontFamily', data.fontFamily);
     });
+
+    window.t = terminal;
     
     return {
         socket,
@@ -99,7 +104,6 @@ function createTerminal(terminalContainer, {env, cwd, command, autoRestart, sock
 function _onConnect(socket, fitAddon, {env, cwd, cols, rows, command, autoRestart}) {
     socket.emit('terminal', {env, cwd, cols, rows, command, autoRestart});
     socket.emit('resize', {cols, rows});
-    socket.emit('test', 'testc');
     fitAddon.fit();
 }
 
