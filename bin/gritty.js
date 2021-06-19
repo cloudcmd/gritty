@@ -143,7 +143,7 @@ function start(options) {
     server.listen(port, ip)
         .on('error', squad(exit, getMessage));
     
-    console.log(`url: http://localhost:${port}`);
+    console.log(`url: http://localhost:${port}/${basePath}`);
 }
 
 function help() {
