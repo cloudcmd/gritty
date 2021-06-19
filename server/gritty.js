@@ -74,7 +74,7 @@ function createTerminal({command, env, cwd, cols, rows}) {
         name: 'xterm-color',
         cols,
         rows,
-        cwd,
+        cwd: process.env['HOME'],
         env: {
             ...process.env,
             ...env,
@@ -194,6 +194,10 @@ function connection(options, socket) {
         socket.on('data', onData);
         socket.on('resize', onResize);
         socket.on('disconnect', onDisconnect);
+
+        if (options.fontFamily) {
+            socket.emit('set-font', { fontFamily: options.fontFamily });
+        }
     }
 }
 

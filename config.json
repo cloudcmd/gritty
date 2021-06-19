@@ -1,0 +1,14 @@
+{
+    "auto-restart": true,
+    "port": 8082,
+    "command": "zsh",
+    "base-path": "/base-path",
+    "font-family": "Hack",
+    "external-fonts": [
+        {
+            "name": "Hack",
+            "format": "truetype",
+            "path": "/some/path/Hack/Hack-Regular.ttf"
+        }
+    ]
+}
