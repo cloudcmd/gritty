@@ -13,6 +13,7 @@
  *     "auto-restart": string,
  *     "port": number,
  *     "command": string,
+ *     "base-path": string,
  *     "font-family": string,
  *     "external-fonts": FontData[]
  * }} Config
@@ -82,6 +83,7 @@ function main(args) {
         start({
             port: config.port,
             command: config.command,
+            basePath: config['base-path'],
             autoRestart: config['auto-restart'],
             fontFamily: config['font-family']
         });
@@ -105,6 +107,7 @@ function start(options) {
     const {
         port,
         command,
+        basePath,
         autoRestart,
         fontFamily
     } = options;
@@ -125,13 +128,14 @@ function start(options) {
     const ip = process.env.IP || /* c9 */
               '0.0.0.0';
     
-    app.use(gritty())
-        .use(express.static(DIR));
+    app.use(`${basePath}`, gritty())
+        .use(`${basePath}`, express.static(DIR));
     
     const socket = io(server);
     
     gritty.listen(socket, {
         command,
+        basePath,
         autoRestart,
         fontFamily
     });

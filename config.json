@@ -1,7 +1,8 @@
 {
     "auto-restart": true,
-    "port": 1337,
+    "port": 8082,
     "command": "zsh",
+    "base-path": "/base-path",
     "font-family": "Hack",
     "external-fonts": [
         {
