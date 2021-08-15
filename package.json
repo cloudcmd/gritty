@@ -64,7 +64,7 @@
     "css-loader": "^6.2.0",
     "css-minimizer-webpack-plugin": "^3.0.2",
     "css-modules-require-hook": "^4.0.6",
-    "es6-promisify": "^6.0.0",
+    "es6-promisify": "^7.0.0",
     "eslint": "^8.0.0-beta.0",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-putout": "^9.0.1",
