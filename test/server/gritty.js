@@ -168,7 +168,7 @@ test('gritty: server: terminal: parse args', async (t) => {
     socket.close();
     done();
     
-    t.match(data, /bash: hello: command not found/);
+    t.match(data, 'bash: hello: command not found');
     t.end();
 });
 
