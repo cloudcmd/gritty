@@ -111,6 +111,7 @@ test('gritty: server: socket: exit', async (t) => {
     socket.emit('terminal');
     
     await once(socket, 'data');
+    
     socket.emit('data', 'e');
     socket.emit('data', 'x');
     socket.emit('data', 'i');
@@ -135,8 +136,6 @@ test('gritty: server: socket: exit: custom cmd', async (t) => {
     
     await once(socket, 'connect');
     socket.emit('terminal');
-    
-    await once(socket, 'data');
     
     socket.emit('data', 'e');
     socket.emit('data', 'x');

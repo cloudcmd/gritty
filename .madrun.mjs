@@ -3,7 +3,7 @@ import {
     cutEnv,
 } from 'madrun';
 
-const SUPERTAPE_TIMEOUT = 10_000;
+const SUPERTAPE_TIMEOUT = 15_000;
 
 export default {
     'start': () => 'node bin/gritty',
