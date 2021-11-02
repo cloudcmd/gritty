@@ -20,6 +20,7 @@ const {connect} = require('../before');
 
 test('gritty: listen: args: no', (t) => {
     const [error] = tryCatch(gritty.listen);
+    
     t.equal(error.message, 'socket could not be empty!', 'should throw when no args');
     t.end();
 });

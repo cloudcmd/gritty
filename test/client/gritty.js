@@ -175,6 +175,7 @@ test('gritty: onDisconnect: terminal', (t) => {
     const msg = 'terminal disconnected...';
     
     _onDisconnect({writeln});
+    
     t.calledWith(writeln, [msg], 'should call terminal.writeln');
     t.end();
 });
@@ -185,6 +186,7 @@ test('gritty: onData: terminal', (t) => {
     const data = 'hello';
     
     _onData({write}, data);
+    
     t.calledWith(write, [data], 'should call terminal.write');
     t.end();
 });
@@ -198,6 +200,7 @@ test('gritty: onTermResize: socket', (t) => {
     };
     
     _onTermResize({emit}, size);
+    
     t.calledWith(emit, ['resize', size], 'should call socket.emit');
     t.end();
 });
@@ -208,6 +211,7 @@ test('gritty: onTermData: socket', (t) => {
     const data = 'hello';
     
     _onTermData({emit}, data);
+    
     t.calledWith(emit, ['data', data], 'should call socket.emit');
     t.end();
 });
