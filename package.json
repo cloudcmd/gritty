@@ -1,6 +1,7 @@
 {
   "name": "gritty",
   "version": "6.1.0",
+  "type": "commonjs",
   "author": "coderaiser <mnemonic.enemy@gmail.com> (https://github.com/coderaiser)",
   "description": "Web terminal emulator",
   "commitType": "colon",
@@ -62,7 +63,7 @@
     "clean-css-loader": "^4.1.1",
     "coveralls": "^3.0.0",
     "css-loader": "^6.2.0",
-    "css-minimizer-webpack-plugin": "^3.0.2",
+    "css-minimizer-webpack-plugin": "^4.0.0",
     "css-modules-require-hook": "^4.0.6",
     "es6-promisify": "^7.0.0",
     "eslint": "^8.0.0-beta.0",
