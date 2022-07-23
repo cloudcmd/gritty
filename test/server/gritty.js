@@ -4,19 +4,26 @@ const tryCatch = require('try-catch');
 
 const {once} = require('events');
 
-const test = require('supertape');
+const {
+    test,
+    stub,
+} = require('supertape');
 const currify = require('currify');
 const io = require('socket.io-client');
-const stub = require('@cloudcmd/stub');
 const mockRequire = require('mock-require');
 const wait = require('@iocmd/wait');
-const {reRequire} = mockRequire;
 
 const gritty = require('../../');
 const serveOnce = require('serve-once');
-const {request} = serveOnce(gritty);
 
 const {connect} = require('../before');
+
+const {request} = serveOnce(gritty);
+
+const {
+    reRequire,
+    stopAll,
+} = mockRequire;
 
 test('gritty: listen: args: no', (t) => {
     const [error] = tryCatch(gritty.listen);
@@ -27,11 +34,9 @@ test('gritty: listen: args: no', (t) => {
 
 test('gritty: listen: args: auth', (t) => {
     const socket = {};
-    const on = stub().returns(socket);
-    const of = stub().returns(socket);
     
-    socket.on = on;
-    socket.of = of;
+    socket.on = stub().returns(socket);
+    socket.of = stub().returns(socket);
     
     const [error] = tryCatch(gritty.listen, socket, {
         auth: 'hello',
@@ -167,6 +172,8 @@ test('gritty: server: terminal: parse args', async (t) => {
     const [data] = await once(socket, 'data');
     socket.close();
     done();
+    
+    stopAll();
     
     t.match(data, 'bash: hello: command not found');
     t.end();

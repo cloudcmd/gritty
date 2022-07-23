@@ -12,16 +12,16 @@ const getHost = require('./get-host');
 const getEnv = require('./get-env');
 const wrap = require('wraptile');
 
-const onConnect = wrap(_onConnect);
-const onDisconnect = wrap(_onDisconnect);
-const onData = currify(_onData);
-const onTermResize = currify(_onTermResize);
-const onTermData = currify(_onTermData);
-const onWindowResize = wrap(_onWindowResize);
-
 const {io} = require('socket.io-client');
-
 const {Terminal} = require('xterm');
+const onWindowResize = wrap(_onWindowResize);
+const onTermData = currify(_onTermData);
+const onTermResize = currify(_onTermResize);
+const onData = currify(_onData);
+
+const onDisconnect = wrap(_onDisconnect);
+
+const onConnect = wrap(_onConnect);
 
 module.exports = gritty;
 module.exports._onConnect = _onConnect;

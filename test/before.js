@@ -1,5 +1,7 @@
 'use strict';
 
+const isFn = (a) => typeof a === 'function';
+
 const http = require('http');
 const {promisify} = require('util');
 
@@ -11,7 +13,7 @@ const gritty = require('..');
 module.exports = before;
 
 function before(options, fn = options) {
-    if (typeof options === 'function')
+    if (isFn(options))
         options = {};
     
     const app = express();

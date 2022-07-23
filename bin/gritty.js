@@ -73,8 +73,8 @@ function start(options) {
     const app = express();
     const server = http.createServer(app);
     
-    const ip = process.env.IP || /* c9 */
-              '0.0.0.0';
+    const ip = process.env.IP /* c9 */
+              || '0.0.0.0';
     
     app.use(gritty())
         .use(express.static(DIR));

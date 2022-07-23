@@ -1,10 +1,8 @@
-# Gritty [![License][LicenseIMGURL]][LicenseURL] [![NPM version][NPMIMGURL]][NPMURL] [![Dependency Status][DependencyStatusIMGURL]][DependencyStatusURL] [![Build Status][BuildStatusIMGURL]][BuildStatusURL] [![Coverage Status][CoverageIMGURL]][CoverageURL]
+# Gritty [![License][LicenseIMGURL]][LicenseURL] [![NPM version][NPMIMGURL]][NPMURL] [![Build Status][BuildStatusIMGURL]][BuildStatusURL] [![Coverage Status][CoverageIMGURL]][CoverageURL]
 
 [NPMIMGURL]: https://img.shields.io/npm/v/gritty.svg?style=flat&longCache=true
 [BuildStatusURL]: https://github.com/cloudcmd/gritty/actions?query=workflow%3A%22Node+CI%22 "Build Status"
 [BuildStatusIMGURL]: https://github.com/cloudcmd/gritty/workflows/Node%20CI/badge.svg
-[DependencyStatusURL]: https://david-dm.org/cloudcmd/gritty "Dependency Status"
-[DependencyStatusIMGURL]: https://img.shields.io/david/cloudcmd/gritty.svg?style=flat&longCache=true
 [LicenseIMGURL]: https://img.shields.io/badge/license-MIT-317BF9.svg?style=flat&longCache=true
 [NPM_INFO_IMG]: https://nodei.co/npm/cloudcmd.png
 [NPMURL]: https://npmjs.org/package/cloudcmd "npm"
@@ -161,4 +159,3 @@ server.listen(port, ip);
 ## License
 
 MIT
-

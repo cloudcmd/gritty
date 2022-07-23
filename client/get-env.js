@@ -1,5 +1,7 @@
 'use strict';
 
+const isFn = (a) => typeof a === 'function';
+
 module.exports = (env) => {
     const obj = {};
     
@@ -11,7 +13,7 @@ module.exports = (env) => {
 };
 
 function getValue(value) {
-    if (typeof value === 'function')
+    if (isFn(value))
         return value();
     
     return value;

@@ -2,8 +2,10 @@
 
 global.self = {};
 
-const test = require('supertape');
-const stub = require('@cloudcmd/stub');
+const {
+    test,
+    stub,
+} = require('supertape');
 
 require('css-modules-require-hook/preset');
 
@@ -63,6 +65,7 @@ test('gritty: Terminal: new', (t) => {
 
 test('gritty: Terminal: args', (t) => {
     before();
+    
     const args = {
         scrollback: 1000,
         tabStopWidth: 4,

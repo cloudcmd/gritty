@@ -1,6 +1,6 @@
 'use strict';
 
-const DIR_ROOT = __dirname + '/..';
+const isBool = (a) => typeof a === 'boolean';
 
 const path = require('path');
 const log = require('debug')('gritty');
@@ -10,6 +10,8 @@ const currify = require('currify');
 const wraptile = require('wraptile');
 const pty = require('node-pty');
 const stringArgv = require('string-to-argv');
+
+const DIR_ROOT = __dirname + '/..';
 
 const terminalFn = currify(_terminalFn);
 const connectionWraped = wraptile(connection);
@@ -25,10 +27,10 @@ const getDist = () => {
 };
 
 const choose = (a, b, options) => {
-    if (typeof a === 'boolean')
+    if (isBool(a))
         return a;
     
-    if (typeof b === 'boolean')
+    if (isBool(b))
         return b;
     
     return options.default;
