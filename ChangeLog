@@ -1,3 +1,16 @@
+2022.07.23, v7.0.0
+
+feature:
+- package: css-minimizer-webpack-plugin v4.0.0
+- (gritty) drop support of node < 16
+- (package) madrun v9.0.6
+- (package) eslint-plugin-putout v16.0.0
+- (package) putout v27.0.1
+- (package) supertape v7.6.0
+- (package) xterm-addon-webgl v0.12.0
+- (package) @iocmd/wait v2.1.0
+- (package) yargs-parser v21.0.1
+
 2021.11.02, v6.1.0
 
 feature:
