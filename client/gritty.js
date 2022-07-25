@@ -38,7 +38,7 @@ function gritty(element, options = {}) {
     const el = getEl(element);
     
     const {
-        socketPath = '',
+        socketPath = location.pathname,
         fontFamily = defaultFontFamily,
         prefix = '/gritty',
         command,
@@ -66,17 +66,21 @@ function createTerminal(terminalContainer, {env, cwd, command, autoRestart, sock
         scrollback: 1000,
         tabStopWidth: 4,
         fontFamily,
+        rendererType: 'dom'
     });
     
     terminal.open(terminalContainer);
     terminal.focus();
     
-    terminal.loadAddon(webglAddon);
+    //terminal.loadAddon(webglAddon);
     terminal.loadAddon(fitAddon);
     fitAddon.fit();
     
     terminal.onResize(onTermResize(socket));
     terminal.onData(onTermData(socket));
+    terminal.onRender((a, b) => {
+        terminal._addonManager._addons[0].instance.fit();
+    });
     
     window.addEventListener('resize', onWindowResize(fitAddon));
     
@@ -85,6 +89,11 @@ function createTerminal(terminalContainer, {env, cwd, command, autoRestart, sock
     socket.on('accept', onConnect(socket, fitAddon, {env, cwd, cols, rows, command, autoRestart}));
     socket.on('disconnect', onDisconnect(terminal));
     socket.on('data', onData(terminal));
+    socket.on('set-font', data => {
+        terminal.setOption('fontFamily', data.fontFamily);
+    });
+
+    window.t = terminal;
     
     return {
         socket,
@@ -125,7 +134,7 @@ function connect(prefix, socketPath) {
     const href = getHost();
     const FIVE_SECONDS = 5000;
     
-    const path = socketPath + '/socket.io';
+    const path = socketPath + 'socket.io';
     const socket = io.connect(href + prefix, {
         'max reconnection attempts': 2 ** 32,
         'reconnection limit': FIVE_SECONDS,
