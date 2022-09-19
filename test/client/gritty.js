@@ -26,7 +26,6 @@ const Terminal = stub().returns({
     open,
     focus,
     writeln: stub(),
-    setOption: stub(),
     cols: 80,
     rows: 25,
     loadAddon: stub(),
@@ -70,6 +69,7 @@ test('gritty: Terminal: args', (t) => {
         scrollback: 1000,
         tabStopWidth: 4,
         fontFamily: _defaultFontFamily,
+        allowProposedApi: true,
     };
     
     gritty();
@@ -89,6 +89,7 @@ test('gritty: Terminal: args: fontFamily', (t) => {
         scrollback: 1000,
         tabStopWidth: 4,
         fontFamily,
+        allowProposedApi: true,
     };
     
     gritty(el, {

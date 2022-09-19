@@ -66,6 +66,7 @@ function createTerminal(terminalContainer, {env, cwd, command, autoRestart, sock
         scrollback: 1000,
         tabStopWidth: 4,
         fontFamily,
+        allowProposedApi: true,
     });
     
     terminal.open(terminalContainer);

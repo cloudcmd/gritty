@@ -82,7 +82,7 @@
     "supertape": "^7.6.0",
     "webpack": "^5.1.3",
     "webpack-cli": "^4.0.0",
-    "xterm": "^4.14.1",
+    "xterm": "^5.0.0",
     "xterm-addon-fit": "^0.5.0",
     "xterm-addon-webgl": "^0.12.0"
   },
