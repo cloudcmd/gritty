@@ -1,3 +1,11 @@
+2022.09.19, v7.1.0
+
+feature:
+- package: xterm-addon-webgl v0.13.0
+- package: xterm-addon-fit v0.6.0
+- package: supertape v8.1.0
+- package: xterm v5.0.0
+
 2022.07.23, v7.0.0
 
 feature:
