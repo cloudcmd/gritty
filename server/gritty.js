@@ -1,15 +1,15 @@
 'use strict';
 
-const isBool = (a) => typeof a === 'boolean';
-
 const path = require('path');
-const log = require('debug')('gritty');
 
+const log = require('debug')('gritty');
 const Router = require('router');
+
 const currify = require('currify');
 const wraptile = require('wraptile');
 const pty = require('node-pty');
 const stringArgv = require('string-to-argv');
+const isBool = (a) => typeof a === 'boolean';
 
 const DIR_ROOT = __dirname + '/..';
 

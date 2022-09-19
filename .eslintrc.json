@@ -9,8 +9,8 @@
     "overrides": [{
         "files": ["bin/**/*.js"],
         "rules": {
-            "no-console": 0,
-            "no-process-exit": 0
+            "n/no-console": 0,
+            "n/no-process-exit": 0
         },
         "extends": [
             "plugin:n/recommended"

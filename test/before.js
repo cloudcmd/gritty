@@ -1,14 +1,14 @@
 'use strict';
 
-const isFn = (a) => typeof a === 'function';
-
 const http = require('http');
+
 const {promisify} = require('util');
-
 const express = require('express');
-const io = require('socket.io');
 
+const io = require('socket.io');
 const gritty = require('..');
+
+const isFn = (a) => typeof a === 'function';
 
 module.exports = before;
 
