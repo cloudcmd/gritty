@@ -67,7 +67,7 @@
     "css-modules-require-hook": "^4.0.6",
     "es6-promisify": "^7.0.0",
     "eslint": "^8.0.0-beta.0",
-    "eslint-plugin-n": "^15.2.4",
+    "eslint-plugin-n": "^16.0.1",
     "eslint-plugin-putout": "^19.0.3",
     "json-loader": "^0.5.4",
     "madrun": "^9.0.6",
