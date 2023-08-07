@@ -58,7 +58,7 @@
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@iocmd/wait": "^2.1.0",
-    "babel-loader": "^8.0.0",
+    "babel-loader": "^9.1.3",
     "c8": "^8.0.1",
     "clean-css-loader": "^4.1.1",
     "coveralls": "^3.0.0",
