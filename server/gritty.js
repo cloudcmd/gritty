@@ -14,6 +14,7 @@ const isBool = (a) => typeof a === 'boolean';
 const DIR_ROOT = __dirname + '/..';
 
 const terminalFn = currify(_terminalFn);
+const staticFn = currify(_staticFn);
 const connectionWraped = wraptile(connection);
 
 const CMD = process.platform === 'win32' ? 'cmd.exe' : 'bash';
@@ -44,7 +45,7 @@ module.exports = (options = {}) => {
     
     router.route(prefix + '/*')
         .get(terminalFn(options))
-        .get(staticFn);
+        .get(staticFn(options));
     
     return router;
 };
@@ -62,7 +63,7 @@ function _terminalFn(options, req, res, next) {
     next();
 }
 
-function staticFn(req, res) {
+function _staticFn(options, req, res) {
     const file = path.normalize(DIR_ROOT + req.url);
     res.sendFile(file);
 }
