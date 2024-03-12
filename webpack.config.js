@@ -3,9 +3,9 @@
 const path = require('path');
 
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const dir = './client';
 
-const {env} = process;
+const {env} = require('node:process');
+const dir = './client';
 const isDev = env.NODE_ENV === 'development';
 
 const dist = path.resolve(__dirname, 'dist');
@@ -26,8 +26,7 @@ const rules = clean([
             'css-loader',
             'clean-css-loader',
         ],
-    },
-]);
+    }]);
 
 module.exports = {
     devtool,
@@ -60,4 +59,3 @@ function devtoolModuleFilenameTemplate(info) {
     const resource = info.absoluteResourcePath.replace(__dirname + path.sep, '');
     return `file://gritty/${resource}`;
 }
-

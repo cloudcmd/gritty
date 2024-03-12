@@ -18,4 +18,3 @@ function getValue(value) {
     
     return value;
 }
-

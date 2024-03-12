@@ -1,5 +1,7 @@
 'use strict';
 
+const process = require('node:process');
+const isFn = (a) => typeof a === 'function';
 const path = require('path');
 
 const log = require('debug')('gritty');
@@ -11,7 +13,7 @@ const pty = require('node-pty');
 const stringArgv = require('string-to-argv');
 const isBool = (a) => typeof a === 'boolean';
 
-const DIR_ROOT = __dirname + '/..';
+const DIR_ROOT = `${__dirname}/..`;
 
 const terminalFn = currify(_terminalFn);
 const connectionWraped = wraptile(connection);
@@ -38,11 +40,10 @@ const choose = (a, b, options) => {
 
 module.exports = (options = {}) => {
     const router = Router();
-    const {
-        prefix = '/gritty',
-    } = options;
+    const {prefix = '/gritty'} = options;
     
-    router.route(prefix + '/*')
+    router
+        .route(`${prefix}/*`)
         .get(terminalFn(options))
         .get(staticFn);
     
@@ -50,9 +51,7 @@ module.exports = (options = {}) => {
 };
 
 function _terminalFn(options, req, res, next) {
-    const {
-        prefix = '/gritty',
-    } = options;
+    const {prefix = '/gritty'} = options;
     
     req.url = req.url.replace(prefix, '');
     
@@ -91,10 +90,7 @@ function createTerminal({command, env, cwd, cols, rows}) {
 module.exports.listen = (socket, options = {}) => {
     check(socket, options);
     
-    const {
-        prefix,
-        auth,
-    } = options;
+    const {prefix, auth} = options;
     
     socket
         .of(prefix || '/gritty')
@@ -115,7 +111,7 @@ function check(socket, options) {
     
     const {auth} = options;
     
-    if (auth && typeof auth !== 'function')
+    if (auth && !isFn(auth))
         throw Error('options.auth should be a function!');
 }
 
@@ -129,10 +125,7 @@ function connection(options, socket) {
     const onResize = (size) => {
         size = size || {};
         
-        const {
-            cols = 80,
-            rows = 25,
-        } = size;
+        const {cols = 80, rows = 25} = size;
         
         term.resize(cols, rows);
         log(`Resized terminal ${term.pid} to ${cols} cols and ${rows} rows.`);
@@ -152,6 +145,7 @@ function connection(options, socket) {
         } = params;
         
         const command = params.command || options.command || CMD;
+        
         const autoRestart = choose(params.autoRestart, options.autoRestart, {
             default: true,
         });
@@ -198,4 +192,3 @@ function connection(options, socket) {
         socket.on('disconnect', onDisconnect);
     }
 }
-

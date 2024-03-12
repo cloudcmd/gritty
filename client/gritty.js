@@ -32,6 +32,7 @@ module.exports._onTermData = _onTermData;
 module.exports._onWindowResize = _onWindowResize;
 
 const defaultFontFamily = 'Menlo, Consolas, "Liberation Mono", Monaco, "Lucida Console", monospace';
+
 module.exports._defaultFontFamily = defaultFontFamily;
 
 function gritty(element, options = {}) {
@@ -83,7 +84,14 @@ function createTerminal(terminalContainer, {env, cwd, command, autoRestart, sock
     
     const {cols, rows} = terminal;
     
-    socket.on('accept', onConnect(socket, fitAddon, {env, cwd, cols, rows, command, autoRestart}));
+    socket.on('accept', onConnect(socket, fitAddon, {
+        env,
+        cwd,
+        cols,
+        rows,
+        command,
+        autoRestart,
+    }));
     socket.on('disconnect', onDisconnect(terminal));
     socket.on('data', onData(terminal));
     
@@ -94,8 +102,18 @@ function createTerminal(terminalContainer, {env, cwd, command, autoRestart, sock
 }
 
 function _onConnect(socket, fitAddon, {env, cwd, cols, rows, command, autoRestart}) {
-    socket.emit('terminal', {env, cwd, cols, rows, command, autoRestart});
-    socket.emit('resize', {cols, rows});
+    socket.emit('terminal', {
+        env,
+        cwd,
+        cols,
+        rows,
+        command,
+        autoRestart,
+    });
+    socket.emit('resize', {
+        cols,
+        rows,
+    });
     fitAddon.fit();
 }
 
@@ -108,7 +126,10 @@ function _onData(terminal, data) {
 }
 
 function _onTermResize(socket, {cols, rows}) {
-    socket.emit('resize', {cols, rows});
+    socket.emit('resize', {
+        cols,
+        rows,
+    });
 }
 
 function _onTermData(socket, data) {
@@ -126,7 +147,7 @@ function connect(prefix, socketPath) {
     const href = getHost();
     const FIVE_SECONDS = 5000;
     
-    const path = socketPath + '/socket.io';
+    const path = `${socketPath}/socket.io`;
     const socket = io.connect(href + prefix, {
         'max reconnection attempts': 2 ** 32,
         'reconnection limit': FIVE_SECONDS,
@@ -135,4 +156,3 @@ function connect(prefix, socketPath) {
     
     return socket;
 }
-

@@ -18,6 +18,7 @@ function before(options, fn = options) {
     
     const app = express();
     const server = http.createServer(app);
+    
     const after = () => {
         server.close();
     };
@@ -29,12 +30,17 @@ function before(options, fn = options) {
     gritty.listen(socket, options);
     
     server.listen(() => {
-        fn(server.address().port, after, socket);
+        const {port} = server.address();
+        fn(port, after, socket);
     });
 }
 
 module.exports.connect = promisify((options, fn = options) => {
     before(options, (port, done, socket) => {
-        fn(null, {port, done, socket});
+        fn(null, {
+            port,
+            done,
+            socket,
+        });
     });
 });

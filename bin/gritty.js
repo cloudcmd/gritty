@@ -2,6 +2,8 @@
 
 'use strict';
 
+const {join} = require('node:path');
+const process = require('node:process');
 const args = require('yargs-parser')(process.argv.slice(2), {
     boolean: [
         'version',
@@ -9,12 +11,8 @@ const args = require('yargs-parser')(process.argv.slice(2), {
         'auto-restart',
         'path',
     ],
-    number: [
-        'port',
-    ],
-    string: [
-        'command',
-    ],
+    number: ['port'],
+    string: ['command'],
     alias: {
         help: 'h',
         version: 'v',
@@ -47,7 +45,6 @@ function main(args) {
 }
 
 function path() {
-    const {join} = require('path');
     console.log(join(__dirname, '..'));
 }
 
@@ -62,7 +59,7 @@ function start(options) {
     
     check(port);
     
-    const DIR = __dirname + '/../';
+    const DIR = `${__dirname}/../`;
     
     const gritty = require('../');
     const http = require('http');
@@ -73,10 +70,11 @@ function start(options) {
     const app = express();
     const server = http.createServer(app);
     
-    const ip = process.env.IP /* c9 */
-              || '0.0.0.0';
+    const c9 = process.env.IP;
+    const ip =  c9 || '0.0.0.0';
     
-    app.use(gritty())
+    app
+        .use(gritty())
         .use(express.static(DIR));
     
     const socket = io(server);
@@ -86,7 +84,8 @@ function start(options) {
         autoRestart,
     });
     
-    server.listen(port, ip)
+    server
+        .listen(port, ip)
         .on('error', squad(exit, getMessage));
     
     console.log(`url: http://localhost:${port}`);
@@ -118,4 +117,3 @@ function exit(msg) {
     console.error(msg);
     process.exit(-1);
 }
-

@@ -8,18 +8,22 @@ jobs:
     strategy:
       matrix:
         node-version:
-          - 16.x
           - 18.x
+          - 20.x
+          - 21.x
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install Redrun
-        run: npm i redrun -g
+        run: bun i redrun -g --no-save
       - name: Install
-        run: npm install
+        run: bun i --no-save
       - name: Bootstrap
         run: redrun bootstrap
       - name: Lint
@@ -27,6 +31,7 @@ jobs:
       - name: Coverage
         run: redrun coverage report
       - name: Coveralls
-        uses: coverallsapp/github-action@master
+        uses: coverallsapp/github-action@v2
+        continue-on-error: true
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}

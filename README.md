@@ -55,9 +55,9 @@ Start `gritty`, and go to url `http://localhost:1337`
 #### gritty(element [, options])
 
 ```js
-const prefix = '/gritty'; // default
+const prefix = '/gritty';
 const env = {}; // default
-const fontFamily = 'Courier'; // default
+const fontFamily = 'Courier';
 
 gritty('body', {
     prefix,
@@ -73,7 +73,7 @@ gritty('body', {
 `Gritty` could be used as middleware:
 
 ```js
-const prefix = '/gritty'; // default
+const prefix = '/gritty';
 
 const auth = (accept, reject) => (username, password) => {
     accept();
@@ -90,7 +90,7 @@ gritty.listen(socket, {
 Middleware function:
 
 ```js
-const prefix = '/gritty'; // default
+const prefix = '/gritty';
 
 gritty({
     prefix,
@@ -107,7 +107,6 @@ And use it this way:
 
 ```js
 // server.js
-
 const gritty = require('gritty');
 const http = require('http');
 const express = require('express');

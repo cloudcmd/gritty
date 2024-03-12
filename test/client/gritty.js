@@ -2,10 +2,7 @@
 
 global.self = {};
 
-const {
-    test,
-    stub,
-} = require('supertape');
+const {test, stub} = require('supertape');
 
 require('css-modules-require-hook/preset');
 
@@ -39,7 +36,9 @@ mock('socket.io-client/dist/socket.io', {
     connect,
 });
 
-mock('xterm', {Terminal});
+mock('xterm', {
+    Terminal,
+});
 
 const gritty = require('../../client/gritty');
 const {
@@ -85,6 +84,7 @@ test('gritty: Terminal: args: fontFamily', (t) => {
     
     const fontFamily = 'Droid Sans Mono';
     const el = {};
+    
     const args = {
         scrollback: 1000,
         tabStopWidth: 4,
@@ -120,7 +120,7 @@ test('gritty: Terminal: focus', (t) => {
     before();
     
     gritty(el);
-    t.ok(focus.calledWith(), 'should have been called');
+    t.calledWithNoArgs(focus, 'should have been called');
     after();
     
     t.end();
@@ -178,7 +178,9 @@ test('gritty: onDisconnect: terminal', (t) => {
     
     const msg = 'terminal disconnected...';
     
-    _onDisconnect({writeln});
+    _onDisconnect({
+        writeln,
+    });
     
     t.calledWith(writeln, [msg], 'should call terminal.writeln');
     t.end();
@@ -223,9 +225,11 @@ test('gritty: onTermData: socket', (t) => {
 test('gritty: onWindowResize: terminal', (t) => {
     const fit = stub();
     
-    _onWindowResize({fit});
+    _onWindowResize({
+        fit,
+    });
     
-    t.ok(fit.calledWith(), 'should call terminal.fit');
+    t.calledWithNoArgs(fit, 'should call terminal.fit');
     t.end();
 });
 
@@ -236,4 +240,3 @@ function before() {
 function after() {
     delete global.location;
 }
-

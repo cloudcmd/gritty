@@ -4,7 +4,6 @@
   "type": "commonjs",
   "author": "coderaiser <mnemonic.enemy@gmail.com> (https://github.com/coderaiser)",
   "description": "Web terminal emulator",
-  "commitType": "colon",
   "bin": {
     "gritty": "bin/gritty.js"
   },

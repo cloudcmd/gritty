@@ -32,4 +32,3 @@ test('gritty: get-env: function', (t) => {
     t.deepEqual(getEnv(env), expected, 'should return env');
     t.end();
 });
-

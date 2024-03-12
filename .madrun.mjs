@@ -1,7 +1,4 @@
-import {
-    run,
-    cutEnv,
-} from 'madrun';
+import {run, cutEnv} from 'madrun';
 
 const SUPERTAPE_TIMEOUT = 15_000;
 
@@ -36,4 +33,3 @@ export default {
         SUPERTAPE_TIMEOUT,
     }],
 };
-

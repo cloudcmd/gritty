@@ -1,9 +1,6 @@
 'use strict';
 
-const {
-    test,
-    stub,
-} = require('supertape');
+const {test, stub} = require('supertape');
 
 const getEl = require('../../client/get-el');
 
@@ -30,4 +27,3 @@ test('gritty: get-el: string', (t) => {
     
     t.end();
 });
-

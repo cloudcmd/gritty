@@ -7,6 +7,7 @@ const getHost = require(`${dir}/get-host`);
 
 test('gritty: get-host: origin', (t) => {
     const origin = 'http://localhost';
+    
     global.location = {
         origin,
     };
@@ -30,4 +31,3 @@ test('gritty: get-host: no origin', (t) => {
     
     t.end();
 });
-
