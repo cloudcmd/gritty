@@ -84,7 +84,7 @@
     "webpack-cli": "^5.1.4",
     "xterm": "^5.0.0",
     "xterm-addon-fit": "^0.8.0",
-    "xterm-addon-webgl": "^0.15.0"
+    "xterm-addon-webgl": "^0.16.0"
   },
   "engines": {
     "node": ">=16"
