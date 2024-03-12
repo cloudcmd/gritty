@@ -1,11 +1,11 @@
 'use strict';
 
-global.self = {};
-
 const {test, stub} = require('supertape');
 
 require('css-modules-require-hook/preset');
 
+global.document = {};
+global.self = {};
 global.window = {
     addEventListener: stub(),
 };
@@ -36,9 +36,11 @@ mock('socket.io-client/dist/socket.io', {
     connect,
 });
 
-mock('xterm', {
+mock('@xterm/xterm', {
     Terminal,
 });
+
+mock('@xterm/xterm-addong-webl', {WebglAddon: () => {}});
 
 const gritty = require('../../client/gritty');
 const {

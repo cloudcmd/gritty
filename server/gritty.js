@@ -9,7 +9,7 @@ const Router = require('router');
 
 const currify = require('currify');
 const wraptile = require('wraptile');
-const pty = require('node-pty');
+const _pty = require('node-pty');
 const stringArgv = require('string-to-argv');
 const isBool = (a) => typeof a === 'boolean';
 
@@ -66,7 +66,7 @@ function staticFn(req, res) {
     res.sendFile(file);
 }
 
-function createTerminal({command, env, cwd, cols, rows}) {
+function createTerminal({command, env, cwd, cols, rows, pty = _pty}) {
     cols = cols || 80;
     rows = rows || 24;
     

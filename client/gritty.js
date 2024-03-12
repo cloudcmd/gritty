@@ -1,19 +1,21 @@
 'use strict';
 
-require('xterm/css/xterm.css');
+require('@xterm/xterm/css/xterm.css');
 
-const {FitAddon} = require('xterm-addon-fit');
-const {WebglAddon} = require('xterm-addon-webgl');
+const {FitAddon} = require('@xterm/addon-fit');
+const {WebglAddon} = require('@xterm/addon-webgl');
 const currify = require('currify');
 const tryCatch = require('try-catch');
+
+const wrap = require('wraptile');
+
+const {io} = require('socket.io-client');
+const {Terminal} = require('@xterm/xterm');
 
 const getEl = require('./get-el');
 const getHost = require('./get-host');
 const getEnv = require('./get-env');
-const wrap = require('wraptile');
 
-const {io} = require('socket.io-client');
-const {Terminal} = require('xterm');
 const onWindowResize = wrap(_onWindowResize);
 const onTermData = currify(_onTermData);
 const onTermResize = currify(_onTermResize);
