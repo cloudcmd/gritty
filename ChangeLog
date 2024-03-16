@@ -1,3 +1,8 @@
+2024.03.16, v8.1.1
+
+fix:
+- 92d7298 gritty: drop node-pty
+
 2024.03.16, v8.1.0
 
 feature:
