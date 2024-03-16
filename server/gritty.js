@@ -9,7 +9,9 @@ const Router = require('router');
 
 const currify = require('currify');
 const wraptile = require('wraptile');
-const _pty = require('node-pty');
+//const _pty = require('node-pty');
+const _pty = require('@lydell/node-pty');
+
 const stringArgv = require('string-to-argv');
 const isBool = (a) => typeof a === 'boolean';
 

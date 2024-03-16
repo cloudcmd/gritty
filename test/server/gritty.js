@@ -152,11 +152,11 @@ test('gritty: server: socket: exit: custom cmd', async (t) => {
     t.end();
 });
 
-test.skip('gritty: server: terminal: parse args', async (t) => {
+test('gritty: server: terminal: parse args', async (t) => {
     const {port, done} = await connect();
     const socket = io(`http://localhost:${port}/gritty`);
     
-    mockRequire('node-pty', {
+    mockRequire('@lydell/node-pty', {
         spawn: stub(),
     });
     
