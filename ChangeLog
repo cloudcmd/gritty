@@ -1,3 +1,8 @@
+2024.03.18, v8.1.2
+
+fix:
+- c630120 gritty: get back node-pty
+
 2024.03.16, v8.1.1
 
 fix:
