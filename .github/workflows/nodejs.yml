@@ -24,8 +24,6 @@ jobs:
         run: bun i redrun -g --no-save
       - name: Install
         run: bun i --no-save
-      - name: Bootstrap
-        run: redrun bootstrap
       - name: Lint
         run: redrun lint
       - name: Coverage
