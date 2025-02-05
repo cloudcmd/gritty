@@ -1,8 +1,8 @@
 'use strict';
 
 const process = require('node:process');
-const isFn = (a) => typeof a === 'function';
-const path = require('path');
+
+const path = require('node:path');
 
 const log = require('debug')('gritty');
 const Router = require('router');
@@ -12,6 +12,7 @@ const wraptile = require('wraptile');
 const _pty = require('node-pty');
 
 const stringArgv = require('string-to-argv');
+const isFn = (a) => typeof a === 'function';
 const isBool = (a) => typeof a === 'boolean';
 
 const DIR_ROOT = `${__dirname}/..`;
@@ -43,9 +44,7 @@ module.exports = (options = {}) => {
     const router = Router();
     const {prefix = '/gritty'} = options;
     
-    router
-        .route(`${prefix}/*`)
-        .get(terminalFn(options))
+    router.route(`${prefix}/*`).get(terminalFn(options))
         .get(staticFn);
     
     return router;

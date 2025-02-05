@@ -1,5 +1,6 @@
 'use strict';
 
+const noop = () => {};
 const {test, stub} = require('supertape');
 
 require('css-modules-require-hook/preset');
@@ -40,7 +41,9 @@ mock('@xterm/xterm', {
     Terminal,
 });
 
-mock('@xterm/xterm-addong-webl', {WebglAddon: () => {}});
+mock('@xterm/xterm-addong-webl', {
+    WebglAddon: noop,
+});
 
 const gritty = require('../../client/gritty');
 const {

@@ -1,10 +1,10 @@
 'use strict';
 
-const path = require('path');
-
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const path = require('node:path');
 
 const {env} = require('node:process');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+
 const dir = './client';
 const isDev = env.NODE_ENV === 'development';
 

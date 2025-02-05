@@ -107,8 +107,9 @@ And use it this way:
 
 ```js
 // server.js
+const http = require('node:http');
 const gritty = require('gritty');
-const http = require('http');
+
 const express = require('express');
 const io = require('socket.io');
 

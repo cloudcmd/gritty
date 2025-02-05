@@ -1,8 +1,8 @@
 'use strict';
 
-const http = require('http');
+const http = require('node:http');
 
-const {promisify} = require('util');
+const {promisify} = require('node:util');
 const express = require('express');
 
 const io = require('socket.io');

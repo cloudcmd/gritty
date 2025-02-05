@@ -9,7 +9,8 @@
         "**/*.spec.js",
         "**/fixture",
         "test",
-        ".*.{js,mjs}"
+        ".*.{js,mjs}",
+        "**/*.config.*"
     ],
     "branches": 100,
     "lines": 100,

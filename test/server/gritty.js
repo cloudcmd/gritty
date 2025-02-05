@@ -1,9 +1,9 @@
 'use strict';
 
 const process = require('node:process');
-const tryCatch = require('try-catch');
 
-const {once} = require('events');
+const {once} = require('node:events');
+const tryCatch = require('try-catch');
 
 const {test, stub} = require('supertape');
 
@@ -12,8 +12,8 @@ const io = require('socket.io-client');
 const mockRequire = require('mock-require');
 const wait = require('@iocmd/wait');
 
-const gritty = require('../../');
 const serveOnce = require('serve-once');
+const gritty = require('../../');
 
 const {connect} = require('../before');
 
@@ -202,6 +202,7 @@ test('gritty: server: socket: auth', async (t) => {
     const {port, done} = await connect({
         auth,
     });
+    
     const socket = io(`http://localhost:${port}/gritty`);
     
     await once(socket, 'connect');
@@ -227,6 +228,7 @@ test('gritty: server: socket: auth: reject', async (t) => {
     const {port, done} = await connect({
         auth,
     });
+    
     const socket = io(`http://localhost:${port}/gritty`);
     
     await once(socket, 'connect');
@@ -270,6 +272,7 @@ test('gritty: server: socket: authCheck', async (t) => {
     const {port, done} = await connect({
         auth,
     });
+    
     const socket = io(`http://localhost:${port}/gritty`);
     
     await once(socket, 'connect');
