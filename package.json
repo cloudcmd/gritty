@@ -75,7 +75,7 @@
     "mock-require": "^3.0.2",
     "nodemon": "^3.0.1",
     "optimize-css-assets-webpack-plugin": "^6.0.1",
-    "putout": "^35.7.3",
+    "putout": "^38.0.6",
     "request": "^2.81.0",
     "serve-once": "^3.0.0",
     "socket.io-client": "^4.0.0",
