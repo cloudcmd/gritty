@@ -46,6 +46,7 @@ mock('@xterm/xterm-addong-webl', {
 });
 
 const gritty = require('../../client/gritty');
+
 const {
     _onConnect,
     _onDisconnect,

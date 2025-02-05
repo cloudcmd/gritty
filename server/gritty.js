@@ -44,7 +44,9 @@ module.exports = (options = {}) => {
     const router = Router();
     const {prefix = '/gritty'} = options;
     
-    router.route(`${prefix}/*`).get(terminalFn(options))
+    router
+        .route(`${prefix}/*`)
+        .get(terminalFn(options))
         .get(staticFn);
     
     return router;
