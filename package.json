@@ -80,7 +80,7 @@
     "serve-once": "^3.0.0",
     "socket.io-client": "^4.0.0",
     "style-loader": "^4.0.0",
-    "supertape": "^10.4.0",
+    "supertape": "^11.4.0",
     "webpack": "^5.1.3",
     "webpack-cli": "^6.0.1"
   },
