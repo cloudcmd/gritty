@@ -65,7 +65,9 @@ function _terminalFn(options, req, res, next) {
 
 function staticFn(req, res) {
     const file = path.normalize(DIR_ROOT + req.url);
-    res.sendFile(file);
+    res.sendFile(file, {
+        dotfiles: 'allow',
+    });
 }
 
 function createTerminal({command, env, cwd, cols, rows, pty = _pty}) {
