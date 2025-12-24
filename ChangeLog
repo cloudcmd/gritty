@@ -1,3 +1,13 @@
+2025.12.24, v9.0.1
+
+fix:
+- bb0fed1 package: node-pty (#microsoft/node-pty#845)
+
+feature:
+- 621b9c0 gritty: @xterm/addon-webgl v0.19.0
+- ccf2433 gritty: @xterm/addon-fit v0.11.0
+- 0e3522a gritty: @xterm/xterm v6.0.0
+
 2025.12.21, v9.0.0
 
 feature:
