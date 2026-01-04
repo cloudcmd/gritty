@@ -1,3 +1,9 @@
+2026.01.04, v9.0.2
+
+feature:
+- 5e2a684 gritty: madrun v12.1.0
+- b4b1615 gritty: supertape v12.0.0
+
 2025.12.24, v9.0.1
 
 fix:
