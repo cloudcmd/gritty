@@ -1,3 +1,8 @@
+2026.02.10, v9.0.4
+
+feature:
+- 00e92e2 gritty: client: get rid of mock-require
+
 2026.02.10, v9.0.3
 
 feature:
