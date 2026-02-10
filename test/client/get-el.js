@@ -15,7 +15,7 @@ test('gritty: get-el: string', (t) => {
     const el = 'hello';
     const querySelector = stub();
     
-    global.document = {
+    globalThis.document = {
         querySelector,
     };
     
@@ -23,7 +23,7 @@ test('gritty: get-el: string', (t) => {
     
     t.calledWith(querySelector, [el], 'should call querySelector');
     
-    delete global.document;
+    delete globalThis.document;
     
     t.end();
 });

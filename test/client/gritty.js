@@ -5,11 +5,9 @@ const {test, stub} = require('supertape');
 
 require('css-modules-require-hook/preset');
 
-global.document = {};
-global.self = {};
-global.window = {
-    addEventListener: stub(),
-};
+globalThis.document = {};
+globalThis.self = {};
+globalThis.addEventListener= stub();
 
 const mock = require('mock-require');
 
@@ -240,9 +238,9 @@ test('gritty: onWindowResize: terminal', (t) => {
 });
 
 function before() {
-    global.location = {};
+    globalThis.location = {};
 }
 
 function after() {
-    delete global.location;
+    delete globalThis.location;
 }

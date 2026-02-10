@@ -5,7 +5,7 @@ require('@xterm/xterm/css/xterm.css');
 const {FitAddon} = require('@xterm/addon-fit');
 const {WebglAddon} = require('@xterm/addon-webgl');
 const currify = require('currify');
-const tryCatch = require('try-catch');
+const {tryCatch} = require('try-catch');
 
 const wrap = require('wraptile');
 
@@ -82,7 +82,7 @@ function createTerminal(terminalContainer, {env, cwd, command, autoRestart, sock
     terminal.onResize(onTermResize(socket));
     terminal.onData(onTermData(socket));
     
-    window.addEventListener('resize', onWindowResize(fitAddon));
+    globalThis.addEventListener('resize', onWindowResize(fitAddon));
     
     const {cols, rows} = terminal;
     

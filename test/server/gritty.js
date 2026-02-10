@@ -3,7 +3,7 @@
 const process = require('node:process');
 
 const {once} = require('node:events');
-const tryCatch = require('try-catch');
+const {tryCatch} = require('try-catch');
 
 const {test, stub} = require('supertape');
 
@@ -171,7 +171,7 @@ test('gritty: server: terminal: parse args', async (t) => {
     
     stopAll();
     
-    t.match(data, 'bash: hello: command not found');
+    t.match(data, 'bash: line 1: hello: command not found');
     t.end();
 });
 
