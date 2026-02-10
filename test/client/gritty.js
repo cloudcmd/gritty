@@ -1,19 +1,12 @@
 'use strict';
 
-const noop = () => {};
 const {test, stub} = require('supertape');
 
 require('css-modules-require-hook/preset');
 
 globalThis.document = {};
 globalThis.self = {};
-globalThis.addEventListener= stub();
-
-const mock = require('mock-require');
-
-const connect = stub().returns({
-    on: stub(),
-});
+globalThis.addEventListener = stub();
 
 const open = stub();
 const focus = stub();
@@ -31,19 +24,10 @@ const Terminal = stub().returns({
 
 Terminal.applyAddon = stub();
 
-mock('socket.io-client/dist/socket.io', {
-    connect,
-});
-
-mock('@xterm/xterm', {
-    Terminal,
-});
-
-mock('@xterm/xterm-addong-webl', {
-    WebglAddon: noop,
-});
-
 const gritty = require('../../client/gritty');
+const connect = stub().returns({
+    on: stub(),
+});
 
 const {
     _onConnect,
@@ -58,7 +42,11 @@ const {
 test('gritty: Terminal: new', (t) => {
     before();
     
-    gritty();
+    gritty(null, {
+        connect,
+        Terminal,
+        WebglAddon: stub(),
+    });
     t.ok(Terminal.calledWithNew(), 'should have been called with new');
     after();
     
@@ -66,6 +54,7 @@ test('gritty: Terminal: new', (t) => {
 });
 
 test('gritty: Terminal: args', (t) => {
+    const WebglAddon = stub();
     before();
     
     const args = {
@@ -75,7 +64,11 @@ test('gritty: Terminal: args', (t) => {
         allowProposedApi: true,
     };
     
-    gritty();
+    gritty(null, {
+        connect,
+        Terminal,
+        WebglAddon,
+    });
     
     t.calledWith(Terminal, [args], 'should have been called with args');
     
@@ -88,6 +81,7 @@ test('gritty: Terminal: args: fontFamily', (t) => {
     
     const fontFamily = 'Droid Sans Mono';
     const el = {};
+    const WebglAddon = stub();
     
     const args = {
         scrollback: 1000,
@@ -98,6 +92,9 @@ test('gritty: Terminal: args: fontFamily', (t) => {
     
     gritty(el, {
         fontFamily,
+        connect,
+        Terminal,
+        WebglAddon,
     });
     
     t.calledWith(Terminal, [args], 'should have been called with args');
@@ -108,10 +105,15 @@ test('gritty: Terminal: args: fontFamily', (t) => {
 
 test('gritty: Terminal: open', (t) => {
     const el = {};
+    const WebglAddon = stub();
     
     before();
     
-    gritty(el);
+    gritty(el, {
+        connect,
+        Terminal,
+        WebglAddon,
+    });
     t.calledWith(open, [el], 'should have been called');
     after();
     
@@ -120,10 +122,15 @@ test('gritty: Terminal: open', (t) => {
 
 test('gritty: Terminal: focus', (t) => {
     const el = {};
+    const WebglAddon = stub();
     
     before();
     
-    gritty(el);
+    gritty(el, {
+        connect,
+        Terminal,
+        WebglAddon,
+    });
     t.calledWithNoArgs(focus, 'should have been called');
     after();
     

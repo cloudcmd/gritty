@@ -3,14 +3,14 @@
 require('@xterm/xterm/css/xterm.css');
 
 const {FitAddon} = require('@xterm/addon-fit');
-const {WebglAddon} = require('@xterm/addon-webgl');
+const {WebglAddon: _WebglAddon} = require('@xterm/addon-webgl');
 const currify = require('currify');
 const {tryCatch} = require('try-catch');
 
 const wrap = require('wraptile');
 
 const {io} = require('socket.io-client');
-const {Terminal} = require('@xterm/xterm');
+const {Terminal: _Terminal} = require('@xterm/xterm');
 
 const getEl = require('./get-el');
 const getHost = require('./get-host');
@@ -47,10 +47,16 @@ function gritty(element, options = {}) {
         command,
         autoRestart,
         cwd,
+        connect,
+        Terminal = _Terminal,
+        WebglAddon = _WebglAddon,
     } = options;
     
     const env = getEnv(options.env || {});
-    const socket = connect(prefix, socketPath);
+    
+    const socket = doConnect(prefix, socketPath, {
+        connect,
+    });
     
     return createTerminal(el, {
         env,
@@ -59,12 +65,26 @@ function gritty(element, options = {}) {
         autoRestart,
         socket,
         fontFamily,
+        Terminal,
+        WebglAddon,
     });
 }
 
-function createTerminal(terminalContainer, {env, cwd, command, autoRestart, socket, fontFamily}) {
+function createTerminal(terminalContainer, overrides) {
+    const {
+        env,
+        cwd,
+        command,
+        autoRestart,
+        socket,
+        fontFamily,
+        Terminal,
+        WebglAddon,
+    } = overrides;
+    
     const fitAddon = new FitAddon();
     const webglAddon = new WebglAddon();
+    
     const terminal = new Terminal({
         scrollback: 1000,
         tabStopWidth: 4,
@@ -145,12 +165,13 @@ function _onWindowResize(fitAddon) {
     tryCatch(fit);
 }
 
-function connect(prefix, socketPath) {
+function doConnect(prefix, socketPath, overrides = {}) {
+    const {connect = io.connect} = overrides;
     const href = getHost();
     const FIVE_SECONDS = 5000;
     
     const path = `${socketPath}/socket.io`;
-    const socket = io.connect(href + prefix, {
+    const socket = connect(href + prefix, {
         'max reconnection attempts': 2 ** 32,
         'reconnection limit': FIVE_SECONDS,
         path,
