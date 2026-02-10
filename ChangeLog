@@ -1,3 +1,9 @@
+2026.02.10, v9.0.3
+
+feature:
+- 01c6237 gritty: eslint v10.0.0
+- 880388e gritty: eslint-plugin-putout v30.0.2
+
 2026.01.04, v9.0.2
 
 feature:
