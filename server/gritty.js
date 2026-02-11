@@ -20,11 +20,16 @@ const DIR_ROOT = `${__dirname}/..`;
 const terminalFn = currify(_terminalFn);
 const connectionWraped = wraptile(connection);
 
-const CMD = process.platform === 'win32' ? 'cmd.exe' : 'bash';
-const isDev = process.env.NODE_ENV === 'development';
+const getCMD = (overrides = {}) => {
+    const {platform = process.platform} = overrides;
+    
+    return platform === 'win32' ? 'cmd.exe' : 'bash';
+};
+
+const isDev = () => process.env.NODE_ENV === 'development';
 
 const getDist = () => {
-    if (isDev)
+    if (isDev())
         return '/dist-dev';
     
     return '/dist';
@@ -65,14 +70,21 @@ function _terminalFn(options, req, res, next) {
 
 function staticFn(req, res) {
     const file = path.normalize(DIR_ROOT + req.url);
+    
     res.sendFile(file, {
         dotfiles: 'allow',
     });
 }
 
-function createTerminal({command, env, cwd, cols, rows, pty = _pty}) {
-    cols = cols || 80;
-    rows = rows || 24;
+function createTerminal(overrides = {}) {
+    const {
+        command,
+        env,
+        cwd,
+        cols = 80,
+        rows = 24,
+        pty = _pty,
+    } = overrides;
     
     const [cmd, ...args] = stringArgv(command);
     const term = pty.spawn(cmd, args, {
@@ -129,7 +141,10 @@ function connection(options, socket) {
     const onResize = (size) => {
         size = size || {};
         
-        const {cols = 80, rows = 25} = size;
+        const {
+            cols = 80,
+            rows = 25,
+        } = size;
         
         term.resize(cols, rows);
         log(`Resized terminal ${term.pid} to ${cols} cols and ${rows} rows.`);
@@ -139,18 +154,20 @@ function connection(options, socket) {
         term.write(msg);
     };
     
-    function onTerminal(params) {
-        params = params || {};
+    function onTerminal(overrides = {}) {
         const {
             env,
             rows,
             cols,
             cwd,
-        } = params;
+            platform,
+        } = overrides;
         
-        const command = params.command || options.command || CMD;
+        const command = overrides.command || options.command || getCMD({
+            platform,
+        });
         
-        const autoRestart = choose(params.autoRestart, options.autoRestart, {
+        const autoRestart = choose(overrides.autoRestart, options.autoRestart, {
             default: true,
         });
         

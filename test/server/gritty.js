@@ -1,5 +1,6 @@
 'use strict';
 
+const {stripVTControlCharacters} = require('node:util');
 const process = require('node:process');
 
 const {once} = require('node:events');
@@ -8,18 +9,14 @@ const {tryCatch} = require('try-catch');
 const {test, stub} = require('supertape');
 
 const currify = require('currify');
-const io = require('socket.io-client');
-const mockRequire = require('mock-require');
+const {io} = require('socket.io-client');
 const wait = require('@iocmd/wait');
 
 const serveOnce = require('serve-once');
 const gritty = require('../../');
 
 const {connect} = require('../before');
-
 const {request} = serveOnce(gritty);
-
-const {reRequire, stopAll} = mockRequire;
 
 test('gritty: listen: args: no', (t) => {
     const [error] = tryCatch(gritty.listen);
@@ -44,8 +41,6 @@ test('gritty: listen: args: auth', (t) => {
 
 test('gritty: server: dist-dev', async (t) => {
     process.env.NODE_ENV = 'development';
-    
-    const gritty = reRequire('../..');
     const {request} = serveOnce(gritty);
     
     const {status} = await request.get('/gritty/gritty.js');
@@ -156,10 +151,6 @@ test('gritty: server: terminal: parse args', async (t) => {
     const {port, done} = await connect();
     const socket = io(`http://localhost:${port}/gritty`);
     
-    mockRequire('node-pty', {
-        spawn: stub(),
-    });
-    
     await once(socket, 'connect');
     socket.emit('terminal', {
         command: 'bash -c "hello world"',
@@ -169,9 +160,27 @@ test('gritty: server: terminal: parse args', async (t) => {
     socket.close();
     done();
     
-    stopAll();
-    
     t.match(data, 'bash: line 1: hello: command not found');
+    t.end();
+});
+
+test('gritty: server: terminal: platform', async (t) => {
+    const platform = 'win32';
+    const {port, done} = await connect();
+    const socket = io(`http://localhost:${port}/gritty`);
+    
+    await once(socket, 'connect');
+    socket.emit('terminal', {
+        platform,
+    });
+    
+    const [data] = await once(socket, 'data');
+    socket.close();
+    done();
+    
+    const stripped = stripVTControlCharacters(data);
+    
+    t.equal(stripped, 'bash-5.2$ ');
     t.end();
 });
 
@@ -240,24 +249,6 @@ test('gritty: server: socket: auth: reject', async (t) => {
     done();
     
     t.pass('should emit reject');
-    t.end();
-});
-
-test('gritty: server: platform', (t) => {
-    const {platform} = process;
-    
-    Object.defineProperty(process, 'platform', {
-        value: 'win32',
-    });
-    
-    reRequire('../..');
-    
-    t.pass('set CMD');
-    
-    Object.defineProperty(process, 'platform', {
-        value: platform,
-    });
-    
     t.end();
 });
 
