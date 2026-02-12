@@ -38,6 +38,7 @@ export default {
         filename: '[name].js',
         path: isDev ? distDev : dist,
         pathinfo: isDev,
+        libraryExport: 'default',
         devtoolModuleFilenameTemplate,
     },
     module: {

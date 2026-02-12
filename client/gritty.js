@@ -5,7 +5,7 @@ import currify from 'currify';
 import {tryCatch} from 'try-catch';
 import wrap from 'wraptile';
 import {io} from 'socket.io-client';
-import * as _Terminal from '@xterm/xterm';
+import * as TerminalDefault from '@xterm/xterm';
 import getEl from './get-el.js';
 import getHost from './get-host.js';
 import getEnv from './get-env.js';
@@ -36,7 +36,7 @@ function gritty(element, options = {}) {
         autoRestart,
         cwd,
         connect,
-        Terminal = _Terminal,
+        Terminal = TerminalDefault.Terminal,
         WebglAddon = _WebglAddon,
     } = options;
     
