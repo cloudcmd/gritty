@@ -1,7 +1,7 @@
 {
   "name": "gritty",
   "version": "9.0.4",
-  "type": "commonjs",
+  "type": "module",
   "author": "coderaiser <mnemonic.enemy@gmail.com> (https://github.com/coderaiser)",
   "description": "Web terminal emulator",
   "bin": {
@@ -11,6 +11,10 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cloudcmd/gritty.git"
+  },
+  "imports": {
+    "#gritty/client": "./client/gritty.js",
+    "#gritty/server": "./server/gritty.js"
   },
   "scripts": {
     "start": "madrun start",

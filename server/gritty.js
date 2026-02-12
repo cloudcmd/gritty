@@ -1,17 +1,16 @@
-'use strict';
+import process from 'node:process';
+import path, {dirname} from 'node:path';
+import {fileURLToPath} from 'node:url';
+import debug from 'debug';
+import Router from 'router';
+import currify from 'currify';
+import wraptile from 'wraptile';
+import _pty from 'node-pty';
+import stringArgv from 'string-to-argv';
 
-const process = require('node:process');
-
-const path = require('node:path');
-
-const log = require('debug')('gritty');
-const Router = require('router');
-
-const currify = require('currify');
-const wraptile = require('wraptile');
-const _pty = require('node-pty');
-
-const stringArgv = require('string-to-argv');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const log = debug('gritty');
 const isFn = (a) => typeof a === 'function';
 const isBool = (a) => typeof a === 'boolean';
 
@@ -45,7 +44,7 @@ const choose = (a, b, options) => {
     return options.default;
 };
 
-module.exports = (options = {}) => {
+export const gritty = (options = {}) => {
     const router = Router();
     const {prefix = '/gritty'} = options;
     
@@ -103,7 +102,7 @@ function createTerminal(overrides = {}) {
     return term;
 }
 
-module.exports.listen = (socket, options = {}) => {
+gritty.listen = (socket, options = {}) => {
     check(socket, options);
     
     const {prefix, auth} = options;

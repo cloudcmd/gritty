@@ -1,21 +1,15 @@
-'use strict';
+import {stripVTControlCharacters} from 'node:util';
+import process from 'node:process';
+import {once} from 'node:events';
+import {tryCatch} from 'try-catch';
+import {test, stub} from 'supertape';
+import currify from 'currify';
+import {io} from 'socket.io-client';
+import wait from '@iocmd/wait';
+import serveOnce from 'serve-once';
+import {gritty} from '#gritty/server';
+import {connect} from '../before.js';
 
-const {stripVTControlCharacters} = require('node:util');
-const process = require('node:process');
-
-const {once} = require('node:events');
-const {tryCatch} = require('try-catch');
-
-const {test, stub} = require('supertape');
-
-const currify = require('currify');
-const {io} = require('socket.io-client');
-const wait = require('@iocmd/wait');
-
-const serveOnce = require('serve-once');
-const gritty = require('../../');
-
-const {connect} = require('../before');
 const {request} = serveOnce(gritty);
 
 test('gritty: listen: args: no', (t) => {

@@ -1,8 +1,6 @@
-'use strict';
-
 const isString = (a) => typeof a === 'string';
 
-module.exports = (el) => {
+export default (el) => {
     if (isString(el))
         return document.querySelector(el);
     

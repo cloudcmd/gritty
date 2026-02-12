@@ -1,14 +1,20 @@
-'use strict';
-
-const {test, stub} = require('supertape');
-
-require('css-modules-require-hook/preset');
+import {test, stub} from 'supertape';
+import gritty, {
+    _onConnect,
+    _onDisconnect,
+    _onData,
+    _onTermResize,
+    _onTermData,
+    _onWindowResize,
+    _defaultFontFamily,
+} from '#gritty/client';
 
 globalThis.document = {};
 globalThis.self = {};
 globalThis.addEventListener = stub();
 
 const open = stub();
+
 const focus = stub();
 
 const Terminal = stub().returns({
@@ -23,21 +29,9 @@ const Terminal = stub().returns({
 });
 
 Terminal.applyAddon = stub();
-
-const gritty = require('../../client/gritty');
 const connect = stub().returns({
     on: stub(),
 });
-
-const {
-    _onConnect,
-    _onDisconnect,
-    _onData,
-    _onTermResize,
-    _onTermData,
-    _onWindowResize,
-    _defaultFontFamily,
-} = gritty;
 
 test('gritty: Terminal: new', (t) => {
     before();

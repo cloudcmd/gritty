@@ -1,9 +1,5 @@
-'use strict';
-
-const {test} = require('supertape');
-
-const dir = '../../client';
-const getHost = require(`${dir}/get-host`);
+import {test} from 'supertape';
+import getHost from '../../client/get-host.js';
 
 test('gritty: get-host: origin', (t) => {
     const origin = 'http://localhost';

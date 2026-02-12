@@ -1,6 +1,10 @@
 import {run, cutEnv} from 'madrun';
+import {defineEnv} from 'supertape/env';
 
-const SUPERTAPE_TIMEOUT = 15_000;
+const env = defineEnv({
+    css: true,
+    timeout: 15_000,
+});
 
 export default {
     'start': () => 'node bin/gritty',
@@ -25,11 +29,6 @@ export default {
     'watch:lint': async () => `nodemon -w client -w server -w webpack.config.js -x ${await run('lint')}`,
     'report': () => 'c8 report --reporter=lcov',
     
-    'coverage': async () => [`c8 ${await cutEnv('test')}`, {
-        SUPERTAPE_TIMEOUT,
-    }],
-    
-    'test': () => [`tape 'test/**/*.js'`, {
-        SUPERTAPE_TIMEOUT,
-    }],
+    'coverage': async () => [env, `c8 ${await cutEnv('test')}`],
+    'test': () => [env, `tape 'test/**/*.js'`],
 };

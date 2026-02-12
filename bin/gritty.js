@@ -1,10 +1,25 @@
 #!/usr/bin/env node
 
-'use strict';
+import process from 'node:process';
+import http from 'node:http';
+import {fileURLToPath} from 'node:url';
+import {dirname} from 'node:path';
+import yargsParser from 'yargs-parser';
+import squad from 'squad';
+import express from 'express';
+import {Server} from 'socket.io';
+import {gritty} from '#gritty/server';
+import bin from '../help.json' with {
+    type: 'json',
+};
+import pack from '../package.json' with {
+    type: 'json',
+};
 
-const {join} = require('node:path');
-const process = require('node:process');
-const args = require('yargs-parser')(process.argv.slice(2), {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const args = yargsParser(process.argv.slice(2), {
     boolean: [
         'version',
         'help',
@@ -45,12 +60,10 @@ function main(args) {
 }
 
 function path() {
-    console.log(join(__dirname, '..'));
+    console.log(new URL('..', import.meta.url).pathname);
 }
 
 function start(options) {
-    const squad = require('squad');
-    
     const {
         port,
         command,
@@ -60,12 +73,6 @@ function start(options) {
     check(port);
     
     const DIR = `${__dirname}/../`;
-    
-    const gritty = require('../');
-    const http = require('node:http');
-    
-    const express = require('express');
-    const io = require('socket.io');
     
     const app = express();
     const server = http.createServer(app);
@@ -77,7 +84,7 @@ function start(options) {
         .use(gritty())
         .use(express.static(DIR));
     
-    const socket = io(server);
+    const socket = new Server(server);
     
     gritty.listen(socket, {
         command,
@@ -92,7 +99,6 @@ function start(options) {
 }
 
 function help() {
-    const bin = require('../help');
     const usage = 'Usage: gritty [options]';
     
     console.log(usage);
@@ -104,7 +110,6 @@ function help() {
 }
 
 function version() {
-    const pack = require('../package');
     console.log('v' + pack.version);
 }
 

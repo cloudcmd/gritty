@@ -1,8 +1,5 @@
-'use strict';
-
-const {test} = require('supertape');
-
-const getEnv = require('../../client/get-env');
+import {test} from 'supertape';
+import getEnv from '../../client/get-env.js';
 
 test('gritty: get-env: empty', (t) => {
     const env = {};

@@ -1,8 +1,5 @@
-'use strict';
-
-const {test, stub} = require('supertape');
-
-const getEl = require('../../client/get-el');
+import {test, stub} from 'supertape';
+import getEl from '../../client/get-el.js';
 
 test('gritty: get-el: object', (t) => {
     const el = {};

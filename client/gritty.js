@@ -1,20 +1,14 @@
-'use strict';
-
-require('@xterm/xterm/css/xterm.css');
-
-const {FitAddon} = require('@xterm/addon-fit');
-const {WebglAddon: _WebglAddon} = require('@xterm/addon-webgl');
-const currify = require('currify');
-const {tryCatch} = require('try-catch');
-
-const wrap = require('wraptile');
-
-const {io} = require('socket.io-client');
-const {Terminal: _Terminal} = require('@xterm/xterm');
-
-const getEl = require('./get-el');
-const getHost = require('./get-host');
-const getEnv = require('./get-env');
+import '@xterm/xterm/css/xterm.css';
+import {FitAddon} from '@xterm/addon-fit';
+import {WebglAddon as _WebglAddon} from '@xterm/addon-webgl';
+import currify from 'currify';
+import {tryCatch} from 'try-catch';
+import wrap from 'wraptile';
+import {io} from 'socket.io-client';
+import * as _Terminal from '@xterm/xterm';
+import getEl from './get-el.js';
+import getHost from './get-host.js';
+import getEnv from './get-env.js';
 
 const onWindowResize = wrap(_onWindowResize);
 const onTermData = currify(_onTermData);
@@ -25,17 +19,11 @@ const onDisconnect = wrap(_onDisconnect);
 
 const onConnect = wrap(_onConnect);
 
-module.exports = gritty;
-module.exports._onConnect = _onConnect;
-module.exports._onDisconnect = _onDisconnect;
-module.exports._onData = _onData;
-module.exports._onTermResize = _onTermResize;
-module.exports._onTermData = _onTermData;
-module.exports._onWindowResize = _onWindowResize;
+export default gritty;
 
 const defaultFontFamily = 'Menlo, Consolas, "Liberation Mono", Monaco, "Lucida Console", monospace';
 
-module.exports._defaultFontFamily = defaultFontFamily;
+export const _defaultFontFamily = defaultFontFamily;
 
 function gritty(element, options = {}) {
     const el = getEl(element);
@@ -123,7 +111,7 @@ function createTerminal(terminalContainer, overrides) {
     };
 }
 
-function _onConnect(socket, fitAddon, {env, cwd, cols, rows, command, autoRestart}) {
+export function _onConnect(socket, fitAddon, {env, cwd, cols, rows, command, autoRestart}) {
     socket.emit('terminal', {
         env,
         cwd,
@@ -139,26 +127,26 @@ function _onConnect(socket, fitAddon, {env, cwd, cols, rows, command, autoRestar
     fitAddon.fit();
 }
 
-function _onDisconnect(terminal) {
+export function _onDisconnect(terminal) {
     terminal.writeln('terminal disconnected...');
 }
 
-function _onData(terminal, data) {
+export function _onData(terminal, data) {
     terminal.write(data);
 }
 
-function _onTermResize(socket, {cols, rows}) {
+export function _onTermResize(socket, {cols, rows}) {
     socket.emit('resize', {
         cols,
         rows,
     });
 }
 
-function _onTermData(socket, data) {
+export function _onTermData(socket, data) {
     socket.emit('data', data);
 }
 
-function _onWindowResize(fitAddon) {
+export function _onWindowResize(fitAddon) {
     // Uncaught Error: This API only accepts integers
     // when gritty mimized
     const fit = fitAddon.fit.bind(fitAddon);

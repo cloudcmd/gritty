@@ -1,8 +1,6 @@
-'use strict';
-
 const isFn = (a) => typeof a === 'function';
 
-module.exports = (env) => {
+export default (env) => {
     const obj = {};
     
     for (const name of Object.keys(env)) {

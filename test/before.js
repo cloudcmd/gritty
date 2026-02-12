@@ -1,16 +1,12 @@
-'use strict';
-
-const http = require('node:http');
-
-const {promisify} = require('node:util');
-const express = require('express');
-
-const io = require('socket.io');
-const gritty = require('..');
+import http from 'node:http';
+import {promisify} from 'node:util';
+import express from 'express';
+import {Server} from 'socket.io';
+import {gritty} from '#gritty/server';
 
 const isFn = (a) => typeof a === 'function';
 
-module.exports = before;
+export default before;
 
 function before(options, fn = options) {
     if (isFn(options))
@@ -25,7 +21,7 @@ function before(options, fn = options) {
     
     app.use(gritty());
     
-    const socket = io(server);
+    const socket = new Server(server);
     
     gritty.listen(socket, options);
     
@@ -35,7 +31,7 @@ function before(options, fn = options) {
     });
 }
 
-module.exports.connect = promisify((options, fn = options) => {
+export const connect = promisify((options, fn = options) => {
     before(options, (port, done, socket) => {
         fn(null, {
             port,

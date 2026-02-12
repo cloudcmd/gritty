@@ -107,15 +107,15 @@ And use it this way:
 
 ```js
 // server.js
-const http = require('node:http');
-const gritty = require('gritty');
+import http from 'node:http';
+import {gritty} from 'gritty';
 
-const express = require('express');
-const io = require('socket.io');
+import express from 'express';
+import {Server} from 'socket.io';
 
 const app = express();
 const server = http.createServer(app);
-const socket = io.listen(server);
+const socket = new Server(server);
 
 const port = 1337;
 const ip = '0.0.0.0';
