@@ -1,3 +1,8 @@
+2026.02.12, v10.0.2
+
+fix:
+- 5f111bf gritty: client: export default
+
 2026.02.12, v10.0.1
 
 feature:
