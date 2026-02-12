@@ -44,7 +44,9 @@ const choose = (a, b, options) => {
     return options.default;
 };
 
-export const gritty = (options = {}) => {
+export default gritty;
+
+export function gritty(options = {}) {
     const router = Router();
     const {prefix = '/gritty'} = options;
     
