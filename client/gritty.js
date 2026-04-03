@@ -128,7 +128,9 @@ export function _onConnect(socket, fitAddon, {env, cwd, cols, rows, command, aut
 }
 
 export function _onDisconnect(terminal) {
+    terminal.writeln('');
     terminal.writeln('terminal disconnected...');
+    terminal.writeln('');
 }
 
 export function _onData(terminal, data) {

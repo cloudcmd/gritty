@@ -181,13 +181,18 @@ test('gritty: onConnect: socket: terminal', (t) => {
 test('gritty: onDisconnect: terminal', (t) => {
     const writeln = stub();
     
-    const msg = 'terminal disconnected...';
-    
     _onDisconnect({
         writeln,
     });
     
-    t.calledWith(writeln, [msg], 'should call terminal.writeln');
+    const {args} = writeln;
+    const expected = [
+        [''],
+        ['terminal disconnected...'],
+        [''],
+    ];
+    
+    t.deepEqual(args, expected);
     t.end();
 });
 
