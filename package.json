@@ -67,7 +67,7 @@
     "babel-loader": "^10.0.0",
     "clean-css-loader": "^4.1.1",
     "css-loader": "^7.1.2",
-    "css-minimizer-webpack-plugin": "^7.0.0",
+    "css-minimizer-webpack-plugin": "^8.0.0",
     "css-modules-require-hook": "^4.0.6",
     "es6-promisify": "^7.0.0",
     "eslint": "^10.0.0",
