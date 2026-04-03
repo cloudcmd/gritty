@@ -19,7 +19,7 @@ const rules = clean([
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-    },{
+    }, {
         test: /\.css$/,
         use: [
             'style-loader',

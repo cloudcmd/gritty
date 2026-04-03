@@ -1,13 +1,13 @@
+*.swp
+*.config.*
+*.log
+*.loc
+
 .*
 
 webpack.config.js
+
 client
 test
-yarn-error.log
 coverage
-
 img
-
-*.swp
-
-*.config.*

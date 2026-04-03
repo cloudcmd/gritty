@@ -57,7 +57,6 @@ export function gritty(options = {}) {
     
     return router;
 };
-
 function _terminalFn(options, req, res, next) {
     const {prefix = '/gritty'} = options;
     
@@ -88,6 +87,7 @@ function createTerminal(overrides = {}) {
     } = overrides;
     
     const [cmd, ...args] = stringArgv(command);
+    
     const term = pty.spawn(cmd, args, {
         name: 'xterm-color',
         cols,

@@ -2,15 +2,15 @@
     "check-coverage": true,
     "all": true,
     "exclude": [
+        "**/*.spec.js",
+        "**/*.config.*",
+        "**/fixture",
+        "*.js",
+        ".*.{js,mjs}",
         "bin",
         "coverage",
-        "*.js",
         "dist**",
-        "**/*.spec.js",
-        "**/fixture",
-        "test",
-        ".*.{js,mjs}",
-        "**/*.config.*"
+        "test"
     ],
     "branches": 100,
     "lines": 100,

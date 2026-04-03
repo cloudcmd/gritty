@@ -23,7 +23,10 @@ export default {
     'wisdom': () => run('build'),
     'build': () => run('6to5:*'),
     'build:start': () => run(['build:client', 'start']),
-    'build:start:dev': () => run(['build:client:dev', 'start:dev']),
+    'build:start:dev': () => run([
+        'build:client:dev',
+        'start:dev',
+    ]),
     'build:client': () => run('6to5:client'),
     'build:client:dev': () => run('6to5:client:dev'),
     'watch:lint': async () => `nodemon -w client -w server -w webpack.config.js -x ${await run('lint')}`,

@@ -109,7 +109,6 @@ And use it this way:
 // server.js
 import http from 'node:http';
 import {gritty} from 'gritty';
-
 import express from 'express';
 import {Server} from 'socket.io';
 
