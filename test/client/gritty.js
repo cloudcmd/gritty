@@ -56,6 +56,10 @@ test('gritty: Terminal: args', (t) => {
         tabStopWidth: 4,
         fontFamily: _defaultFontFamily,
         allowProposedApi: true,
+        'theme': {
+            'background': '#141920',
+            'foreground': '#dcdcdc',
+        },
     };
     
     gritty(null, {
@@ -82,6 +86,10 @@ test('gritty: Terminal: args: fontFamily', (t) => {
         tabStopWidth: 4,
         fontFamily,
         allowProposedApi: true,
+        'theme': {
+            'background': '#141920',
+            'foreground': '#dcdcdc',
+        },
     };
     
     gritty(el, {
@@ -186,6 +194,7 @@ test('gritty: onDisconnect: terminal', (t) => {
     });
     
     const {args} = writeln;
+    
     const expected = [
         [''],
         ['terminal disconnected...'],

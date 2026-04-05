@@ -78,6 +78,10 @@ function createTerminal(terminalContainer, overrides) {
         tabStopWidth: 4,
         fontFamily,
         allowProposedApi: true,
+        theme: {
+            foreground: '#dcdcdc',
+            background: '#141920',
+        },
     });
     
     terminal.open(terminalContainer);
