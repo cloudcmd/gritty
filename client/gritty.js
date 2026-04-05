@@ -78,6 +78,7 @@ function createTerminal(terminalContainer, overrides) {
         tabStopWidth: 4,
         fontFamily,
         allowProposedApi: true,
+        fontWeightBold: 'normal', 
         theme: {
             foreground: '#dcdcdc',
             background: '#141920',

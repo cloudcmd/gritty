@@ -56,6 +56,7 @@ test('gritty: Terminal: args', (t) => {
         tabStopWidth: 4,
         fontFamily: _defaultFontFamily,
         allowProposedApi: true,
+        fontWeightBold: 'normal',
         'theme': {
             'background': '#141920',
             'foreground': '#dcdcdc',
@@ -86,6 +87,7 @@ test('gritty: Terminal: args: fontFamily', (t) => {
         tabStopWidth: 4,
         fontFamily,
         allowProposedApi: true,
+        fontWeightBold: 'normal',
         'theme': {
             'background': '#141920',
             'foreground': '#dcdcdc',
