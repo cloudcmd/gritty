@@ -1,4 +1,5 @@
 import '@xterm/xterm/css/xterm.css';
+import './gritty.css';
 import {FitAddon} from '@xterm/addon-fit';
 import {WebglAddon as _WebglAddon} from '@xterm/addon-webgl';
 import currify from 'currify';
