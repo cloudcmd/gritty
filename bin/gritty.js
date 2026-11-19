@@ -33,7 +33,7 @@ const args = yargsParser(process.argv.slice(2), {
         version: 'v',
     },
     default: {
-        'port': process.env.PORT | 1337,
+        'port': process.env.PORT || 1337,
         'auto-restart': true,
     },
 });
